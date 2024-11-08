@@ -3,6 +3,7 @@ import '@mantine/core/styles.css';
 import React from 'react';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { theme } from '../theme';
+import I18nProvider from './providers/I18nProvider';
 
 export const metadata = {
   title: 'Mantine Next.js template',
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <I18nProvider>
+          <MantineProvider theme={theme}>{children}</MantineProvider>
+        </I18nProvider>
       </body>
     </html>
   );

@@ -1,0 +1,16 @@
+{
+    "login": {
+        "title": "登入",
+        "google": "繼續使用Google",
+        "facebook": "繼續使用Facebook",
+        "or": "或",
+        "invalidCredentials": "帳號密碼錯誤",
+        "error": "登入失敗，請稍後再試"
+    },
+    "notFound": {
+        "title": "找不到頁面",
+        "description": "您找到了一個秘密的地方。",
+        "error": "很抱歉，這只是一個404頁面。您可能輸入了錯誤的地址，或者該頁面已移動到另一個URL。",
+        "button": "返回首頁"
+    }
+}
