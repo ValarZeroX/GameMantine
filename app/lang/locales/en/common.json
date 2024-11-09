@@ -5,12 +5,26 @@
         "facebook": "Continue With Facebook",
         "or": "OR",
         "invalidCredentials": "account or password error",
-        "error": "Login failed, please try again later"
+        "error": "Login failed, please try again later",
+        "login": "Log In",
+        "noAccount": "Don't have an account?",
+        "stayLoggedIn": "Stay logged in",
+        "agreementNotice": "By continuing, you agree to our Terms of Service and acknowledge that you understand our Privacy Policy."
     },
     "notFound": {
         "title": "Page Not Found",
         "description": "You have found a secret place.",
         "error": "Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has been moved to another URL.",
         "button": "Take me back to home page"
+    },
+    "register": {
+        "title": "Register New Account",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "register": "Register",
+        "error": "Registration failed, please try again later",
+        "passwordPlaceholder": "Your password",
+        "confirmPasswordPlaceholder": "Re-enter password"
     }
 }

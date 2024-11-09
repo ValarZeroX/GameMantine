@@ -20,10 +20,13 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { showNotification } from "@mantine/notifications";
 import { IconCheck, IconX } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
+import Layout from '../../components/Layout/Layout';
 
 const RegisterPage: React.FC = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
   const form = useForm({
     initialValues: {
       name: '',
@@ -87,6 +90,7 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
+    <Layout>
     <Container size={420} my={40}>
       <Title
         align="center"
@@ -107,13 +111,13 @@ const RegisterPage: React.FC = () => {
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <TextInput
-            label="姓名"
-            placeholder="您的姓名"
+            label="名稱"
+            placeholder="您的名稱"
             {...form.getInputProps('name')}
           />
 
           <TextInput
-            label="電子郵件"
+            label={t('register.email')}
             placeholder="your@email.com"
             required
             mt="md"
@@ -121,16 +125,16 @@ const RegisterPage: React.FC = () => {
           />
 
           <PasswordInput
-            label="密碼"
-            placeholder="密碼"
+            label={t('register.password')}
+            placeholder={t('register.passwordPlaceholder')}
             required
             mt="md"
             {...form.getInputProps('password')}
           />
 
           <PasswordInput
-            label="確認密碼"
-            placeholder="再次輸入密碼"
+            label={t('register.confirmPassword')}
+            placeholder={t('register.confirmPasswordPlaceholder')}
             required
             mt="md"
             {...form.getInputProps('confirmPassword')}
@@ -150,11 +154,12 @@ const RegisterPage: React.FC = () => {
           />
 
           <Button fullWidth mt="xl" type="submit" loading={isLoading}>
-            註冊
+            {t('register.register')}
           </Button>
         </form>
       </Paper>
     </Container>
+    </Layout>
   );
 };
 

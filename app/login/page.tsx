@@ -53,53 +53,53 @@ const LoginPage: React.FC = () => {
 
     return (
         <Layout>
-        <Container size="xs">
-                    <Title order={2} style={{ marginBottom: 30, textAlign: 'center' }}>
-                        {t('login.title')}
-                    </Title>
-                    <Text size="sm" style={{ marginBottom: 20, textAlign: 'center' }}>
-                        繼續操作即表示您同意我們的使用者協議,並確認您了解隱私權政策。
+            <Container size="xs">
+                <Title order={2} style={{ marginBottom: 30, textAlign: 'center' }}>
+                    {t('login.title')}
+                </Title>
+                <Text size="sm" style={{ marginBottom: 20, textAlign: 'center' }}>
+                    {t('login.agreementNotice')}
+                </Text>
+                {error && (  // 顯示錯誤訊息
+                    <Text color="red" size="sm" style={{ marginBottom: 10, textAlign: 'center' }}>
+                        {error}
                     </Text>
-                    {error && (  // 顯示錯誤訊息
-                        <Text color="red" size="sm" style={{ marginBottom: 10, textAlign: 'center' }}>
-                            {error}
-                        </Text>
-                    )}
-                    <form onSubmit={form.onSubmit(handleSubmit)}>
-                        <TextInput
-                            withAsterisk
-                            label="電子信箱"
-                            placeholder="your@email.com"
-                            key={form.key('email')}
-                            {...form.getInputProps('email')}
-                        />
-                        <PasswordInput
-                            withAsterisk
-                            label="密碼"
-                            placeholder="Password"
-                            key={form.key('password')}
-                            {...form.getInputProps('password')}
-                        />
-                        <Checkbox
-                            mt="md"
-                            label="保持登入"
-                            key={form.key('termsOfService')}
-                            {...form.getInputProps('termsOfService', { type: 'checkbox' })}
-                            style={{ marginBottom: 10 }}
-                        />
-                        <Button fullWidth type="submit" variant="default">登入</Button>
-                    </form>
-                    <Divider my="md" label={t('login.or')} labelPosition="center" />
-                    <Button justify="space-between" fullWidth leftSection={<IconBrandGoogleFilled size={14} />} variant="default"  style={{ marginBottom: 10 }} rightSection={<span />} onClick={handleGoogleSignIn}>
-                        {t('login.google')}
-                    </Button>
-                    <Button justify="space-between" fullWidth leftSection={<IconBrandFacebookFilled size={14} />} variant="default" style={{ marginBottom: 10 }} rightSection={<span />}>
-                        {t('login.facebook')}
-                    </Button>
-                    <Text size="sm" style={{ marginBottom: 30 }}>
-                        還沒有帳號？ <Link href="/register">註冊</Link>
-                    </Text>
-                </Container>
+                )}
+                <form onSubmit={form.onSubmit(handleSubmit)}>
+                    <TextInput
+                        withAsterisk
+                        label={t('register.email')}
+                        placeholder="your@email.com"
+                        key={form.key('email')}
+                        {...form.getInputProps('email')}
+                    />
+                    <PasswordInput
+                        withAsterisk
+                        label={t('register.password')}
+                        placeholder="Password"
+                        key={form.key('password')}
+                        {...form.getInputProps('password')}
+                    />
+                    <Checkbox
+                        mt="md"
+                        label={t('login.stayLoggedIn')}
+                        key={form.key('termsOfService')}
+                        {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+                        style={{ marginBottom: 10 }}
+                    />
+                    <Button fullWidth type="submit" variant="default">{t('login.login')}</Button>
+                </form>
+                <Divider my="md" label={t('login.or')} labelPosition="center" />
+                <Button justify="space-between" fullWidth leftSection={<IconBrandGoogleFilled size={14} />} variant="default" style={{ marginBottom: 10 }} rightSection={<span />} onClick={handleGoogleSignIn}>
+                    {t('login.google')}
+                </Button>
+                <Button justify="space-between" fullWidth leftSection={<IconBrandFacebookFilled size={14} />} variant="default" style={{ marginBottom: 10 }} rightSection={<span />}>
+                    {t('login.facebook')}
+                </Button>
+                <Text size="sm" style={{ marginBottom: 30 }}>
+                    {t('login.noAccount')} <Link href="/register">{t('register.register')}</Link>
+                </Text>
+            </Container>
         </Layout>
     );
 };
