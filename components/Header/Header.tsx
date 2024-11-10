@@ -28,7 +28,7 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu }) => {
   // 語言切換函式
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
-    localStorage.setItem('i18nextLng', lng); // 將語言保存到 localStorage
+    // localStorage.setItem('i18nextLng', lng); // 將語言保存到 localStorage
   };
 
   return (
