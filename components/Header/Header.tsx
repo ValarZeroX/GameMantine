@@ -4,20 +4,23 @@ import { FC } from 'react';
 import { Group, Burger, rem, ActionIcon, Loader, Menu, Text } from '@mantine/core';
 import { IconBrandMantine, IconLogin, IconLogout, IconLanguage } from '@tabler/icons-react';
 import classes from './Header.module.css';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
-import { useTranslation } from 'react-i18next';
+import { languages } from '../../app/i18n/settings';
+// import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
   opened: boolean;
   toggle: () => void;
   toggleUserMenu: () => void;
+  lng: string
 }
 
-const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu }) => {
+const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { data: session, status } = useSession();
-  const { i18n } = useTranslation(); // 使用 useTranslation Hook
+  // const { i18n } = useTranslation(); // 使用 useTranslation Hook
 
   const handleNavigation = (path: string) => {
     router.push(path);
@@ -26,8 +29,19 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu }) => {
     await signOut({ callbackUrl: '/' });
   };
   // 語言切換函式
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+  const changeLanguage = (newLng: string) => {
+    if (newLng === lng) return; // 已選擇的語言，不執行任何操作
+
+    const segments = pathname.split('/');
+    // 檢查路徑是否已包含語言代碼
+    if (languages.includes(segments[1])) {
+      segments[1] = newLng; // 替換現有的語言代碼
+    } else {
+      segments.splice(1, 0, newLng); // 插入新的語言代碼
+    }
+    const newPath = segments.join('/') || '/';
+    router.push(newPath); // 導航到新的語言路徑
+    // i18n.changeLanguage(lng);
     // localStorage.setItem('i18nextLng', lng); // 將語言保存到 localStorage
   };
 

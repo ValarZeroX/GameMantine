@@ -25,6 +25,12 @@
         "register": "Register",
         "error": "Registration failed, please try again later",
         "passwordPlaceholder": "Your password",
-        "confirmPasswordPlaceholder": "Re-enter password"
+        "confirmPasswordPlaceholder": "Re-enter password",
+        "createAccount": "Create Account",
+        "alreadyHaveAccount": "Already have an account?",
+        "name": "Name",
+        "yourName": "Your Name",
+        "agreeTo": "I agree to",
+        "termsOfService": "Terms of Service"
     }
 }

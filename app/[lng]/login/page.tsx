@@ -1,18 +1,25 @@
 'use client';
-import React, { useState } from 'react';
-import Layout from '../../components/Layout/Layout';
+import React, { use, useState } from 'react';
+import Layout from '../../../components/Layout/Layout';
 import { Button, Container, Title, Text, Modal, Divider, Checkbox, TextInput, PasswordInput, Paper } from '@mantine/core';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import { IconBrandGoogleFilled, IconBrandFacebookFilled } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import Link from 'next/link'
 import { signIn } from "next-auth/react";
+import { useTranslation } from "../../i18n/client";
 
 
-const LoginPage: React.FC = () => {
+
+type LoginPage = {children: React.ReactNode; params: { lng: string } };
+
+// export default function LoginPage({ params }: LoginPage) {
+const LoginPage: React.FC<LoginPage> = ({ params }) => {
+    const resolvedParams = use(params);
+    const { lng } = resolvedParams;
     const [error, setError] = useState('');
-    const { t } = useTranslation();
+    const { t } = useTranslation(lng, 'common');
     const router = useRouter();
 
     // const handleNavigation = (path: string) => {
@@ -52,7 +59,7 @@ const LoginPage: React.FC = () => {
     };
 
     return (
-        <Layout>
+        <Layout lng={lng}>
             <Container size="xs">
                 <Title order={2} style={{ marginBottom: 30, textAlign: 'center' }}>
                     {t('login.title')}

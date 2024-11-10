@@ -25,6 +25,12 @@
         "register": "註冊",
         "error": "註冊失敗，請稍後再試",
         "passwordPlaceholder": "您的密碼",
-        "confirmPasswordPlaceholder": "再次輸入密碼"
+        "confirmPasswordPlaceholder": "再次輸入密碼",
+        "createAccount": "創建帳號",
+        "alreadyHaveAccount": "已經有帳號了？",
+        "name": "名稱",
+        "yourName": "您的名稱",
+        "agreeTo": "我同意",
+        "termsOfService": "服務條款"
     }
 }
