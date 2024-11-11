@@ -59,9 +59,9 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Cards {
+model Card {
   id                  Int      @id @default(autoincrement())
-  number              String   // 卡片編號
+  number              String   @unique // 卡片編號
   set                 String   // 卡片系列 (A1, A2, etc., 可多個)
   dex                 String   // 卡包 (A1C, A1M, etc., 可多個)
   rarity              Int      // 稀有度
@@ -71,22 +71,26 @@ model Cards {
   hp                  Int      // 血量
   aspects             Int      // 屬性
   attack_1            Int      // 攻擊力_1
+  attack_name_1       String   @default("") // 技能名稱_1 
   attack_aspects_1    String   // 攻擊能量_1 (多個值以逗號分隔)
-  attack_skill_1      Boolean  // 技能_1
-  attack_skill_value_1 String  // 技能規則_1 (多個值以逗號分隔)
+  attack_skill_1      String?  // 技能規則_1 (多個值以逗號分隔)
+  attack_skill_name_1 String?  // 技能規則說明_1
   attack_2            Int?     // 攻擊力_2 (可選)
+  attack_name_2       String?   // 技能名稱_2 (可選)
   attack_aspects_2    String?  // 攻擊能量_2 (多個值以逗號分隔, 可選)
-  attack_skill_2      Boolean? // 技能_2 (可選)
-  attack_skill_value_2 String? // 技能規則_2 (可選)
-  ability             Boolean  // 特性
-  ability_value       Int      // 特性規則
+  attack_skill_2      String?  // 技能規則_2 (可選)
+  attack_skill_name_2 String?  // 技能規則說明_2(可選)
+  ability_name        String?   // 特性名稱說明
+  ability_directions  String?   // 特性說明
+  ability             Int?      // 特性規則
   retreat             Int      // 撤退能量數
   retreat_aspects     String   // 撤退能量 (多個值以逗號分隔)
   weakness            Int      // 弱點
   weakness_value      Int      // 弱點傷害
   illustrator         String   // 畫家
   point               Int      // 兌換點數
-  reprints            String   // 相關卡牌 (多個卡片編號以逗號分隔)
+  reprints            String?   // 相關卡牌 (多個卡片編號以逗號分隔)
+  rule                String?  //規則
 
-  @@map("cards") // 將模型映射到資料庫中的 "cards" 表
+  @@map("Card") // 將模型映射到資料庫中的 "Card" 表
 }
