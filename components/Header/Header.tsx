@@ -3,6 +3,7 @@
 import { FC } from 'react';
 import { Group, Burger, rem, ActionIcon, Loader, Menu, Text } from '@mantine/core';
 import { IconBrandMantine, IconLogin, IconLogout, IconLanguage } from '@tabler/icons-react';
+import { ColorSchemeToggle } from '../../components/ColorSchemeToggle/ColorSchemeToggle';
 import classes from './Header.module.css';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -58,6 +59,7 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
       </Group>
       <div className={classes.actionIcon}>
         <Group>
+          <ColorSchemeToggle />
           <Menu withArrow>
             <Menu.Target>
               <ActionIcon variant="default" size="lg" aria-label="Language">

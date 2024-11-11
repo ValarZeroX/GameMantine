@@ -62,9 +62,9 @@ const RegisterPage: React.FC<RegisterPage> = ({ params }) => {
         },
         body: JSON.stringify(values),
       });
-      console.log(response);
+      // console.log(response);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       if (response.ok) {
         showNotification({
           title: '成功',

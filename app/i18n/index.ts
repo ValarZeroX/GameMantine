@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next/initReactI18next";
 import { getOptions } from "./settings";
 
 const initI18next = async (lng: string, ns: string) => {
-  console.log(`Initializing i18next with lng: ${lng}, ns: ${ns}`);
+//   console.log(`Initializing i18next with lng: ${lng}, ns: ${ns}`);
   const i18nInstance = createInstance();
   await i18nInstance
     .use(initReactI18next)
@@ -17,6 +17,7 @@ const initI18next = async (lng: string, ns: string) => {
     .init({
       ...getOptions(lng, ns),
       debug: true, // 啟用調試模式
+      load: "currentOnly",
     });
   return i18nInstance;
 };
