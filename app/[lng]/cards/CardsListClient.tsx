@@ -1,8 +1,8 @@
 // app/[lng]/cards/CardsListClient.tsx
 'use client';
 
-import React, { useState } from 'react';
-import { Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table } from '@mantine/core';
+import React, { useState,useEffect } from 'react';
+import { Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, MultiSelect } from '@mantine/core';
 import { IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconX } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
@@ -59,6 +59,9 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
     const [active, setActive] = useState('grid');
     const [displayMode, setDisplayMode] = useState<'grid' | 'list'>('grid');
 
+    //過濾卡片
+    const [selectedSets, setSelectedSets] = useState<string[]>([]);
+
     const handleSearch = (term: string) => {
         setSearchTerm(term);
         if (term === '') {
@@ -82,6 +85,24 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
         setControlsRefs(controlsRefs);
     };
 
+    useEffect(() => {
+        let filtered = cards;
+    
+        if (searchTerm) {
+            filtered = filtered.filter(card =>
+                card.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+    
+        if (selectedSets.length > 0) {
+            filtered = filtered.filter(card =>
+                selectedSets.includes(card.set)
+            );
+        }
+    
+        setFilteredCards(filtered);
+    }, [searchTerm, selectedSets, cards]);
+
     return (
         <Container size="lg">
             <Group align="center" justify="space-between" mb="md">
@@ -97,10 +118,10 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
                     }}
                 />
                 <Group>
-                    <ActionIcon variant="default" size="lg" onClick={() => toggleDisplayMode('filter')}>
+                    <ActionIcon variant="default" size="lg" >
                         <IconFilterOff />
                     </ActionIcon>
-                    <ActionIcon variant="default" size="lg" onClick={() => toggleDisplayMode('filter')}>
+                    <ActionIcon variant="default" size="lg" >
                         <IconFilter />
                     </ActionIcon>
                     <div className={classes.root} dir="ltr" ref={setRootRef}>
@@ -123,60 +144,80 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
                     </div>
                 </Group>
             </Group>
-            {displayMode === 'grid' ? (
-                <Grid>
-                    {filteredCards.map((card) => (
-                        <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3 }}>
-                            <Link href={`/${lng}/cards/${card.id}`} passHref style={{ textDecoration: 'none' }}>
-                                <Card shadow="sm" padding="lg" radius="md" withBorder>
-                                    <Card.Section>
-                                        <Image
-                                            src={`/${lng}/${card.set}/${card.number}.webp`}
-                                            alt={t(`A1:${card.number}.name`)}
-                                        />
-                                    </Card.Section>
-                                    <Group mt="md" mb="xs" align="center" justify="center">
-                                        <Text fw={600}>{t(`A1:${card.number}.name`)}</Text>
-                                    </Group>
-                                    <Group align="center" justify="center">
-                                        <Badge color="blue">{t(`common:cardSet.${card.set}`)}</Badge>
-                                        <Badge color="blue">{t(`common:cardDex.${card.dex}`)}</Badge>
-                                    </Group>
-                                </Card>
-                            </Link>
-                        </Grid.Col>
-                    ))}
-                </Grid>
-            ) : (
-                <Card shadow="sm" padding="lg" radius="md" withBorder>
-                    <Table>
-                        <thead>
-                            <tr>
-                                <th>{t('common:name')}</th>
-                                <th>{t('common:stage')}</th>
-                                <th>{t('common:aspect')}</th>
-                                <th>{t('common:type')}</th>
-                                <th>{t('common:attack_1')}</th>
-                                <th>{t('common:attack_2')}</th>
-                                <th>{t('common:retreat')}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredCards.map((card) => (
-                                <tr key={card.id}>
-                                    <td>{t(`A1:${card.number}.name`)}</td>
-                                    <td>{t(`common:stage_${card.stage}`)}</td>
-                                    <td>{t(`common:aspect_${card.aspects}`)}</td>
-                                    <td>{t(`common:type_${card.type}`)}</td>
-                                    <td>{t(`common:attack_${card.attack_1}`)}</td>
-                                    <td>{card.attack_2 ? t(`common:attack_${card.attack_2}`) : '-'}</td>
-                                    <td>{card.retreat}</td>
+            <Group mb="md">
+                <MultiSelect
+                    label="系列"
+                    placeholder="系列"
+                    data={['A1', 'PMMO']}
+                    searchable
+                    clearable
+                    value={selectedSets}
+                    onChange={setSelectedSets}
+                />
+                <MultiSelect
+                    label="卡包"
+                    placeholder="卡包"
+                    data={['噴火龍卡包', '超夢卡包', '皮卡丘卡包']}
+                    searchable
+                    clearable
+                />
+            </Group>
+            <Group mt="md">
+                {displayMode === 'grid' ? (
+                    <Grid mt="md">
+                        {filteredCards.map((card) => (
+                            <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3 }}>
+                                <Link href={`/${lng}/cards/${card.id}`} passHref style={{ textDecoration: 'none' }}>
+                                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                                        <Card.Section>
+                                            <Image
+                                                src={`/${lng}/${card.set}/${card.number}.webp`}
+                                                alt={t(`A1:${card.number}.name`)}
+                                            />
+                                        </Card.Section>
+                                        <Group mt="md" mb="xs" align="center" justify="center">
+                                            <Text fw={600}>{t(`A1:${card.number}.name`)}</Text>
+                                        </Group>
+                                        <Group align="center" justify="center">
+                                            <Badge color="blue">{t(`common:cardSet.${card.set}`)}</Badge>
+                                            <Badge color="blue">{t(`common:cardDex.${card.dex}`)}</Badge>
+                                        </Group>
+                                    </Card>
+                                </Link>
+                            </Grid.Col>
+                        ))}
+                    </Grid>
+                ) : (
+                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                        <Table>
+                            <thead>
+                                <tr>
+                                    <th>{t('common:name')}</th>
+                                    <th>{t('common:stage')}</th>
+                                    <th>{t('common:aspect')}</th>
+                                    <th>{t('common:type')}</th>
+                                    <th>{t('common:attack_1')}</th>
+                                    <th>{t('common:attack_2')}</th>
+                                    <th>{t('common:retreat')}</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                </Card>
-            )}
+                            </thead>
+                            <tbody>
+                                {filteredCards.map((card) => (
+                                    <tr key={card.id}>
+                                        <td>{t(`A1:${card.number}.name`)}</td>
+                                        <td>{t(`common:stage_${card.stage}`)}</td>
+                                        <td>{t(`common:aspect_${card.aspects}`)}</td>
+                                        <td>{t(`common:type_${card.type}`)}</td>
+                                        <td>{t(`common:attack_${card.attack_1}`)}</td>
+                                        <td>{card.attack_2 ? t(`common:attack_${card.attack_2}`) : '-'}</td>
+                                        <td>{card.retreat}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </Card>
+                )}
+            </Group>
         </Container>
     );
 };
