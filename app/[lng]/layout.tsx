@@ -1,3 +1,4 @@
+//app/[lng]/layout.tsx
 import '@mantine/core/styles.css';
 
 import React from 'react';

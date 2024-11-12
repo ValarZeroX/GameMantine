@@ -1,0 +1,18 @@
+{
+    "藤鞭": {
+        "name": "Vine Whip",
+        "description": ""
+    },
+    "飛葉快刀": {
+        "name": "Razor Leaf",
+        "description": ""
+    },
+    "超級吸取": {
+        "name": "Mega Drain",
+        "description": "Heal 30 damage from this Pokémon."
+    },
+    "巨型綻放": {
+        "name": "Giant Bloom",
+        "description": "Heal 30 damage from this Pokémon."
+    }
+}

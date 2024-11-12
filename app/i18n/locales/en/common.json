@@ -32,5 +32,21 @@
         "yourName": "Your Name",
         "agreeTo": "I agree to",
         "termsOfService": "Terms of Service"
+    },
+    "cardSet":{
+        "A1": "Genetic Apex"
+    },
+    "cardDex": {
+        "A1M": "Mewtwo pack"
+    },
+    "cardType": {
+        "0": "Pokemon",
+        "1": "Item",
+        "2": "Supporter"
+    },
+    "cardStage": {
+        "0": "Basic",
+        "1": "Stage 1",
+        "2": "Stage 2"
     }
 }

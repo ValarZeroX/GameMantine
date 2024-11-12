@@ -44,9 +44,23 @@ const arrayToString = (arr: string[] | number[] | undefined): string | null => {
 
 // Helper function to handle string to array conversion on GET requests
 const stringToArray = (str: string | null): string[] | number[] | null => {
+  // if (!str) return null;
+  // // Determine if it's a number array or string array
+  // return str.includes('-') ? str.split(',') : str.split(',').map(Number);
   if (!str) return null;
-  // Determine if it's a number array or string array
-  return str.includes('-') ? str.split(',') : str.split(',').map(Number);
+  
+    // 如果字符串包含逗号，表示是一个以逗号分隔的数组
+    if (str.includes(',')) {
+      return str.split(',');
+    }
+  
+    // 如果字符串不包含逗号，判断它是否是数字组成
+    if (!isNaN(Number(str))) {
+      return [Number(str)];
+    }
+  
+    // 默认返回字符串的数组形式（例如 dex 字段）
+    return [str];
 };
 
 export async function POST(request: Request) {
@@ -116,7 +130,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: '卡片創建成功！', card: newCard }, { status: 201 });
   } catch (error) {
-    console.error('Error creating card:', error);
     return NextResponse.json({ error: '卡片創建失敗。' }, { status: 500 });
   }
 }
@@ -124,7 +137,6 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const cards = await prisma.card.findMany();
-    console.log(cards)
     // 處理多值欄位，將逗號分隔的字串轉換為陣列
     const processedCards = cards.map((card) => ({
       ...card,
@@ -134,10 +146,8 @@ export async function GET(request: Request) {
       retreat_aspects: stringToArray(card.retreat_aspects) as number[] | string[],
       reprints: stringToArray(card.reprints || null) as string[] | null,
     }));
-
     return NextResponse.json(processedCards, { status: 200 });
   } catch (error) {
-    console.error('Error fetching cards:', error);
     return NextResponse.json({ error: '無法取得卡片資料。' }, { status: 500 });
   }
 }

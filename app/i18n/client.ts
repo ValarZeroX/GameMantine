@@ -33,35 +33,30 @@ i18next
     defaultNS: "common", // 設定預設命名空間
   });
 
-  export function useTranslation(
-    lng: string,
-    ns: string | string[],
-    options?: {}
-  ) {
-    const [cookies, setCookie] = useCookies([cookieName]);
-    const ret = useTranslationOrg(ns, options);
-    const { i18n } = ret;
-  
-    if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
-      i18n.changeLanguage(lng);
-    } else {
-      const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
-  
-      useEffect(() => {
-        if (activeLng === i18n.resolvedLanguage) return;
+export function useTranslation(
+  lng: string,
+  ns: string | string[],
+  options?: {}
+) {
+  const [cookies, setCookie] = useCookies([cookieName]);
+  const ret = useTranslationOrg(ns, options);
+  const { i18n } = ret;
+
+  const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
+
+  useEffect(() => {
+    if (!runsOnServerSide) {
+      // 只有在客户端环境下进行语言切换
+      if (lng && i18n.resolvedLanguage !== lng) {
+        i18n.changeLanguage(lng).then(() => {
+          setActiveLng(lng);
+          setCookie(cookieName, lng, { path: "/" });
+        });
+      } else if (!lng && i18n.resolvedLanguage !== activeLng) {
         setActiveLng(i18n.resolvedLanguage);
-      }, [activeLng, i18n.resolvedLanguage]);
-  
-      useEffect(() => {
-        if (!lng || i18n.resolvedLanguage === lng) return;
-        i18n.changeLanguage(lng);
-      }, [lng, i18n]);
-  
-      useEffect(() => {
-        if (cookies.i18next === lng) return;
-        setCookie(cookieName, lng, { path: "/" });
-      }, [lng, cookies.i18next, setCookie]);
+      }
     }
-  
-    return ret;
-  }
+  }, [lng, i18n, setCookie, activeLng]);
+
+  return ret;
+}
