@@ -29,7 +29,7 @@ interface CardDetail {
     attack_skill_name_2?: string;
     ability_name?: string;
     ability_directions?: string;
-    ability?: number;
+    ability?: string;
     retreat: number;
     retreat_aspects: number[] | string[];
     weakness: number;

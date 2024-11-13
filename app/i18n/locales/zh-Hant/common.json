@@ -115,5 +115,6 @@
     "UltraRare": "UR",
     "pokemon": "寶可夢",
     "item": "道具",
-    "supporter":"支援者"
+    "supporter":"支援者",
+    "search_card": "搜尋卡牌、技能、特性"
 }

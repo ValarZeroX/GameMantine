@@ -33,7 +33,7 @@ interface Card {
     attack_skill_name_2?: string;
     ability_name?: string;
     ability_directions?: string;
-    ability?: number;
+    ability?: string;
     retreat: number;
     retreat_aspects: number[] | string[];
     weakness: number;
@@ -226,8 +226,15 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
         let filtered = allCards;
 
         if (searchTerm) {
+            const lowerSearch = searchTerm.toLowerCase();
             filtered = filtered.filter(card =>
-                card.name.toLowerCase().includes(searchTerm.toLowerCase())
+                t(`A1:${card.number}.name`).toLowerCase().includes(lowerSearch) ||
+                t(`skill:${card.attack_name_1}.name`).toLowerCase().includes(lowerSearch) ||
+                t(`skill:${card.attack_name_1}.description`).toLowerCase().includes(lowerSearch) ||
+                t(`skill:${card.attack_name_2}.name`).toLowerCase().includes(lowerSearch) || 
+                t(`skill:${card.attack_name_2}.description`).toLowerCase().includes(lowerSearch) || 
+                t(`ability:${card.ability_name}.name`).toLowerCase().includes(lowerSearch) ||
+                t(`ability:${card.ability_name}.description`).toLowerCase().includes(lowerSearch)
             );
         }
 
@@ -386,7 +393,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                     onChange={setSelectedSets}
                 />
             <Collapse in={isFilterOpen}>
-                <Divider my="xs" label="一般搜尋" labelPosition="left" />
+                <Divider my="xs" label="進階搜尋" labelPosition="left" />
                 <Grid mb="md">
                     <Grid.Col span={4}>
                         <MultiSelect
@@ -460,7 +467,6 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                         />
                     </Grid.Col>
                 </Grid>
-                <Divider my="xs" label="進階搜尋" labelPosition="left" />
             </Collapse>
             {displayMode === 'grid' ? (
                 <Group mt="md" >

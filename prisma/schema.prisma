@@ -37,6 +37,7 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
+  role              Int     @default(0)
 
   user User @relation(fields: [userId], references: [id])
 
@@ -80,9 +81,9 @@ model Card {
   attack_aspects_2    String?  // 攻擊能量_2 (多個值以逗號分隔, 可選)
   attack_skill_2      String?  // 技能規則_2 (可選)
   attack_skill_name_2 String?  // 技能規則說明_2(可選)
-  ability_name        String?   // 特性名稱說明
-  ability_directions  String?   // 特性說明
-  ability             Int?      // 特性規則
+  ability_name        String?  // 特性名稱說明
+  ability_directions  String?  // 特性說明
+  ability             String?  // 特性規則
   retreat             Int      // 撤退能量數
   retreat_aspects     String   // 撤退能量 (多個值以逗號分隔)
   weakness            Int      // 弱點
