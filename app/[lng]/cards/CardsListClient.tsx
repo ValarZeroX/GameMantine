@@ -49,7 +49,7 @@ interface CardsListClientProps {
 
 const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
     const { t } = useTranslation(lng, ['A1', 'common', 'skill', 'ability']);
-
+    console.log(cards)
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filteredCards, setFilteredCards] = useState<Card[]>(cards);
     // const [displayMode, setDisplayMode] = useState<'grid' | 'list'>('grid');
@@ -242,7 +242,9 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
                                         </Group>
                                         <Group align="center" justify="center">
                                             <Badge color="blue">{t(`common:cardSet.${card.set}`)}</Badge>
-                                            <Badge color="blue">{t(`common:cardDex.${card.dex}`)}</Badge>
+                                            {card.dex.map((dex, index) => (
+                                                <Badge color="blue" key={index}>{t(`common:cardDex.${dex}`)}</Badge>
+                                            ))}
                                         </Group>
                                     </Card>
                                 </Link>
@@ -365,9 +367,9 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
                                                 )}
                                                 {card.ability_name && card.ability_name.length > 0 && (
                                                     <>
-                                                    <Divider my="md" />
-                                                    <Badge color="blue"><Text size="xs">{t(`ability:${card.ability_name}.name`)}</Text></Badge>
-                                                    <Text c="dimmed" size="xs" mt="xs">{t(`ability:${card.ability_name}.description`)}</Text>
+                                                        <Divider my="md" />
+                                                        <Badge color="blue"><Text size="xs">{t(`ability:${card.ability_name}.name`)}</Text></Badge>
+                                                        <Text c="dimmed" size="xs" mt="xs">{t(`ability:${card.ability_name}.description`)}</Text>
                                                     </>
                                                 )}
                                             </Table.Td>

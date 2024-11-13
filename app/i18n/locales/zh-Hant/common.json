@@ -33,7 +33,7 @@
         "agreeTo": "我同意",
         "termsOfService": "服務條款"
     },
-    "cardSet":{
+    "cardSet": {
         "A1": "最強基因",
         "PROMO-A": "活動卡包"
     },
@@ -52,17 +52,47 @@
         "1": "1階進化",
         "2": "2階進化"
     },
+    "number": "卡片編號",
+    "name": "名稱",
     "set": "系列",
     "dex": "卡包",
+    "rarity": "稀有度",
     "type": "類型",
     "stage": "階段",
-    "name": "名稱",
     "hp": "生命值",
+    "aspects": "屬性",
+    "illustrator": "畫家",
+    "point": "兌換點數",
+    "rule": "規則",
     "attack": "攻擊",
-    "rarity": "稀有度",
+    "attack_1": "攻擊1",
+    "attack_name_1": "攻擊名稱1",
+    "attack_aspects_1": "攻擊屬性1",
+    "attack_skill_name_1": "攻擊技能名稱1",
+    "attack_2": "攻擊2",
+    "attack_name_2": "攻擊名稱2",
+    "attack_aspects_2": "攻擊屬性2",
+    "attack_skill_name_2": "攻擊技能名稱2",
+    "ability_name": "特性名稱",
+    "ability_directions": "特性說明",
+    "ability": "特性等級",
     "retreat": "撤退",
-    "illustrator": "插畫師",
-    "ability": "特性",
-    "aspects":"屬性",
-    "weakness": "弱點"
+    "retreat_aspects": "撤退屬性",
+    "weakness": "弱點",
+    "weakness_value": "弱點值",
+    "select_set": "選擇系列",
+    "select_dex": "選擇卡包",
+    "select_attack_aspects": "選擇攻擊屬性",
+    "select_retreat_aspects": "選擇撤退屬性",
+    "add_card": "新增卡牌",
+    "notification": {
+        "success_title": "成功",
+        "success_message": "卡牌已成功新增！",
+        "error_title": "錯誤",
+        "error_message": "新增卡牌失敗，請稍後再試。"
+    },
+    "metadata": {
+        "new_card_title": "新增卡牌 - Pokémon TCG",
+        "new_card_description": "在此頁面新增新的 Pokémon 卡牌。"
+    }
 }

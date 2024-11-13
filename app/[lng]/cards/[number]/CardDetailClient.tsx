@@ -105,7 +105,9 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 <Text fw={800}>{t('common:dex')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
-                                <Badge color="blue">({card.dex}){t(`common:cardDex.${card.dex}`)}</Badge>
+                            {card.dex.map((dex, index) => (
+                                <Badge color="blue" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
+                            ))}
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">
