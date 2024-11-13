@@ -2,11 +2,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconX } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
 import classes from './CardsPage.module.css';
+
 
 interface Card {
     id: number;
@@ -58,10 +59,16 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
     const [controlsRefs, setControlsRefs] = useState<Record<string, HTMLButtonElement | null>>({});
     const [active, setActive] = useState('grid');
     const [displayMode, setDisplayMode] = useState<'grid' | 'list'>('grid');
+    const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false); // 新增狀態
 
     //過濾卡片
     const [selectedSets, setSelectedSets] = useState<string[]>([]);
     const [selectedDexs, setSelectedDexs] = useState<string[]>([]);
+    const [selectedAspects, setSelectedAspects] = useState<string[]>([]);
+    const [selectedRarity, setSelectedRarity] = useState<string[]>([]);
+    const [selectedType, setSelectedType] = useState<string[]>([]);
+    const [selectedWeakness, setSelectedWeakness] = useState<string[]>([]);
+    const [selectedRetreat, setSelectedRetreat] = useState<string[]>([]);
 
     const handleSearch = (term: string) => {
         setSearchTerm(term);
@@ -81,6 +88,70 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
         setActive(mode);
     };
 
+    const aspectImages: { [key: number]: string } = {
+        0: '/common/grass.webp',
+        1: '/common/fire.webp',
+        2: '/common/water.webp',
+        3: '/common/lightning.webp',
+        4: '/common/psychic.webp',
+        5: '/common/fighting.webp',
+        6: '/common/darkness.webp',
+        7: '/common/metal.webp',
+        8: '/common/dragon.webp',
+        9: '/common/colorless.webp',
+    };
+
+    // const aspectStringImages: { [key: string]: string } = {
+    //     'grass': '/common/grass.webp',
+    //     'fire': '/common/fire.webp',
+    //     'water': '/common/water.webp',
+    //     'lightning': '/common/lightning.webp',
+    //     'psychic': '/common/psychic.webp',
+    //     'fighting': '/common/fighting.webp',
+    //     'darkness': '/common/darkness.webp',
+    //     'metal': '/common/metal.webp',
+    //     'dragon': '/common/dragon.webp',
+    //     'colorless': '/common/colorless.webp',
+    // };
+
+    const aspectStringToNumber: { [key: string]: number } = {
+        'grass': 0,
+        'fire': 1,
+        'water': 2,
+        'lightning': 3,
+        'psychic': 4,
+        'fighting': 5,
+        'darkness': 6,
+        'metal': 7,
+        'dragon': 8,
+        'colorless': 9,
+    };
+
+    const rarityStringToNumber: { [key: string]: number } = {
+        'Common': 1,
+        'Uncommon': 2,
+        'Rare': 3,
+        'DoubleRare': 4,
+        'ArtRare': 5,
+        'SuperRare': 6,
+        'ImmersiveRare': 7,
+        'UltraRare': 8,
+    };
+
+    const typeStringToNumber: { [key: string]: number } = {
+        'pokemon': 0,
+        'item': 1,
+        'supporter': 2,
+    };
+
+    const retreatStringToNumber: { [key: string]: number } = {
+        '1': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5,
+    };
+
     const setControlRef = (name: string) => (node: HTMLButtonElement) => {
         controlsRefs[name] = node;
         setControlsRefs(controlsRefs);
@@ -95,6 +166,33 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
         value: setKey,
         label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
     }));
+
+    //['草', '火', '水', '雷電', '超能', '格鬥', '惡', '金屬', '龍', '普通']
+    const seriesOptionsAspects = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'colorless'].map((setKey) => ({
+        value: setKey,
+        label: `${t(`common:${setKey}`)}`,
+    }));
+
+    const seriesOptionsRarity = ['Common', 'Uncommon', 'Rare', 'DoubleRare', 'ArtRare', 'SuperRare', 'ImmersiveRare', 'UltraRare'].map((setKey) => ({
+        value: setKey,
+        label: `${t(`common:${setKey}`)}`,
+    }));
+
+    const seriesOptionsType = ['pokemon', 'item', 'supporter'].map((setKey) => ({
+        value: setKey,
+        label: `${t(`common:${setKey}`)}`,
+    }));
+
+    // const seriesOptionsWeakness = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'colorless'].map((setKey) => ({
+    //     value: setKey,
+    //     label: `${t(`common:${setKey}`)}`,
+    // }));
+
+    const seriesOptionsRetreat = ['1', '2', '3', '4', '5'].map((setKey) => ({
+        value: setKey,
+        label: setKey,
+    }));
+
 
     useEffect(() => {
         let filtered = cards;
@@ -117,21 +215,67 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
             );
         }
 
-        setFilteredCards(filtered);
-    }, [searchTerm, selectedSets, selectedDexs, cards]);
+        if (selectedAspects.length > 0) {
+            // 將選取的屬性字符串轉換為數字
+            const selectedAspectNumbers = selectedAspects
+                .map(aspect => aspectStringToNumber[aspect])
+                .filter((num): num is number => typeof num === 'number');
 
-    const aspectImages: { [key: number]: string } = {
-        0: '/common/grass.webp',
-        1: '/common/fire.webp',
-        2: '/common/water.webp',
-        3: '/common/lightning.webp',
-        4: '/common/psychic.webp',
-        5: '/common/fighting.webp',
-        6: '/common/darkness.webp',
-        7: '/common/metal.webp',
-        8: '/common/dragon.webp',
-        9: '/common/colorless.webp',
-    };
+            // 使用轉換後的數字進行過濾
+            filtered = filtered.filter(card =>
+                selectedAspectNumbers.includes(card.aspects)
+            );
+        }
+
+        if (selectedRarity.length > 0) {
+            // 將選取的屬性字符串轉換為數字
+            const selectedRarityNumbers = selectedRarity
+                .map(aspect => rarityStringToNumber[aspect])
+                .filter((num): num is number => typeof num === 'number');
+
+            // 使用轉換後的數字進行過濾
+            filtered = filtered.filter(card =>
+                selectedRarityNumbers.includes(card.rarity)
+            );
+        }
+
+        if (selectedType.length > 0) {
+            const selectedTypeNumbers = selectedType
+                .map(type => typeStringToNumber[type])
+                .filter((num): num is number => typeof num === 'number');
+
+            filtered = filtered.filter(card =>
+                selectedTypeNumbers.includes(card.type)
+            );
+        }
+
+        if (selectedWeakness.length > 0) {
+            // 將選取的屬性字符串轉換為數字
+            const selectedAspectNumbers = selectedWeakness
+                .map(weakness => aspectStringToNumber[weakness])
+                .filter((num): num is number => typeof num === 'number');
+
+            // 使用轉換後的數字進行過濾
+            filtered = filtered.filter(card =>
+                selectedAspectNumbers.includes(card.weakness)
+            );
+        }
+
+        if (selectedRetreat.length > 0) {
+            // 將選取的撤退字串轉換為數字
+            const selectedRetreatNumbers = selectedRetreat
+                .map(retreat => Number(retreat)) // 或使用 retreatStringToNumber[retreat] 如果有定義映射
+                .filter((num): num is number => !isNaN(num));
+
+            filtered = filtered.filter(card =>
+                selectedRetreatNumbers.includes(card.retreat)
+            );
+        }
+
+        setFilteredCards(filtered);
+    }, [searchTerm, selectedSets, selectedDexs, selectedAspects, selectedRarity, selectedType, selectedWeakness, selectedRetreat, cards]);
+
+
     const rarityImages: { [key: number]: string } = {
         0: '',
         1: '/common/Common.webp',
@@ -144,23 +288,24 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
         8: '/common/UltraRare.webp',
     };
 
-    // useEffect(() => {
-    //     let filtered = cards;
+    const renderMultiSelectOption: MultiSelectProps['renderOption'] = ({ option }) => (
+        <Group gap="sm">
+            <Image src={`/common/${option.value}.webp`} alt={t(`common:${option.value}`)} height={20} width={20} />
+            <div>
+                <Text size="sm">{t(`common:${option.value}`)}</Text>
+            </div>
+        </Group>
+    );
 
-    //     if (searchTerm) {
-    //         filtered = filtered.filter(card =>
-    //             card.name.toLowerCase().includes(searchTerm.toLowerCase())
-    //         );
-    //     }
+    const renderMultiSelectOptionRarity: MultiSelectProps['renderOption'] = ({ option }) => (
+        <Group gap="sm">
+            <Image src={`/common/${option.value}.webp`} alt={t(`common:${option.value}`)} height={20} width={20} />
+            <div>
+                <Text size="sm">{t(`common:${option.value}`)}</Text>
+            </div>
+        </Group>
+    );
 
-    //     if (selectedDexs.length > 0) {
-    //         filtered = filtered.filter(card =>
-    //             selectedDexs.includes(card.set)
-    //         );
-    //     }
-
-    //     setFilteredCards(filtered);
-    // }, [searchTerm, selectedDexs, cards]);
 
     return (
         <Container size="lg">
@@ -180,7 +325,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
                     <ActionIcon variant="default" size="lg" >
                         <IconFilterOff />
                     </ActionIcon>
-                    <ActionIcon variant="default" size="lg" >
+                    <ActionIcon variant="default" size="lg" onClick={() => setIsFilterOpen((prev) => !prev)} >
                         <IconFilter />
                     </ActionIcon>
                     <div className={classes.root} dir="ltr" ref={setRootRef}>
@@ -203,29 +348,80 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
                     </div>
                 </Group>
             </Group>
-            <Group mb="md">
-                <MultiSelect
-                    label="系列"
-                    placeholder="系列"
-                    data={seriesOptions}
-                    searchable
-                    clearable
-                    value={selectedSets}
-                    onChange={setSelectedSets}
-                />
-                <MultiSelect
-                    label="卡包"
-                    placeholder="卡包"
-                    data={seriesOptionsDex}
-                    searchable
-                    clearable
-                    value={selectedDexs}
-                    onChange={setSelectedDexs}
-                />
-            </Group>
-
+            <Collapse in={isFilterOpen}>
+                <Divider my="xs" label="一般搜尋" labelPosition="left" />
+                <Group mb="md">
+                    <MultiSelect
+                        label={t('common:set')}
+                        placeholder={t('common:set')}
+                        data={seriesOptions}
+                        searchable
+                        clearable
+                        value={selectedSets}
+                        onChange={setSelectedSets}
+                    />
+                    <MultiSelect
+                        label={t('common:dex')}
+                        placeholder={t('common:dex')}
+                        data={seriesOptionsDex}
+                        searchable
+                        clearable
+                        value={selectedDexs}
+                        onChange={setSelectedDexs}
+                    />
+                    <MultiSelect
+                        label={t('common:aspects')}
+                        placeholder={t('common:aspects')}
+                        data={seriesOptionsAspects}
+                        searchable
+                        clearable
+                        renderOption={renderMultiSelectOption}
+                        value={selectedAspects}
+                        onChange={setSelectedAspects}
+                    />
+                    <MultiSelect
+                        label={t('common:rarity')}
+                        placeholder={t('common:rarity')}
+                        data={seriesOptionsRarity}
+                        searchable
+                        clearable
+                        renderOption={renderMultiSelectOptionRarity}
+                        value={selectedRarity}
+                        onChange={setSelectedRarity}
+                    />
+                    <MultiSelect
+                        label={t('common:type')}
+                        placeholder={t('common:type')}
+                        data={seriesOptionsType}
+                        searchable
+                        clearable
+                        value={selectedType}
+                        onChange={setSelectedType}
+                    />
+                    <MultiSelect
+                        label={t('common:weakness')}
+                        placeholder={t('common:weakness')}
+                        data={seriesOptionsAspects}
+                        searchable
+                        clearable
+                        renderOption={renderMultiSelectOption}
+                        value={selectedWeakness}
+                        onChange={setSelectedWeakness}
+                    />
+                    <MultiSelect
+                        label={t('common:retreat')}
+                        placeholder={t('common:retreat')}
+                        data={seriesOptionsRetreat}
+                        searchable
+                        clearable
+                        value={selectedRetreat}
+                        onChange={setSelectedRetreat}
+                    />
+                </Group>
+                <Divider my="xs" label="進階搜尋" labelPosition="left" />
+            </Collapse>
             {displayMode === 'grid' ? (
-                <Group mt="md">
+                <Group mt="md" >
                     <Grid mt="md">
                         {filteredCards.map((card) => (
                             <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3 }}>
