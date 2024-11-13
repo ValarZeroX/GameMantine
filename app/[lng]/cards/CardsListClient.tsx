@@ -346,16 +346,9 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             input: { width: 300 },
                         }}
                     />
-                    <MultiSelect
-                        // label={t('common:set')}
-                        placeholder={t('common:set')}
-                        data={seriesOptions}
-                        searchable
-                        clearable
-                        value={selectedSets}
-                        onChange={setSelectedSets}
-                    />
+
                 </Group>
+                
                 <Group>
                     <ActionIcon variant="default" size="lg" >
                         <IconFilterOff />
@@ -383,6 +376,15 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                     </div>
                 </Group>
             </Group>
+            <MultiSelect
+                    // label={t('common:set')}
+                    placeholder={t('common:set')}
+                    data={seriesOptions}
+                    searchable
+                    clearable
+                    value={selectedSets}
+                    onChange={setSelectedSets}
+                />
             <Collapse in={isFilterOpen}>
                 <Divider my="xs" label="一般搜尋" labelPosition="left" />
                 <Grid mb="md">
@@ -421,8 +423,8 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             onChange={setSelectedRarity}
                         />
                     </Grid.Col>
-                    </Grid>
-                    <Grid mb="md">
+                </Grid>
+                <Grid mb="md">
                     <Grid.Col span={4}>
                         <MultiSelect
                             label={t('common:type')}
