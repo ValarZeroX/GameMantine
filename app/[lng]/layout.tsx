@@ -30,7 +30,7 @@ export const metadata = {
 export default async function RootLayout({ children, params }: RootLayoutProps) {
   const { lng } = await params; // 在函式內部解構
   const session = await getServerSession(authOptions);
-  console.log(session);
+  // console.log(session);
   // console.log( lng);
   return (
     <html lang={lng} suppressHydrationWarning>

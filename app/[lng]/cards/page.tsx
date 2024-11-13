@@ -4,7 +4,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Layout from '../../../components/Layout/Layout';
 import { useTranslation } from '../../i18n/index';
-import { showNotification } from "@mantine/notifications";
+// import { showNotification } from "@mantine/notifications";
 import { IconX } from '@tabler/icons-react';
 import CardsListClient from './CardsListClient'; // 客戶端組件
 
@@ -46,7 +46,7 @@ interface Card {
 async function fetchCards(): Promise<Card[] | null> {
     try {
         const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card`);
-        console.log(response);
+        // console.log(response);
         if (!response.ok) {
             return null;
         }
@@ -82,12 +82,12 @@ const CardsPage = async ({ params }: CardsPageProps) => {
     const cards = await fetchCards();
 
     if (!cards) {
-        showNotification({
-            title: '失敗',
-            message: '無法取得卡片資料。',
-            color: 'red',
-            icon: <IconX size={16} />,
-        });
+        // showNotification({
+        //     title: '失敗',
+        //     message: '無法取得卡片資料。',
+        //     color: 'red',
+        //     icon: <IconX size={16} />,
+        // });
         return (
             <Layout lng={lng}>
                 <div>無法取得卡片資料。</div>

@@ -33,7 +33,7 @@
         "agreeTo": "I agree to",
         "termsOfService": "Terms of Service"
     },
-    "cardSet":{
+    "cardSet": {
         "A1": "Genetic Apex"
     },
     "cardDex": {
@@ -48,5 +48,18 @@
         "0": "Basic",
         "1": "Stage 1",
         "2": "Stage 2"
-    }
+    },
+    "set": "Series",
+    "dex": "Card Pack",
+    "type": "Type",
+    "stage": "Stage",
+    "name": "Name",
+    "hp": "HP",
+    "attack": "Attack",
+    "rarity": "Rarity",
+    "retreat": "Retreat",
+    "illustrator": "Illustrator",
+    "ability": "Ability",
+    "aspects": "Aspects",
+    "weakness": "Weakness"
 }

@@ -17,7 +17,7 @@ const initI18next = async (lng: string, ns: string) => {
     )
     .init({
       ...getOptions(lng, ns),
-      debug: true, // 啟用調試模式
+    //   debug: true, // 啟用調試模式
       load: "currentOnly",
     });
   return i18nInstance;

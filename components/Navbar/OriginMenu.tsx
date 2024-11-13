@@ -20,20 +20,20 @@ function OriginMenu() {
         leftSection={<IconHome size="1rem" stroke={1.5} />}
         onClick={() => handleNavigation('/')}
       />
-      <NavLink
+      {/* <NavLink
         component="button"
         label="卡牌"
         leftSection={<IconFlame size="1rem" stroke={1.5} />}
         onClick={() => handleNavigation('/courses')}
-      />
+      /> */}
       <NavLink
         component="button"
         label="卡牌"
         leftSection={<IconCards size="1rem" stroke={1.5} />}
         onClick={() => handleNavigation('/cards')}
       />
-      <Divider my="xs" label="討論區" labelPosition="left" />
-      <Divider my="xs" label="部落格" labelPosition="left" />
+      {/* <Divider my="xs" label="討論區" labelPosition="left" />
+      <Divider my="xs" label="部落格" labelPosition="left" /> */}
     </nav>
   );
 }

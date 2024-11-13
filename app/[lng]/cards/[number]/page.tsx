@@ -1,4 +1,4 @@
-// app/[lng]/cards/[id]/page.tsx
+// app/[lng]/cards/[number]/page.tsx
 
 import React from 'react';
 import { notFound } from 'next/navigation';
@@ -42,10 +42,9 @@ interface CardDetail {
 }
 
 // 获取卡片详细数据的函数
-async function fetchCardData(id: string): Promise<CardDetail | null> {
+async function fetchCardData(number: string): Promise<CardDetail | null> {
   try {
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card/${id}`);
-    console.log(response)
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card/${number}`);
     if (!response.ok) {
       return null;
     }
@@ -58,11 +57,12 @@ async function fetchCardData(id: string): Promise<CardDetail | null> {
 }
 
 // 生成页面元数据
-export async function generateMetadata({ params }: { params: Promise<{ lng: string; id: string }> }): Promise<Metadata> {
-  const { lng, id } = await params; // 使用 await 确保 params 被正确解析
+export async function generateMetadata({ params }: { params: Promise<{ lng: string; number: string }> }): Promise<Metadata> {
+  const { lng, number } = await params; // 使用 await 确保 params 被正确解析
   const translation = await useTranslation(lng, 'A1');
   const { t: t } = translation;
-  const card = await fetchCardData(id);
+  
+  const card = await fetchCardData(number);
 
   if (!card) {
     return {
@@ -79,13 +79,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 }
 
 // 页面组件，作为服务器组件
-type CardDetailPageProps = { params: Promise<{ lng: string; id: string }> };
+type CardDetailPageProps = { params: Promise<{ lng: string; number: string }> };
 
 const CardDetailPage = async ({ params }: CardDetailPageProps) => {
-  const { lng, id } = await params; // 使用 await 确保 params 被正确解析
+  const { lng, number } = await params; // 使用 await 确保 params 被正确解析
 
   // 使用同一个函数获取卡片数据
-  const card = await fetchCardData(id);
+  const card = await fetchCardData(number);
 
   if (!card) {
     notFound();

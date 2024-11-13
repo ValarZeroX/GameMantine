@@ -14,5 +14,37 @@
     "巨型綻放": {
         "name": "Giant Bloom",
         "description": "Heal 30 damage from this Pokémon."
+    },
+    "尋找朋友": {
+        "name": "尋找朋友",
+        "description": "從自己的牌庫隨機將一張草系寶可夢加入手牌。"
+    },
+    "蟲咬": {
+        "name": "蟲咬",
+        "description": ""
+    },
+    "起風": {
+        "name": "起風",
+        "description": ""
+    },
+    "刺刺痛痛": {
+        "name": "刺刺痛痛",
+        "description": ""
+    },
+    "銳利刺針": {
+        "name": "銳利刺針",
+        "description": ""
+    },
+    "衝撞": {
+        "name": "衝撞",
+        "description": ""
+    },
+    "口水": {
+        "name": "口水",
+        "description": ""
+    },
+    "芳香催眠": {
+        "name": "芳香催眠",
+        "description": "將對手的戰鬥寶可夢睡眠。"
     }
 }

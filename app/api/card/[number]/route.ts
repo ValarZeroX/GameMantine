@@ -1,4 +1,4 @@
-// app/api/card/[id]/route.ts
+// app/api/card/[number]/route.ts
 
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma'; // 根據您的專案結構調整路徑
@@ -56,21 +56,18 @@ const stringToArray = (str: string | null): string[] | number[] | null => {
     return [str];
 };
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(request: Request, { params }: { params: { number: string } }) {
+  const { number } = params;
 
   try {
-    // console.log('Fetching card with ID:', id);
     // 根據 id 查詢卡片
     const card = await prisma.card.findUnique({
-      where: { id: Number(id) }, // 將字符串 id 轉換為數字
+      where: { number: number }, // 將字符串 id 轉換為數字
     });
-    
 
     if (!card) {
       return NextResponse.json({ error: '卡片不存在。' }, { status: 404 });
     }
-    console.log(card)
     // 處理多值欄位，將逗號分隔的字串轉換為陣列
     const processedCard: CardDetail = {
       ...card,
@@ -80,7 +77,6 @@ export async function GET(request: Request, { params }: { params: { id: string }
       retreat_aspects: stringToArray(card.retreat_aspects) as number[] | string[],
       reprints: stringToArray(card.reprints || null) as string[] | null,
     };
-    console.log(processedCard)
     return NextResponse.json(processedCard, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: '無法取得卡片資料。' }, { status: 500 });

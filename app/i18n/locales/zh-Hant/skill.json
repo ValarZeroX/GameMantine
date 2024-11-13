@@ -14,5 +14,65 @@
     "巨型綻放": {
         "name": "巨型綻放",
         "description": "將這隻寶可夢恢復30HP。"
+    },
+    "尋找朋友": {
+        "name": "尋找朋友",
+        "description": "從自己的牌庫隨機將一張草系寶可夢加入手牌。"
+    },
+    "蟲咬": {
+        "name": "蟲咬",
+        "description": ""
+    },
+    "起風": {
+        "name": "起風",
+        "description": ""
+    },
+    "刺刺痛痛": {
+        "name": "刺刺痛痛",
+        "description": ""
+    },
+    "銳利刺針": {
+        "name": "銳利刺針",
+        "description": ""
+    },
+    "衝撞": {
+        "name": "衝撞",
+        "description": ""
+    },
+    "口水": {
+        "name": "口水",
+        "description": ""
+    },
+    "芳香催眠": {
+        "name": "芳香催眠",
+        "description": "將對手的戰鬥寶可夢睡眠。"
+    },
+    "抓": {
+        "name": "抓",
+        "description": ""
+    },
+    "劈開": {
+        "name": "劈開",
+        "description": ""
+    },
+    "撞擊": {
+        "name": "撞擊",
+        "description": ""
+    },
+    "毒粉": {
+        "name": "毒粉",
+        "description": "將對手的戰鬥寶可夢中毒。"
+    },
+    "種子炸彈": {
+        "name": "種子炸彈",
+        "description": ""
+    },
+    "踩踏": {
+        "name": "踩踏",
+        "description": ""
+    },
+    "熱帶揮擊": {
+        "name": "熱帶揮擊",
+        "description": "擲1次硬幣若為正面，則增加40點傷害。"
     }
 }

@@ -1,4 +1,4 @@
-// app/[lng]/cards/[id]/CardDetailClient.tsx
+// app/[lng]/cards/[number]/CardDetailClient.tsx
 'use client';
 
 import React from 'react';
@@ -46,8 +46,8 @@ interface CardDetailClientProps {
 }
 
 const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
-    const { t } = useTranslation(lng, ['A1', 'common', 'skill']);
-    console.log(card);
+    const { t } = useTranslation(lng, ['A1', 'common', 'skill', 'ability']);
+    // console.log(card);
     const aspectImages: { [key: number]: string } = {
         0: '/common/grass.webp',
         1: '/common/fire.webp',
@@ -63,7 +63,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
     const rarityImages: { [key: number]: string } = {
         0: '',
         1: '/common/Common.webp',
-        2: '/common/Supporter.webp',
+        2: '/common/Uncommon.webp',
         3: '/common/Rare.webp',
         4: '/common/DoubleRare.webp',
         5: '/common/ArtRare.webp',
@@ -96,13 +96,13 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         </Card.Section>
                         <Grid mt="md" mb="md">
                             <Grid.Col span={2}>
-                                <Text fw={800}>系列</Text>
+                                <Text fw={800}>{t('common:set')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Badge color="blue">({card.set}){t(`common:cardSet.${card.set}`)}</Badge>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text fw={800}>卡包</Text>
+                                <Text fw={800}>{t('common:dex')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Badge color="blue">({card.dex}){t(`common:cardDex.${card.dex}`)}</Badge>
@@ -110,13 +110,13 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         </Grid>
                         <Grid mt="md" mb="md">
                             <Grid.Col span={2}>
-                                <Text fw={800}>類型</Text>
+                                <Text fw={800}>{t('common:type')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Badge color="blue">{t(`common:cardType.${card.type}`)}</Badge>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text fw={800}>階段</Text>
+                                <Text fw={800}>{t('common:stage')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Badge color="blue">{t(`common:cardStage.${card.stage}`)}</Badge>
@@ -124,7 +124,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         </Grid>
                         <Grid mt="md" mb="md">
                             <Grid.Col span={2}>
-                                <Text fw={800}>稀有度</Text>
+                                <Text fw={800}>{t('common:rarity')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Group>
@@ -135,7 +135,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 </Group>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text fw={800}>撤退</Text>
+                                <Text fw={800}>{t('common:retreat')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Group>
@@ -152,14 +152,14 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">
-                            <Grid.Col span={2}><Text fw={800}>血量</Text>
+                            <Grid.Col span={2}><Text fw={800}>{t('common:hp')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Badge size="xl" circle variant="gradient"
                                     gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.hp}</Text></Badge>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text fw={800}>畫家</Text>
+                                <Text fw={800}>{t('common:illustrator')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Badge color="blue">{card.illustrator}</Badge>
@@ -167,7 +167,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         </Grid>
                         <Grid mt="md" mb="md">
                             <Grid.Col span={2}>
-                                <Text fw={800}>屬性</Text>
+                                <Text fw={800}>{t('common:aspects')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Group>
@@ -180,7 +180,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 </Group>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text fw={800}>弱點</Text>
+                                <Text fw={800}>{t('common:weakness')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Group>
@@ -197,7 +197,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         </Grid>
                         <Grid mt="md" mb="md">
                             <Grid.Col span={2}>
-                                <Text fw={800}>攻擊</Text>
+                                <Text fw={800}>{t('common:attack')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Group>
@@ -222,18 +222,18 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         </Grid>
                         {card.attack_skill_name_1 && card.attack_skill_name_1.length > 0 && (
                             <Grid>
-                            <Grid.Col span={2}>
-                                <Text fw={800}></Text>
-                            </Grid.Col>
-                            <Grid.Col span={10}>
-                                <Text c="dimmed">{t(`skill:${card.attack_name_1}.description`)}</Text>
-                            </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text fw={800}></Text>
+                                </Grid.Col>
+                                <Grid.Col span={10}>
+                                    <Text c="dimmed">{t(`skill:${card.attack_name_1}.description`)}</Text>
+                                </Grid.Col>
                             </Grid>
                         )}
                         {card.attack_aspects_2 && card.attack_aspects_2.length > 0 && (
                             <Grid mt="md" mb="md">
                                 <Grid.Col span={2}>
-                                    <Text fw={800}>攻擊</Text>
+                                    <Text fw={800}>{t('common:attack')}</Text>
                                 </Grid.Col>
                                 <Grid.Col span={4}>
                                     <Group>
@@ -259,12 +259,25 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         )}
                         {card.attack_skill_name_2 && card.attack_skill_name_2.length > 0 && (
                             <Grid>
-                            <Grid.Col span={2}>
-                                <Text fw={800}></Text>
-                            </Grid.Col>
-                            <Grid.Col span={10}>
-                                <Text c="dimmed">{t(`skill:${card.attack_name_2}.description`)}</Text>
-                            </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text fw={800}></Text>
+                                </Grid.Col>
+                                <Grid.Col span={10}>
+                                    <Text c="dimmed">{t(`skill:${card.attack_name_2}.description`)}</Text>
+                                </Grid.Col>
+                            </Grid>
+                        )}
+                        {card.ability_name && card.ability_name.length > 0 && (
+                            <Grid mt="md" mb="md">
+                                <Grid.Col span={2}>
+                                    <Text fw={800}>{t('common:ability')}</Text>
+                                </Grid.Col>
+                                <Grid.Col span={4}>
+                                    <Badge color="blue"><Text fw={800}>{t(`ability:${card.ability_name}.name`)}</Text></Badge>
+                                </Grid.Col>
+                                <Grid.Col span={6}>
+                                    <Text c="dimmed">{t(`ability:${card.ability_name}.description`)}</Text>
+                                </Grid.Col>
                             </Grid>
                         )}
                     </Card>

@@ -46,7 +46,7 @@ const LoginPage: React.FC<LoginPage> = ({ params }) => {
             email: values.email,
             password: values.password,
         });
-        console.log(res)
+        // console.log(res)
         if (res?.error) {
             setError(res.error);
         } else {
