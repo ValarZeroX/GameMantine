@@ -1718,7 +1718,7 @@
   resolved "https://registry.npmjs.org/@storybook/manager-api/-/manager-api-8.4.2.tgz"
   integrity sha512-rhPc4cgQDKDH8NUyRh/ZaJW7QIhR/PO5MNX4xc+vz71sM2nO7ONA/FrgLtCuu4SULdwilEPvGefYvLK0dE+Caw==
 
-"@storybook/nextjs@^8.1.10":
+"@storybook/nextjs@^8.4.2":
   version "8.4.2"
   resolved "https://registry.npmjs.org/@storybook/nextjs/-/nextjs-8.4.2.tgz"
   integrity sha512-HySwS9zfenurk+O+SX9gKskotkHo8mFRBKAIlEROIWi7iipp5GCVPyqb8gFWjvN81dKfEIAZs+fB/7ySulJ4rg==
