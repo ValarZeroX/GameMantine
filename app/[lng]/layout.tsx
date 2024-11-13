@@ -15,7 +15,7 @@ import { languages } from "../i18n/settings";
 
 type RootLayoutProps = {
   children: React.ReactNode;
-  params: { lng: string };
+  params: Promise<{ lng: string; }>;
 };
 
 export async function generateStaticParams() {
@@ -23,8 +23,8 @@ export async function generateStaticParams() {
 }
 
 export const metadata = {
-  title: 'Mantine Next.js template',
-  description: 'I am using Mantine with Next.js!',
+  title: 'Pokemon TCG',
+  description: 'Pokemon TCG card database',
 };
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {

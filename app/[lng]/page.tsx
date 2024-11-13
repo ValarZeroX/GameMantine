@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useTranslation } from "../i18n";
 
 
-type PageProps = { params: { lng: string } };
+type PageProps = { params: Promise<{ lng: string; }> };
 
 export default async function HomePage({ params }: PageProps) {
   const { lng } = await params; // 在函式內部解構

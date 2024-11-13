@@ -45,7 +45,6 @@ interface Card {
 }
 
 interface CardsListClientProps {
-    cards: Card[];
     lng: string;
 }
 
