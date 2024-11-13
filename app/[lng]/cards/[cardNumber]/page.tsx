@@ -1,4 +1,4 @@
-// app/[lng]/cards/[number]/page.tsx
+// app/[lng]/cards/[cardNumber]/page.tsx
 
 import React from 'react';
 import { notFound } from 'next/navigation';
@@ -30,7 +30,7 @@ interface CardDetail {
   attack_skill_name_2?: string;
   ability_name?: string;
   ability_directions?: string;
-  ability?: number;
+  ability?: string;
   retreat: number;
   retreat_aspects: number[] | string[];
   weakness: number;
@@ -57,12 +57,12 @@ async function fetchCardData(number: string): Promise<CardDetail | null> {
 }
 
 // 生成页面元数据
-export async function generateMetadata({ params }: { params: Promise<{ lng: string; number: string }> }): Promise<Metadata> {
-  const { lng, number } = await params; // 使用 await 确保 params 被正确解析
+export async function generateMetadata({ params }: { params: Promise<{ lng: string; cardNumber: string }> }): Promise<Metadata> {
+  const { lng, cardNumber } = await params; // 使用 await 确保 params 被正确解析
   const translation = await useTranslation(lng, 'A1');
   const { t: t } = translation;
   
-  const card = await fetchCardData(number);
+  const card = await fetchCardData(cardNumber);
 
   if (!card) {
     return {
@@ -79,13 +79,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 }
 
 // 页面组件，作为服务器组件
-type CardDetailPageProps = { params: Promise<{ lng: string; number: string }> };
+type CardDetailPageProps = { params: Promise<{ lng: string; cardNumber: string }> };
 
 const CardDetailPage = async ({ params }: CardDetailPageProps) => {
-  const { lng, number } = await params; // 使用 await 确保 params 被正确解析
+  const { lng, cardNumber } = await params; // 使用 await 确保 params 被正确解析
 
   // 使用同一个函数获取卡片数据
-  const card = await fetchCardData(number);
+  const card = await fetchCardData(cardNumber);
 
   if (!card) {
     notFound();

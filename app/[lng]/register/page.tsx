@@ -6,10 +6,10 @@ import { useTranslation } from '../../i18n/index';
 import Layout from '../../../components/Layout/Layout';
 
 interface MetadataParams {
-  params: { lng: string };
+  params: Promise<{ lng: string }>;
 }
 
-export async function generateMetadata({ params }: MetadataParams): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lng: string; }> }): Promise<Metadata> {
   const { lng } = await params;
   const translation = await useTranslation(lng, 'common');
   const { t: translate } = translation;
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: MetadataParams): Promise<Meta
   };
 }
 
-type RegisterPageProps = { params: { lng: string } };
+type RegisterPageProps = { params: Promise<{ lng: string }> };
 
 const RegisterPage = async ({ params }: RegisterPageProps) => {
   const { lng } = await params;

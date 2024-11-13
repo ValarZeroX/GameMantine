@@ -1,4 +1,4 @@
-// app/[lng]/cards/[number]/CardDetailClient.tsx
+// app/[lng]/cards/[cardNumber]/CardDetailClient.tsx
 'use client';
 
 import React from 'react';

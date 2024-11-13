@@ -40,23 +40,20 @@ const arrayToString = (arr: string[] | number[] | undefined): string | null => {
   return arr.join(',');
 };
 
-// Helper function to handle string to array conversion on GET requests
+// 幫助函數：將字串轉換為陣列
 const stringToArray = (str: string | null): string[] | number[] | null => {
   if (!str) return null;
 
-  if (str.includes(',')) {
-    return str.split(',').map(item => {
-      const num = Number(item);
-      return isNaN(num) ? item : num;
-    });
+  const split = str.split(',');
+
+  // 判斷所有項目是否均為數字
+  const allNumbers = split.every(item => !isNaN(Number(item)));
+
+  if (allNumbers) {
+    return split.map(item => Number(item));
   }
 
-  const num = Number(str);
-  if (!isNaN(num)) {
-    return [num];
-  }
-
-  return [str];
+  return split;
 };
 
 export async function POST(request: Request) {

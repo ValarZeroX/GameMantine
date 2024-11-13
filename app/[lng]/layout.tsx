@@ -7,7 +7,7 @@ import { ColorSchemeScript } from '@mantine/core';
 import ClientProviders from './providers/ClientProviders';
 import SessionProvider from "./providers/SessionProvider";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth/authOptions";
 
 import { dir } from "i18next";
 
