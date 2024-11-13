@@ -138,7 +138,20 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    const cards = await prisma.card.findMany();
+    const url = new URL(request.url);
+    const sets = url.searchParams.get('sets'); // e.g., 'A1,A2'
+
+    let where = {};
+
+    if (sets) {
+      const setsArray = sets.split(',');
+      where = { set: { in: setsArray } };
+    }
+
+    const cards = await prisma.card.findMany({
+      where,
+    });
+
     // 處理多值欄位，將逗號分隔的字串轉換為陣列
     const processedCards = cards.map((card) => ({
       ...card,
@@ -148,6 +161,7 @@ export async function GET(request: Request) {
       retreat_aspects: stringToArray(card.retreat_aspects) as number[] | string[],
       reprints: stringToArray(card.reprints || null) as string[] | null,
     }));
+
     return NextResponse.json(processedCards, { status: 200 });
   } catch (error) {
     console.error('Error fetching cards:', error);

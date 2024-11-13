@@ -7,6 +7,7 @@ import { IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, I
 import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
 import classes from './CardsPage.module.css';
+import { useDisclosure } from '@mantine/hooks';
 
 
 interface Card {
@@ -48,21 +49,22 @@ interface CardsListClientProps {
     lng: string;
 }
 
-const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
+const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
     const { t } = useTranslation(lng, ['A1', 'common', 'skill', 'ability']);
-    console.log(cards)
+    // console.log(cards)
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const [filteredCards, setFilteredCards] = useState<Card[]>(cards);
+    const [filteredCards, setFilteredCards] = useState<Card[]>([]);
+    const [allCards, setAllCards] = useState<Card[]>([]);
     // const [displayMode, setDisplayMode] = useState<'grid' | 'list'>('grid');
 
     const [rootRef, setRootRef] = useState<HTMLDivElement | null>(null);
     const [controlsRefs, setControlsRefs] = useState<Record<string, HTMLButtonElement | null>>({});
     const [active, setActive] = useState('grid');
     const [displayMode, setDisplayMode] = useState<'grid' | 'list'>('grid');
-    const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false); // 新增狀態
+    const [isFilterOpen, { toggle }] = useDisclosure(false); // 新增狀態
 
     //過濾卡片
-    const [selectedSets, setSelectedSets] = useState<string[]>([]);
+    const [selectedSets, setSelectedSets] = useState<string[]>(['A1']);
     const [selectedDexs, setSelectedDexs] = useState<string[]>([]);
     const [selectedAspects, setSelectedAspects] = useState<string[]>([]);
     const [selectedRarity, setSelectedRarity] = useState<string[]>([]);
@@ -70,17 +72,17 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
     const [selectedWeakness, setSelectedWeakness] = useState<string[]>([]);
     const [selectedRetreat, setSelectedRetreat] = useState<string[]>([]);
 
-    const handleSearch = (term: string) => {
-        setSearchTerm(term);
-        if (term === '') {
-            setFilteredCards(cards);
-        } else {
-            const filtered = cards.filter(card =>
-                card.name.toLowerCase().includes(term.toLowerCase())
-            );
-            setFilteredCards(filtered);
-        }
-    };
+    // const handleSearch = (term: string) => {
+    //     setSearchTerm(term);
+    //     if (term === '') {
+    //         setFilteredCards(cards);
+    //     } else {
+    //         const filtered = cards.filter(card =>
+    //             card.name.toLowerCase().includes(term.toLowerCase())
+    //         );
+    //         setFilteredCards(filtered);
+    //     }
+    // };
 
     // 切換顯示模式和設置 active 狀態
     const toggleDisplayMode = (mode: 'grid' | 'list') => {
@@ -193,9 +195,35 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
         label: setKey,
     }));
 
+    // 撈取卡片數據的函數
+    const fetchCards = async (sets: string[]) => {
+        try {
+            const query = sets.length > 0 ? `?sets=${sets.join(',')}` : '';
+            const response = await fetch(`/api/card${query}`);
+            if (!response.ok) {
+                throw new Error('無法取得卡片資料。');
+            }
+            const data: Card[] = await response.json();
+            setAllCards(data);
+        } catch (error) {
+            console.error('Error fetching cards:', error);
+            setAllCards([]);
+        }
+    };
+
+    // 初始化撈取
+    useEffect(() => {
+        fetchCards(selectedSets);
+    }, []); // 初始撈取，僅撈取A1
+
+    // 當過濾條件改變時，撈取匹配的卡片
+    useEffect(() => {
+        fetchCards(selectedSets);
+    }, [selectedSets]);
+
 
     useEffect(() => {
-        let filtered = cards;
+        let filtered = allCards;
 
         if (searchTerm) {
             filtered = filtered.filter(card =>
@@ -273,7 +301,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
         }
 
         setFilteredCards(filtered);
-    }, [searchTerm, selectedSets, selectedDexs, selectedAspects, selectedRarity, selectedType, selectedWeakness, selectedRetreat, cards]);
+    }, [allCards, searchTerm, selectedSets, selectedDexs, selectedAspects, selectedRarity, selectedType, selectedWeakness, selectedRetreat]);
 
 
     const rarityImages: { [key: number]: string } = {
@@ -291,18 +319,14 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
     const renderMultiSelectOption: MultiSelectProps['renderOption'] = ({ option }) => (
         <Group gap="sm">
             <Image src={`/common/${option.value}.webp`} alt={t(`common:${option.value}`)} height={20} width={20} />
-            <div>
-                <Text size="sm">{t(`common:${option.value}`)}</Text>
-            </div>
+            <Text size="sm">{t(`common:${option.value}`)}</Text>
         </Group>
     );
 
     const renderMultiSelectOptionRarity: MultiSelectProps['renderOption'] = ({ option }) => (
         <Group gap="sm">
             <Image src={`/common/${option.value}.webp`} alt={t(`common:${option.value}`)} height={20} width={20} />
-            <div>
-                <Text size="sm">{t(`common:${option.value}`)}</Text>
-            </div>
+            <Text size="sm">{t(`common:${option.value}`)}</Text>
         </Group>
     );
 
@@ -310,22 +334,33 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
     return (
         <Container size="lg">
             <Group align="center" justify="space-between" mb="md">
-                <TextInput
-                    placeholder={t('common:search_card')}
-                    value={searchTerm}
-                    onChange={(e) => handleSearch(e.target.value)}
-                    leftSection={<IconSearch size={16} />}
-                    radius="md"
-                    size="md"
-                    styles={{
-                        input: { width: 300 },
-                    }}
-                />
+                <Group>
+                    <TextInput
+                        placeholder={t('common:search_card')}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        leftSection={<IconSearch size={16} />}
+                        radius="md"
+                        size="md"
+                        styles={{
+                            input: { width: 300 },
+                        }}
+                    />
+                    <MultiSelect
+                        // label={t('common:set')}
+                        placeholder={t('common:set')}
+                        data={seriesOptions}
+                        searchable
+                        clearable
+                        value={selectedSets}
+                        onChange={setSelectedSets}
+                    />
+                </Group>
                 <Group>
                     <ActionIcon variant="default" size="lg" >
                         <IconFilterOff />
                     </ActionIcon>
-                    <ActionIcon variant="default" size="lg" onClick={() => setIsFilterOpen((prev) => !prev)} >
+                    <ActionIcon variant="default" size="lg" onClick={toggle} >
                         <IconFilter />
                     </ActionIcon>
                     <div className={classes.root} dir="ltr" ref={setRootRef}>
@@ -350,74 +385,79 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ cards, lng }) => {
             </Group>
             <Collapse in={isFilterOpen}>
                 <Divider my="xs" label="一般搜尋" labelPosition="left" />
-                <Group mb="md">
-                    <MultiSelect
-                        label={t('common:set')}
-                        placeholder={t('common:set')}
-                        data={seriesOptions}
-                        searchable
-                        clearable
-                        value={selectedSets}
-                        onChange={setSelectedSets}
-                    />
-                    <MultiSelect
-                        label={t('common:dex')}
-                        placeholder={t('common:dex')}
-                        data={seriesOptionsDex}
-                        searchable
-                        clearable
-                        value={selectedDexs}
-                        onChange={setSelectedDexs}
-                    />
-                    <MultiSelect
-                        label={t('common:aspects')}
-                        placeholder={t('common:aspects')}
-                        data={seriesOptionsAspects}
-                        searchable
-                        clearable
-                        renderOption={renderMultiSelectOption}
-                        value={selectedAspects}
-                        onChange={setSelectedAspects}
-                    />
-                    <MultiSelect
-                        label={t('common:rarity')}
-                        placeholder={t('common:rarity')}
-                        data={seriesOptionsRarity}
-                        searchable
-                        clearable
-                        renderOption={renderMultiSelectOptionRarity}
-                        value={selectedRarity}
-                        onChange={setSelectedRarity}
-                    />
-                    <MultiSelect
-                        label={t('common:type')}
-                        placeholder={t('common:type')}
-                        data={seriesOptionsType}
-                        searchable
-                        clearable
-                        value={selectedType}
-                        onChange={setSelectedType}
-                    />
-                    <MultiSelect
-                        label={t('common:weakness')}
-                        placeholder={t('common:weakness')}
-                        data={seriesOptionsAspects}
-                        searchable
-                        clearable
-                        renderOption={renderMultiSelectOption}
-                        value={selectedWeakness}
-                        onChange={setSelectedWeakness}
-                    />
-                    <MultiSelect
-                        label={t('common:retreat')}
-                        placeholder={t('common:retreat')}
-                        data={seriesOptionsRetreat}
-                        searchable
-                        clearable
-                        value={selectedRetreat}
-                        onChange={setSelectedRetreat}
-                    />
-                </Group>
+                <Grid mb="md">
+                    <Grid.Col span={4}>
+                        <MultiSelect
+                            label={t('common:dex')}
+                            placeholder={t('common:dex')}
+                            data={seriesOptionsDex}
+                            searchable
+                            clearable
+                            value={selectedDexs}
+                            onChange={setSelectedDexs}
+                        />
+                    </Grid.Col>
+                    <Grid.Col span={4}>
+                        <MultiSelect
+                            label={t('common:aspects')}
+                            placeholder={t('common:aspects')}
+                            data={seriesOptionsAspects}
+                            searchable
+                            clearable
+                            renderOption={renderMultiSelectOption}
+                            value={selectedAspects}
+                            onChange={setSelectedAspects}
+                        />
+                    </Grid.Col>
+                    <Grid.Col span={4}>
+                        <MultiSelect
+                            label={t('common:rarity')}
+                            placeholder={t('common:rarity')}
+                            data={seriesOptionsRarity}
+                            searchable
+                            clearable
+                            renderOption={renderMultiSelectOptionRarity}
+                            value={selectedRarity}
+                            onChange={setSelectedRarity}
+                        />
+                    </Grid.Col>
+                    </Grid>
+                    <Grid mb="md">
+                    <Grid.Col span={4}>
+                        <MultiSelect
+                            label={t('common:type')}
+                            placeholder={t('common:type')}
+                            data={seriesOptionsType}
+                            searchable
+                            clearable
+                            value={selectedType}
+                            onChange={setSelectedType}
+                        />
+                    </Grid.Col>
+                    <Grid.Col span={4}>
+                        <MultiSelect
+                            label={t('common:weakness')}
+                            placeholder={t('common:weakness')}
+                            data={seriesOptionsAspects}
+                            searchable
+                            clearable
+                            renderOption={renderMultiSelectOption}
+                            value={selectedWeakness}
+                            onChange={setSelectedWeakness}
+                        />
+                    </Grid.Col>
+                    <Grid.Col span={4}>
+                        <MultiSelect
+                            label={t('common:retreat')}
+                            placeholder={t('common:retreat')}
+                            data={seriesOptionsRetreat}
+                            searchable
+                            clearable
+                            value={selectedRetreat}
+                            onChange={setSelectedRetreat}
+                        />
+                    </Grid.Col>
+                </Grid>
                 <Divider my="xs" label="進階搜尋" labelPosition="left" />
             </Collapse>
             {displayMode === 'grid' ? (

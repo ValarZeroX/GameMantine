@@ -43,20 +43,20 @@ interface Card {
 }
 
 // 获取卡片列表的函数
-async function fetchCards(): Promise<Card[] | null> {
-    try {
-        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card`);
-        // console.log(response);
-        if (!response.ok) {
-            return null;
-        }
-        const cards: Card[] = await response.json();
-        return cards;
-    } catch (error) {
-        console.error('Error fetching cards:', error);
-        return null;
-    }
-}
+// async function fetchCards(): Promise<Card[] | null> {
+//     try {
+//         const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card`);
+//         // console.log(response);
+//         if (!response.ok) {
+//             return null;
+//         }
+//         const cards: Card[] = await response.json();
+//         return cards;
+//     } catch (error) {
+//         console.error('Error fetching cards:', error);
+//         return null;
+//     }
+// }
 
 // 生成页面元数据
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; }> }): Promise<Metadata> {
@@ -79,25 +79,25 @@ const CardsPage = async ({ params }: CardsPageProps) => {
     const { lng } = await params;
 
     // 使用同一个函数获取卡片数据
-    const cards = await fetchCards();
+    // const cards = await fetchCards();
 
-    if (!cards) {
-        // showNotification({
-        //     title: '失敗',
-        //     message: '無法取得卡片資料。',
-        //     color: 'red',
-        //     icon: <IconX size={16} />,
-        // });
-        return (
-            <Layout lng={lng}>
-                <div>無法取得卡片資料。</div>
-            </Layout>
-        );
-    }
+    // if (!cards) {
+    //     // showNotification({
+    //     //     title: '失敗',
+    //     //     message: '無法取得卡片資料。',
+    //     //     color: 'red',
+    //     //     icon: <IconX size={16} />,
+    //     // });
+    //     return (
+    //         <Layout lng={lng}>
+    //             <div>無法取得卡片資料。</div>
+    //         </Layout>
+    //     );
+    // }
 
     return (
         <Layout lng={lng}>
-            <CardsListClient cards={cards} lng={lng} />
+            <CardsListClient  lng={lng} />
         </Layout>
     );
 };
