@@ -87,12 +87,12 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             <Group justify="space-between" mt="md" mb="xs">
                                 <Text fw={800} size="xl" ml="md">{t(`${card.number}.name`)}</Text>
                                 <Image
-                                    src="/common/grass.webp" // 不受語系影響的圖片
-                                    alt="Grass Icon"
-                                    height={30}
-                                    width={30}
-                                    mr="md"
-                                />
+                                        src={aspectImages[card.aspects]}
+                                        alt={`Aspect`}
+                                        height={30}
+                                        width={30}
+                                        mr="md"
+                                    />
                             </Group>
                         </Card.Section>
                         <Grid mt="md" mb="md">

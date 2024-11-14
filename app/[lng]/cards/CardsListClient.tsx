@@ -352,6 +352,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
         setSelectedRetreat([]);
         setSearchTerm('');
     };
+    
 
     return (
         <Container size="lg">
