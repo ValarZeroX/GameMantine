@@ -356,21 +356,18 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
 
     return (
         <Container size="lg">
-            <Group align="center" justify="space-between" mb="md">
-                <Group>
-                    <TextInput
-                        placeholder={t('common:search_card')}
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        leftSection={<IconSearch size={16} />}
-                        radius="md"
-                        size="md"
-                        styles={{
-                            input: { width: 300 },
-                        }}
-                    />
-                </Group>
-                
+            
+            <Group align="center" justify="space-between" mb="md" mt="md">
+            <MultiSelect
+                    // label={t('common:set')}
+                    placeholder={t('common:set')}
+                    data={seriesOptions}
+                    searchable
+                    clearable
+                    value={selectedSets}
+                    onChange={setSelectedSets}
+                    maxValues={5}
+                />
                 <Group>
                     <ActionIcon variant="default" size="lg"  onClick={clearFilters}>
                         <IconFilterOff />
@@ -398,18 +395,21 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                     </div>
                 </Group>
             </Group>
-            <MultiSelect
-                    // label={t('common:set')}
-                    placeholder={t('common:set')}
-                    data={seriesOptions}
-                    searchable
-                    clearable
-                    value={selectedSets}
-                    onChange={setSelectedSets}
-                    maxValues={5}
-                />
             <Collapse in={isFilterOpen}>
-                <Divider my="xs" label="進階搜尋" labelPosition="left" />
+                <Divider my="xs" label="進階過濾" labelPosition="left" />
+                <Group>
+                    <TextInput
+                        placeholder={t('common:search_card')}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        leftSection={<IconSearch size={16} />}
+                        radius="md"
+                        size="md"
+                        styles={{
+                            input: { width: 300 },
+                        }}
+                    />
+                </Group>
                 <Grid mb="md">
                     <Grid.Col span={4}>
                         <MultiSelect
@@ -488,11 +488,11 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                         <Card.Section>
                                             <Image
                                                 src={`/${lng}/${card.set}/${card.number}.webp`}
-                                                alt={t(`A1:${card.number}.name`)}
+                                                alt={t(`A1:${card.name}`)}
                                             />
                                         </Card.Section>
                                         <Group mt="md" mb="xs" align="center" justify="center">
-                                            <Text fw={600}>{t(`A1:${card.number}.name`)}</Text>
+                                            <Text fw={600}>{t(`A1:${card.name}`)}</Text>
                                         </Group>
                                         <Group align="center" justify="center">
                                             <Badge color="blue">{t(`common:cardSet.${card.set}`)}</Badge>
@@ -527,7 +527,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                     {filteredCards.map((card) => (
                                         <Table.Tr key={card.number} onClick={() => handleRowClick(card.number)}>
                                             <Table.Td>
-                                            {t(`A1:${card.number}.name`)}
+                                            {t(`A1:${card.name}`)}
                                             </Table.Td>
                                             <Table.Td>
                                                 <Group>

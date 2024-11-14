@@ -77,7 +77,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                 <Grid.Col span={{ base: 12, sm: 4, md: 4, lg: 4 }}>
                     <Image
                         src={`/${lng}/${card.set}/${card.number}.webp`} // 使用絕對路徑
-                        alt={t(`${card.number}.name`)}
+                        alt={t(`${card.name}.name`)}
                     />
                 </Grid.Col>
 
@@ -85,7 +85,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                     <Card shadow="sm" padding="lg" radius="md" withBorder>
                         <Card.Section withBorder>
                             <Group justify="space-between" mt="md" mb="xs">
-                                <Text fw={800} size="xl" ml="md">{t(`${card.number}.name`)}</Text>
+                                <Text fw={800} size="xl" ml="md">{t(`${card.name}`)}</Text>
                                 <Image
                                         src={aspectImages[card.aspects]}
                                         alt={`Aspect`}

@@ -12,6 +12,9 @@ import { authOptions } from "@/lib/auth/authOptions";
 import { dir } from "i18next";
 
 import { languages } from "../i18n/settings";
+import Script from 'next/script'; // 引入 Script 組件
+import GA_TRACKING_ID from '@/lib/gtag'; // 後續步驟將創建此文件
+
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -40,6 +43,25 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+        />
+        {/* GA4 全站追踪腳本 */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+        <Script
+          id="ga4-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
         />
       </head>
       <body>
