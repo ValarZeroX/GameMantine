@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { Group, Burger, rem, ActionIcon, Loader, Menu, Text } from '@mantine/core';
-import { IconBrandMantine, IconLogin, IconLogout, IconLanguage } from '@tabler/icons-react';
+import { IconPokeball, IconLogin, IconLogout, IconLanguage } from '@tabler/icons-react';
 import { ColorSchemeToggle } from '../../components/ColorSchemeToggle/ColorSchemeToggle';
 import classes from './Header.module.css';
 import { useRouter, usePathname } from 'next/navigation';
@@ -50,12 +50,12 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
     <div className={classes.inner}>
       <Group h="100%" px="md">
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-        <IconBrandMantine
+        <IconPokeball
           style={{ width: rem(36), height: rem(36) }}
           stroke={1.5}
-          color="var(--mantine-color-blue-filled)"
+          color="var(--mantine-color-red-filled)"
         />
-        <div>GameNier</div>
+        <div>Pokemon</div>
       </Group>
       <div className={classes.actionIcon}>
         <Group>

@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { Card, Image, Group, Text, Container, Grid, Badge } from '@mantine/core';
+import { Card, Image, Group, Text, Container, Grid, Badge, ScrollArea, Box } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 import { useTranslation } from "../../../i18n/client";
 
@@ -80,6 +80,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         alt={t(`${card.number}.name`)}
                     />
                 </Grid.Col>
+
                 <Grid.Col span={{ base: 12, sm: 8, md: 8, lg: 8 }}>
                     <Card shadow="sm" padding="lg" radius="md" withBorder>
                         <Card.Section withBorder>
@@ -105,9 +106,9 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 <Text fw={800}>{t('common:dex')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
-                            {card.dex.map((dex, index) => (
-                                <Badge color="blue" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
-                            ))}
+                                {card.dex.map((dex, index) => (
+                                    <Badge color="blue" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
+                                ))}
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">

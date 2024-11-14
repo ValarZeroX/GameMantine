@@ -23,8 +23,8 @@ export async function generateStaticParams() {
 }
 
 export const metadata = {
-  title: 'Pokemon TCG',
-  description: 'Pokemon TCG card database',
+  title: 'Pokemon TCG Pocket',
+  description: 'Pokemon TCG Pocket Wiki',
 };
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {

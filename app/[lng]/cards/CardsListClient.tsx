@@ -410,7 +410,6 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             label={t('common:aspects')}
                             placeholder={t('common:aspects')}
                             data={seriesOptionsAspects}
-                            searchable
                             clearable
                             renderOption={renderMultiSelectOption}
                             value={selectedAspects}
@@ -422,7 +421,6 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             label={t('common:rarity')}
                             placeholder={t('common:rarity')}
                             data={seriesOptionsRarity}
-                            searchable
                             clearable
                             renderOption={renderMultiSelectOptionRarity}
                             value={selectedRarity}
@@ -436,7 +434,6 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             label={t('common:type')}
                             placeholder={t('common:type')}
                             data={seriesOptionsType}
-                            searchable
                             clearable
                             value={selectedType}
                             onChange={setSelectedType}
@@ -447,7 +444,6 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             label={t('common:weakness')}
                             placeholder={t('common:weakness')}
                             data={seriesOptionsAspects}
-                            searchable
                             clearable
                             renderOption={renderMultiSelectOption}
                             value={selectedWeakness}
@@ -459,7 +455,6 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             label={t('common:retreat')}
                             placeholder={t('common:retreat')}
                             data={seriesOptionsRetreat}
-                            searchable
                             clearable
                             value={selectedRetreat}
                             onChange={setSelectedRetreat}
