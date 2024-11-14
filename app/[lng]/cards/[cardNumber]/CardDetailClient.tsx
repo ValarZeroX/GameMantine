@@ -87,12 +87,12 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             <Group justify="space-between" mt="md" mb="xs">
                                 <Text fw={800} size="xl" ml="md">{t(`${card.name}`)}</Text>
                                 <Image
-                                        src={aspectImages[card.aspects]}
-                                        alt={`Aspect`}
-                                        height={30}
-                                        width={30}
-                                        mr="md"
-                                    />
+                                    src={aspectImages[card.aspects]}
+                                    alt={`Aspect`}
+                                    height={30}
+                                    width={30}
+                                    mr="md"
+                                />
                             </Group>
                         </Card.Section>
                         <Grid mt="md" mb="md">
@@ -142,11 +142,11 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Group>
-                                    {card.retreat_aspects.map((aspect, index) => (
+                                    {card.retreat_aspects.filter((aspect) => aspect !== 99).map((aspect, index) => (
                                         <Image
                                             key={index}
                                             src={aspectImages[aspect as number]}
-                                            alt={`Aspect`}
+                                            alt={`Aspect ${aspect}`}
                                             height={30}
                                             width={30}
                                         />

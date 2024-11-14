@@ -147,6 +147,7 @@ export async function GET(request: Request) {
 
     const cards = await prisma.card.findMany({
       where,
+      orderBy: { number: 'asc' },
     });
 
     // 處理多值欄位，將逗號分隔的字串轉換為陣列

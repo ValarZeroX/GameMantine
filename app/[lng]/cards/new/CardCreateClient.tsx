@@ -12,10 +12,16 @@ import {
   Container,
   Grid,
   Textarea,
+  Text,
+  Group,
+  Image
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useTranslation } from "../../../i18n/client";
+
+import { MultiSelectProps } from '@mantine/core';
+
 
 interface CardCreateClientProps {
   lng: string;
@@ -115,7 +121,7 @@ const CardCreateClient: React.FC<CardCreateClientProps> = ({ lng }) => {
         number: values.number,
         set: values.set,
         dex: values.dex, // 保持為字串陣列
-        rarity: Number(values.rarity),
+        rarity: rarityStringToNumber[values.rarity],
         type: Number(values.type),
         stage: Number(values.stage),
         hp: Number(values.hp),
@@ -174,6 +180,40 @@ const CardCreateClient: React.FC<CardCreateClientProps> = ({ lng }) => {
     }
   };
 
+  // 定義稀有度選項
+const seriesOptionsRarity = [
+    'Common',
+    'Uncommon',
+    'Rare',
+    'DoubleRare',
+    'ArtRare',
+    'SuperRare',
+    'ImmersiveRare',
+    'UltraRare'
+  ].map((rarity) => ({
+    value: rarity,
+    label: `${t(`common:${rarity}`)}`,
+  }));
+  
+  // 自定義選項渲染函數
+  const renderSelectOption: MultiSelectProps['renderOption'] = ({ option }) => (
+    <Group gap="sm">
+      <Image src={`/common/${option.value}.webp`} alt={option.label} height={20} width={20} />
+      <Text size="sm">{option.label}</Text>
+    </Group>
+  );
+  
+  const rarityStringToNumber: { [key: string]: number } = {
+    'Common': 1,
+    'Uncommon': 2,
+    'Rare': 3,
+    'DoubleRare': 4,
+    'ArtRare': 5,
+    'SuperRare': 6,
+    'ImmersiveRare': 7,
+    'UltraRare': 8,
+  };
+
   return (
     <Container size="md">
       <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -207,7 +247,7 @@ const CardCreateClient: React.FC<CardCreateClientProps> = ({ lng }) => {
               placeholder={t('common:select_set')}
               data={[
                 { value: 'A1', label: 'A1' },
-                { value: 'A2', label: 'A2' },
+                { value: 'PROMO', label: 'PROMO' },
               ]}
               {...form.getInputProps('set')}
               required
@@ -231,9 +271,11 @@ const CardCreateClient: React.FC<CardCreateClientProps> = ({ lng }) => {
 
           {/* 示例： rarity */}
           <Grid.Col span={4}>
-            <NumberInput
+          <Select
               label={t('common:rarity')}
-              placeholder="e.g., 3"
+              placeholder={t('common:select_rarity')}
+              data={seriesOptionsRarity}
+              renderOption={renderSelectOption}
               {...form.getInputProps('rarity')}
               required
             />
@@ -303,14 +345,13 @@ const CardCreateClient: React.FC<CardCreateClientProps> = ({ lng }) => {
           </Grid.Col>
 
           {/* 示例： point */}
-          <Grid.Col span={6}>
+          {/* <Grid.Col span={6}>
             <NumberInput
               label={t('common:point')}
               placeholder="e.g., 1000"
               {...form.getInputProps('point')}
-              required
             />
-          </Grid.Col>
+          </Grid.Col> */}
 
           {/* 示例： rule */}
           <Grid.Col span={12}>
@@ -462,7 +503,6 @@ const CardCreateClient: React.FC<CardCreateClientProps> = ({ lng }) => {
               label={t('common:retreat')}
               placeholder="e.g., 1"
               {...form.getInputProps('retreat')}
-              required
             />
           </Grid.Col>
 

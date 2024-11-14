@@ -236,8 +236,8 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                 t(`A1:${card.number}.name`).toLowerCase().includes(lowerSearch) ||
                 t(`skill:${card.attack_name_1}.name`).toLowerCase().includes(lowerSearch) ||
                 t(`skill:${card.attack_name_1}.description`).toLowerCase().includes(lowerSearch) ||
-                t(`skill:${card.attack_name_2}.name`).toLowerCase().includes(lowerSearch) || 
-                t(`skill:${card.attack_name_2}.description`).toLowerCase().includes(lowerSearch) || 
+                t(`skill:${card.attack_name_2}.name`).toLowerCase().includes(lowerSearch) ||
+                t(`skill:${card.attack_name_2}.description`).toLowerCase().includes(lowerSearch) ||
                 t(`ability:${card.ability_name}.name`).toLowerCase().includes(lowerSearch) ||
                 t(`ability:${card.ability_name}.description`).toLowerCase().includes(lowerSearch)
             );
@@ -352,13 +352,13 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
         setSelectedRetreat([]);
         setSearchTerm('');
     };
-    
+
 
     return (
         <Container size="lg">
-            
+
             <Group align="center" justify="space-between" mb="md" mt="md">
-            <MultiSelect
+                <MultiSelect
                     // label={t('common:set')}
                     placeholder={t('common:set')}
                     data={seriesOptions}
@@ -369,7 +369,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                     maxValues={5}
                 />
                 <Group>
-                    <ActionIcon variant="default" size="lg"  onClick={clearFilters}>
+                    <ActionIcon variant="default" size="lg" onClick={clearFilters}>
                         <IconFilterOff />
                     </ActionIcon>
                     <ActionIcon variant="default" size="lg" onClick={toggle} >
@@ -480,162 +480,166 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                 </Grid>
             </Collapse>
             {displayMode === 'grid' ? (
-                    <Grid mt="md">
-                        {filteredCards.map((card) => (
-                            <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3 }}>
-                                <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}>
-                                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                                        <Card.Section>
-                                            <Image
-                                                src={`/${lng}/${card.set}/${card.number}.webp`}
-                                                alt={t(`A1:${card.name}`)}
-                                            />
-                                        </Card.Section>
-                                        <Group mt="md" mb="xs" align="center" justify="center">
-                                            <Text fw={600}>{t(`A1:${card.name}`)}</Text>
-                                        </Group>
-                                        <Group align="center" justify="center">
-                                            <Badge color="blue">{t(`common:cardSet.${card.set}`)}</Badge>
-                                            {card.dex.map((dex, index) => (
-                                                <Badge color="blue" key={index}>{t(`common:cardDex.${dex}`)}</Badge>
-                                            ))}
-                                        </Group>
-                                    </Card>
-                                </Link>
-                            </Grid.Col>
-                        ))}
-                    </Grid>
+                <Grid mt="md">
+                    {filteredCards.map((card) => (
+                        <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3 }}>
+                            <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}>
+                                <Card shadow="sm" padding="lg" radius="md" withBorder>
+                                    <Card.Section>
+                                        <Image
+                                            src={`/${lng}/${card.set}/${card.number}.webp`}
+                                            alt={t(`A1:${card.name}`)}
+                                            loading="lazy"
+                                        />
+                                    </Card.Section>
+                                    <Group mt="md" mb="xs" align="center" justify="center">
+                                        <Text fw={600}>{t(`A1:${card.name}`)}</Text>
+                                    </Group>
+                                    <Group align="center" justify="center">
+                                        <Badge color="blue">{t(`common:cardSet.${card.set}`)}</Badge>
+                                        {card.dex.map((dex, index) => (
+                                            <Badge color="blue" key={index}>{t(`common:cardDex.${dex}`)}</Badge>
+                                        ))}
+                                    </Group>
+                                </Card>
+                            </Link>
+                        </Grid.Col>
+                    ))}
+                </Grid>
             ) : (
                 <Group mt="md" >
-                <Card shadow="sm" padding="lg" radius="md" withBorder>
-                    <ScrollArea>
-                        <Box w={1060} >
-                            <Table striped verticalSpacing="lg">
-                                <Table.Thead>
-                                    <Table.Tr>
-                                        <Table.Th>{t('common:name')}</Table.Th>
-                                        <Table.Th>{t('common:aspects')}</Table.Th>
-                                        <Table.Th>{t('common:hp')}</Table.Th>
-                                        <Table.Th>{t('common:stage')}</Table.Th>
-                                        <Table.Th>{t('common:rarity')}</Table.Th>
-                                        <Table.Th>{t('common:weakness')}</Table.Th>
-                                        <Table.Th>{t('common:retreat')}</Table.Th>
-                                        <Table.Th style={{ width: 300 }}>{t('common:attack')} & {t('common:ability')}</Table.Th>
-                                    </Table.Tr>
-                                </Table.Thead>
-                                <Table.Tbody>
-                                    {filteredCards.map((card) => (
-                                        <Table.Tr key={card.number} onClick={() => handleRowClick(card.number)}>
-                                            <Table.Td>
-                                            {t(`A1:${card.name}`)}
-                                            </Table.Td>
-                                            <Table.Td>
-                                                <Group>
-                                                    <Image
-                                                        src={aspectImages[card.aspects]}
-                                                        alt="Element Aspect"
-                                                        height={20}
-                                                        width={20}
-                                                    />
-                                                </Group>
-                                            </Table.Td>
-                                            <Table.Td>
-                                                <Badge size="lg" circle variant="gradient" gradient={{ from: 'red', to: 'violet', deg: 90 }}>
-                                                    <Text size="xs">{card.hp}</Text>
-                                                </Badge>
-                                            </Table.Td>
-                                            <Table.Td>
-                                                <Badge color="blue">{t(`common:cardStage.${card.stage}`)}</Badge>
-                                            </Table.Td>
-                                            <Table.Td>
-                                                <Group>
-                                                    <Image
-                                                        src={rarityImages[card.rarity]}
-                                                        alt="Rarity"
-                                                        height={20}
-                                                        width={20}
-                                                    />
-                                                </Group>
-                                            </Table.Td>
-                                            <Table.Td>
-                                                <Group>
-                                                    <Image
-                                                        src={aspectImages[card.weakness]}
-                                                        alt="Weakness"
-                                                        height={20}
-                                                        width={20}
-                                                    />
-                                                    <Badge size="lg" circle variant="gradient" gradient={{ from: 'red', to: 'violet', deg: 90 }}>
-                                                        <Text size="xs">{card.weakness_value}</Text>
-                                                    </Badge>
-                                                </Group>
-                                            </Table.Td>
-                                            <Table.Td>
-                                                <Group gap="xs">
-                                                    {card.retreat_aspects.map((aspect, index) => (
-                                                        <Image
-                                                            key={index}
-                                                            src={aspectImages[aspect as number]}
-                                                            alt={`Aspect`}
-                                                            height={20}
-                                                            width={20}
-                                                        />
-                                                    ))}
-                                                </Group>
-                                            </Table.Td>
-                                            <Table.Td>
-                                                <Group gap="xs">
-                                                    <Badge size="lg" circle variant="gradient"
-                                                        gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text size="xs">{card.attack_1}</Text></Badge>
-                                                    {card.attack_aspects_1.map((aspect, index) => (
-                                                        <Image
-                                                            key={index}
-                                                            src={aspectImages[aspect as number]}
-                                                            alt={`Aspect`}
-                                                            height={20}
-                                                            width={20}
-                                                        />
-                                                    ))}
-                                                </Group>
-                                                {card.attack_skill_name_1 && card.attack_skill_name_1.length > 0 && (
-                                                    <Text c="dimmed" size="xs" mt="xs">{t(`skill:${card.attack_name_1}.description`)}</Text>
-                                                )}
-                                                {card.attack_aspects_2 && card.attack_aspects_2.length > 0 && (
-                                                    <>
-                                                        <Divider my="md" />
-                                                        <Group gap="xs">
-                                                            <Badge size="lg" circle variant="gradient"
-                                                                gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text size="xs">{card.attack_2}</Text></Badge>
-                                                            {card.attack_aspects_2.map((aspect, index) => (
-                                                                <Image
-                                                                    key={index}
-                                                                    src={aspectImages[aspect as number]}
-                                                                    alt={`Aspect`}
-                                                                    height={20}
-                                                                    width={20}
-                                                                />
-                                                            ))}
-                                                        </Group>
-                                                    </>
-                                                )}
-                                                {card.attack_skill_name_2 && card.attack_skill_name_2.length > 0 && (
-                                                    <Text c="dimmed" size="xs" mt="xs">{t(`skill:${card.attack_name_2}.description`)}</Text>
-                                                )}
-                                                {card.ability_name && card.ability_name.length > 0 && (
-                                                    <>
-                                                        <Divider my="md" />
-                                                        <Badge color="blue"><Text size="xs">{t(`ability:${card.ability_name}.name`)}</Text></Badge>
-                                                        <Text c="dimmed" size="xs" mt="xs">{t(`ability:${card.ability_name}.description`)}</Text>
-                                                    </>
-                                                )}
-                                            </Table.Td>
+                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                        <ScrollArea>
+                            <Box w={1060} >
+                                <Table striped verticalSpacing="lg">
+                                    <Table.Thead>
+                                        <Table.Tr>
+                                            <Table.Th>{t('common:name')}</Table.Th>
+                                            <Table.Th>{t('common:aspects')}</Table.Th>
+                                            <Table.Th>{t('common:hp')}</Table.Th>
+                                            <Table.Th>{t('common:stage')}</Table.Th>
+                                            <Table.Th>{t('common:rarity')}</Table.Th>
+                                            <Table.Th>{t('common:weakness')}</Table.Th>
+                                            <Table.Th>{t('common:retreat')}</Table.Th>
+                                            <Table.Th style={{ width: 300 }}>{t('common:attack')} & {t('common:ability')}</Table.Th>
                                         </Table.Tr>
-                                    ))}
-                                </Table.Tbody>
-                            </Table>
-                        </Box>
-                    </ScrollArea>
-                </Card>
+                                    </Table.Thead>
+                                    <Table.Tbody>
+                                        {filteredCards.map((card) => (
+                                            //onClick={() => handleRowClick(card.number)}
+                                            <Table.Tr key={card.number} >
+                                                <Table.Td>
+                                                    {t(`A1:${card.name}`)}
+                                                </Table.Td>
+                                                <Table.Td>
+                                                    <Group>
+                                                        <Image
+                                                            src={aspectImages[card.aspects]}
+                                                            alt="Element Aspect"
+                                                            height={20}
+                                                            width={20}
+                                                        />
+                                                    </Group>
+                                                </Table.Td>
+                                                <Table.Td>
+                                                    <Badge size="lg" circle variant="gradient" gradient={{ from: 'red', to: 'violet', deg: 90 }}>
+                                                        <Text size="xs">{card.hp}</Text>
+                                                    </Badge>
+                                                </Table.Td>
+                                                <Table.Td>
+                                                    <Badge color="blue">{t(`common:cardStage.${card.stage}`)}</Badge>
+                                                </Table.Td>
+                                                <Table.Td>
+                                                    <Group>
+                                                        <Image
+                                                            src={rarityImages[card.rarity]}
+                                                            alt="Rarity"
+                                                            height={20}
+                                                            width={20}
+                                                        />
+                                                    </Group>
+                                                </Table.Td>
+                                                <Table.Td>
+                                                    <Group>
+                                                        <Image
+                                                            src={aspectImages[card.weakness]}
+                                                            alt="Weakness"
+                                                            height={20}
+                                                            width={20}
+                                                        />
+                                                        <Badge size="lg" circle variant="gradient" gradient={{ from: 'red', to: 'violet', deg: 90 }}>
+                                                            <Text size="xs">{card.weakness_value}</Text>
+                                                        </Badge>
+                                                    </Group>
+                                                </Table.Td>
+                                                <Table.Td>
+                                                    <Group gap="xs">
+                                                        {card.retreat_aspects.filter((aspect) => aspect !== 99).map((aspect, index) => (
+                                                            <Image
+                                                                key={index}
+                                                                src={aspectImages[aspect as number]}
+                                                                alt={`Aspect ${aspect}`}
+                                                                height={20}
+                                                                width={20}
+                                                            />
+                                                        ))}
+                                                    </Group>
+                                                </Table.Td>
+                                                <Table.Td>
+                                                    <Badge>{t(`skill:${card.attack_name_1}.name`)}</Badge>
+                                                    <Group gap="xs" mt="xs">
+                                                        <Badge size="lg" circle variant="gradient"
+                                                            gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text size="xs">{card.attack_1}</Text></Badge>
+                                                        {card.attack_aspects_1.map((aspect, index) => (
+                                                            <Image
+                                                                key={index}
+                                                                src={aspectImages[aspect as number]}
+                                                                alt={`Aspect`}
+                                                                height={20}
+                                                                width={20}
+                                                            />
+                                                        ))}
+                                                    </Group>
+                                                    {card.attack_skill_name_1 && card.attack_skill_name_1.length > 0 && (
+                                                        <Text c="dimmed" size="xs" mt="xs">{t(`skill:${card.attack_name_1}.description`)}</Text>
+                                                    )}
+                                                    {card.attack_aspects_2 && card.attack_aspects_2.length > 0 && (
+                                                        <>
+                                                            <Divider my="md" />
+                                                            <Badge>{t(`skill:${card.attack_name_2}.name`)}</Badge>
+                                                            <Group gap="xs" mt="xs">
+                                                                <Badge size="lg" circle variant="gradient"
+                                                                    gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text size="xs">{card.attack_2}</Text></Badge>
+                                                                {card.attack_aspects_2.map((aspect, index) => (
+                                                                    <Image
+                                                                        key={index}
+                                                                        src={aspectImages[aspect as number]}
+                                                                        alt={`Aspect`}
+                                                                        height={20}
+                                                                        width={20}
+                                                                    />
+                                                                ))}
+                                                            </Group>
+                                                        </>
+                                                    )}
+                                                    {card.attack_skill_name_2 && card.attack_skill_name_2.length > 0 && (
+                                                        <Text c="dimmed" size="xs" mt="xs">{t(`skill:${card.attack_name_2}.description`)}</Text>
+                                                    )}
+                                                    {card.ability_name && card.ability_name.length > 0 && (
+                                                        <>
+                                                            <Divider my="md" />
+                                                            <Badge color="orange"><Text size="xs">{t(`ability:${card.ability_name}.name`)}</Text></Badge>
+                                                            <Text c="dimmed" size="xs" mt="xs">{t(`ability:${card.ability_name}.description`)}</Text>
+                                                        </>
+                                                    )}
+                                                </Table.Td>
+                                            </Table.Tr>
+                                        ))}
+                                    </Table.Tbody>
+                                </Table>
+                            </Box>
+                        </ScrollArea>
+                    </Card>
                 </Group>
             )}
         </Container>
