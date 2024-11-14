@@ -92,8 +92,15 @@
         "error_message": "新增卡牌失敗，請稍後再試。"
     },
     "metadata": {
-        "new_card_title": "新增卡牌 - Pokémon TCG",
-        "new_card_description": "在此頁面新增新的 Pokémon 卡牌。"
+        "new_card_title": "新增卡牌 - Pokémon Nier",
+        "new_card_description": "在此頁面新增新的 Pokémon 卡牌。",
+        "new_card_keywords": "新增卡牌, Pokémon, Nier",
+        "cards_page_title": "寶可夢卡牌列表 - Pokémon Nier",
+        "cards_page_description": "在此頁面查看所有寶可夢卡牌。",
+        "cards_page_keywords": "卡牌列表, Pokémon, TCG, 寶可夢, Pokemon TCG Pocket",
+        "card_detail_title": "{{title}} - Pokémon Nier",
+        "card_detail_description": "查看卡片 {{title}} 的詳細訊息，包括屬性、攻擊技能、特性。",
+        "card_detail_keywords": "{{title}}, Pokémon, TCG, 寶可夢, Pokemon TCG Pocket"
     },
     "grass": "草",
     "fire": "火",

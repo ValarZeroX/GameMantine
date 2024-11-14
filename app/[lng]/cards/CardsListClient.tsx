@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
 import classes from './CardsPage.module.css';
 import { useDisclosure } from '@mantine/hooks';
+import { useRouter } from 'next/navigation';
+import useLocalStorage from '@/lib/hooks/useLocalStorage';
 
 
 interface Card {
@@ -49,9 +51,10 @@ interface CardsListClientProps {
 }
 
 const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
+    const router = useRouter();
     const { t } = useTranslation(lng, ['A1', 'common', 'skill', 'ability']);
     // console.log(cards)
-    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [searchTerm, setSearchTerm] = useLocalStorage<string>('searchTerm', '');
     const [filteredCards, setFilteredCards] = useState<Card[]>([]);
     const [allCards, setAllCards] = useState<Card[]>([]);
     // const [displayMode, setDisplayMode] = useState<'grid' | 'list'>('grid');
@@ -63,30 +66,33 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
     const [isFilterOpen, { toggle }] = useDisclosure(false); // 新增狀態
 
     //過濾卡片
-    const [selectedSets, setSelectedSets] = useState<string[]>(['A1']);
-    const [selectedDexs, setSelectedDexs] = useState<string[]>([]);
-    const [selectedAspects, setSelectedAspects] = useState<string[]>([]);
-    const [selectedRarity, setSelectedRarity] = useState<string[]>([]);
-    const [selectedType, setSelectedType] = useState<string[]>([]);
-    const [selectedWeakness, setSelectedWeakness] = useState<string[]>([]);
-    const [selectedRetreat, setSelectedRetreat] = useState<string[]>([]);
+    const [selectedSets, setSelectedSets] = useLocalStorage<string[]>('selectedSets', ['A1']);
+    const [selectedDexs, setSelectedDexs] = useLocalStorage<string[]>('selectedDexs', []);
+    const [selectedAspects, setSelectedAspects] = useLocalStorage<string[]>('selectedAspects', []);
+    const [selectedRarity, setSelectedRarity] = useLocalStorage<string[]>('selectedRarity', []);
+    const [selectedType, setSelectedType] = useLocalStorage<string[]>('selectedType', []);
+    const [selectedWeakness, setSelectedWeakness] = useLocalStorage<string[]>('selectedWeakness', []);
+    const [selectedRetreat, setSelectedRetreat] = useLocalStorage<string[]>('selectedRetreat', []);
 
-    // const handleSearch = (term: string) => {
-    //     setSearchTerm(term);
-    //     if (term === '') {
-    //         setFilteredCards(cards);
-    //     } else {
-    //         const filtered = cards.filter(card =>
-    //             card.name.toLowerCase().includes(term.toLowerCase())
-    //         );
-    //         setFilteredCards(filtered);
-    //     }
-    // };
+
+    const handleRowClick = (cardNumber: string) => {
+        router.push(`/${lng}/cards/${cardNumber}`);
+    };
+
+    // 在組件掛載時從 localStorage 讀取 displayMode
+    useEffect(() => {
+        const savedDisplayMode = localStorage.getItem('displayMode');
+        if (savedDisplayMode === 'grid' || savedDisplayMode === 'list') {
+            setDisplayMode(savedDisplayMode);
+            setActive(savedDisplayMode);
+        }
+    }, []);
 
     // 切換顯示模式和設置 active 狀態
     const toggleDisplayMode = (mode: 'grid' | 'list') => {
         setDisplayMode(mode);
         setActive(mode);
+        localStorage.setItem('displayMode', mode);
     };
 
     const aspectImages: { [key: number]: string } = {
@@ -337,6 +343,16 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
     );
 
 
+    const clearFilters = () => {
+        setSelectedDexs([]);
+        setSelectedAspects([]);
+        setSelectedRarity([]);
+        setSelectedType([]);
+        setSelectedWeakness([]);
+        setSelectedRetreat([]);
+        setSearchTerm('');
+    };
+
     return (
         <Container size="lg">
             <Group align="center" justify="space-between" mb="md">
@@ -352,11 +368,10 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             input: { width: 300 },
                         }}
                     />
-
                 </Group>
                 
                 <Group>
-                    <ActionIcon variant="default" size="lg" >
+                    <ActionIcon variant="default" size="lg"  onClick={clearFilters}>
                         <IconFilterOff />
                     </ActionIcon>
                     <ActionIcon variant="default" size="lg" onClick={toggle} >
@@ -390,6 +405,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                     clearable
                     value={selectedSets}
                     onChange={setSelectedSets}
+                    maxValues={5}
                 />
             <Collapse in={isFilterOpen}>
                 <Divider my="xs" label="進階搜尋" labelPosition="left" />
@@ -463,7 +479,6 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                 </Grid>
             </Collapse>
             {displayMode === 'grid' ? (
-                <Group mt="md" >
                     <Grid mt="md">
                         {filteredCards.map((card) => (
                             <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3 }}>
@@ -489,11 +504,11 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                             </Grid.Col>
                         ))}
                     </Grid>
-                </Group>
             ) : (
+                <Group mt="md" >
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
                     <ScrollArea>
-                        <Box w={1060}>
+                        <Box w={1060} >
                             <Table striped verticalSpacing="lg">
                                 <Table.Thead>
                                     <Table.Tr>
@@ -509,8 +524,10 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                 </Table.Thead>
                                 <Table.Tbody>
                                     {filteredCards.map((card) => (
-                                        <Table.Tr key={card.number}>
-                                            <Table.Td>{t(`A1:${card.number}.name`)}</Table.Td>
+                                        <Table.Tr key={card.number} onClick={() => handleRowClick(card.number)}>
+                                            <Table.Td>
+                                            {t(`A1:${card.number}.name`)}
+                                            </Table.Td>
                                             <Table.Td>
                                                 <Group>
                                                     <Image
@@ -618,6 +635,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                         </Box>
                     </ScrollArea>
                 </Card>
+                </Group>
             )}
         </Container>
     );

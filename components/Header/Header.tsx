@@ -55,12 +55,12 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
           stroke={1.5}
           color="var(--mantine-color-red-filled)"
         />
-        <div>Pokemon</div>
+        <div>Pokemon Nier</div>
       </Group>
       <div className={classes.actionIcon}>
         <Group>
           <ColorSchemeToggle />
-          <Menu withArrow>
+          {/* <Menu withArrow>
             <Menu.Target>
               <ActionIcon variant="default" size="lg" aria-label="Language">
                 <IconLanguage />
@@ -74,11 +74,9 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
               <Menu.Item onClick={() => changeLanguage('zh-Hant')}>
                 <Text>繁體中文</Text>
               </Menu.Item>
-              {/* 未來可以在這裡添加更多語言 */}
             </Menu.Dropdown>
           </Menu>
           {status === 'loading' ? (
-            // 當會話狀態加載中時，可以顯示一個載入指示器或空白
             <ActionIcon variant="default" size="lg" aria-label="Loading">
               <Loader color="blue" />
             </ActionIcon>
@@ -90,7 +88,7 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
             <ActionIcon variant="default" size="lg" aria-label="Login" onClick={() => handleNavigation('/login')}>
               <IconLogin />
             </ActionIcon>
-          )}
+          )} */}
         </Group>
       </div>
     </div>
