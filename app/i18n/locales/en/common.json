@@ -1,12 +1,12 @@
 {
     "login": {
-        "title": "Log In",
-        "google": "Continue With Google",
-        "facebook": "Continue With Facebook",
+        "title": "Login",
+        "google": "Continue with Google",
+        "facebook": "Continue with Facebook",
         "or": "OR",
-        "invalidCredentials": "account or password error",
+        "invalidCredentials": "Incorrect username or password",
         "error": "Login failed, please try again later",
-        "login": "Log In",
+        "login": "Login",
         "noAccount": "Don't have an account?",
         "stayLoggedIn": "Stay logged in",
         "agreementNotice": "By continuing, you agree to our Terms of Service and acknowledge that you understand our Privacy Policy."
@@ -14,8 +14,8 @@
     "notFound": {
         "title": "Page Not Found",
         "description": "You have found a secret place.",
-        "error": "Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has been moved to another URL.",
-        "button": "Take me back to home page"
+        "error": "Sorry, this is just a 404 page. You might have entered an incorrect address, or the page has moved to another URL.",
+        "button": "Return to Home"
     },
     "register": {
         "title": "Register New Account",
@@ -34,10 +34,13 @@
         "termsOfService": "Terms of Service"
     },
     "cardSet": {
-        "A1": "Genetic Apex"
+        "A1": "Genetic Apex",
+        "PROMO-A": "Promo-A"
     },
     "cardDex": {
-        "A1M": "Mewtwo pack"
+       "A1C": "Charizard Pack",
+        "A1M": "Mewtwo Pack",
+        "A1P": "Pikachu Pack"
     },
     "cardType": {
         "0": "Pokemon",
@@ -49,17 +52,77 @@
         "1": "Stage 1",
         "2": "Stage 2"
     },
+    "number": "Card Number",
+    "name": "Name",
     "set": "Series",
     "dex": "Card Pack",
+    "rarity": "Rarity",
     "type": "Type",
     "stage": "Stage",
-    "name": "Name",
     "hp": "HP",
-    "attack": "Attack",
-    "rarity": "Rarity",
-    "retreat": "Retreat",
+    "aspects": "Attribute",
     "illustrator": "Illustrator",
+    "point": "Exchange Points",
+    "rule": "Rule",
+    "attack": "Attack",
+    "attack_1": "Attack 1",
+    "attack_name_1": "Attack Name 1",
+    "attack_aspects_1": "Attack Attribute 1",
+    "attack_skill_name_1": "Attack Skill Name 1",
+    "attack_2": "Attack 2",
+    "attack_name_2": "Attack Name 2",
+    "attack_aspects_2": "Attack Attribute 2",
+    "attack_skill_name_2": "Attack Skill Name 2",
+    "ability_name": "Ability Name",
+    "ability_directions": "Ability Description",
     "ability": "Ability",
-    "aspects": "Aspects",
-    "weakness": "Weakness"
+    "retreat": "Retreat",
+    "retreat_aspects": "Retreat Attribute",
+    "weakness": "Weakness",
+    "weakness_value": "Weakness Value",
+    "select_set": "Select Series",
+    "select_dex": "Select Card Pack",
+    "select_attack_aspects": "Select Attack Attribute",
+    "select_retreat_aspects": "Select Retreat Attribute",
+    "add_card": "Add Card",
+    "notification": {
+        "success_title": "Success",
+        "success_message": "Card added successfully!",
+        "error_title": "Error",
+        "error_message": "Failed to add card, please try again later."
+    },
+    "metadata": {
+        "new_card_title": "Add Card - Pokémon Nier",
+        "new_card_description": "Add a new Pokémon card on this page.",
+        "new_card_keywords": "Add card, Pokémon, Nier",
+        "cards_page_title": "Pokémon Card List - Pokémon Nier",
+        "cards_page_description": "View all Pokémon cards on this page.",
+        "cards_page_keywords": "Card list, Pokémon TCG, Pokémon, Pokémon TCG Pocket",
+        "card_detail_title": "{{title}} Pokémon TCG - Pokémon Nier",
+        "card_detail_description": "View detailed information of card {{title}}, including attributes, attack skills, abilities.",
+        "card_detail_keywords": "{{title}}, Pokémon TCG, Pokémon, Pokémon TCG Pocket"
+    },
+    "grass": "Grass",
+    "fire": "Fire",
+    "water": "Water",
+    "lightning": "Lightning",
+    "psychic": "Psychic",
+    "fighting": "Fighting",
+    "darkness": "Darkness",
+    "metal": "Metal",
+    "dragon": "Dragon",
+    "colorless": "Colorless",
+    "Common": "C",
+    "Uncommon": "U",
+    "Rare": "R",
+    "DoubleRare": "RR",
+    "ArtRare": "AR",
+    "SuperRare": "SR",
+    "ImmersiveRare": "IR",
+    "UltraRare": "UR",
+    "pokemon": "Pokémon",
+    "item": "Item",
+    "supporter": "Supporter",
+    "search_card": "Search card name, skills, abilities",
+    "please_select_up_to_3_series": "Please select up to 3 series."
 }
