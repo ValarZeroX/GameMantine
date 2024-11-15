@@ -404,7 +404,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                 </Group>
             </Group>
             <Blockquote color="blue"  icon={icon} mt="xl">
-                請選擇系列，最多搜尋3個系列。
+                請選擇系列，最多搜尋3個系列。搜尋欄位可以過濾選擇的系列關鍵字，可輸入中毒、麻痺、睡眠等關鍵字。
             </Blockquote>
             <Collapse in={isFilterOpen}>
                 <Divider my="xs" label="進階過濾" labelPosition="left" />
@@ -547,7 +547,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                     <Table.Tbody>
                                         {filteredCards.map((card) => (
                                             //onClick={() => handleRowClick(card.number)}
-                                            <Table.Tr key={card.number} >
+                                            <Table.Tr key={card.number} onClick={() => handleRowClick(card.number)}>
                                                 <Table.Td>
                                                     <Stack gap="xs" align="center">
                                                         <Text mt="xs">{t(`A1:${card.name}`)}</Text>
