@@ -247,7 +247,7 @@ const seriesOptionsRarity = [
               placeholder={t('common:select_set')}
               data={[
                 { value: 'A1', label: 'A1' },
-                { value: 'PROMO', label: 'PROMO' },
+                { value: 'PROMO-A', label: 'PROMO-A' },
               ]}
               {...form.getInputProps('set')}
               required

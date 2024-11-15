@@ -46,7 +46,7 @@ interface CardDetailClientProps {
 }
 
 const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
-    const { t } = useTranslation(lng, ['A1', 'common', 'skill', 'ability']);
+    const { t } = useTranslation(lng, ['pokemon', 'common', 'skill', 'ability','rule']);
     // console.log(card);
     const aspectImages: { [key: number]: string } = {
         0: '/common/grass.webp',
@@ -86,13 +86,15 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         <Card.Section withBorder>
                             <Group justify="space-between" mt="md" mb="xs">
                                 <Text fw={800} size="xl" ml="md">{t(`${card.name}`)}</Text>
-                                <Image
-                                    src={aspectImages[card.aspects]}
-                                    alt={`Aspect`}
-                                    height={30}
-                                    width={30}
-                                    mr="md"
-                                />
+                                {card.type === 0 ? (
+                                    <Image
+                                        src={aspectImages[card.aspects]}
+                                        alt="Aspect"
+                                        height={30}
+                                        width={30}
+                                        mr="md"
+                                    />
+                                ) : null}
                             </Group>
                         </Card.Section>
                         <Grid mt="md" mb="md">
@@ -106,7 +108,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 <Text fw={800}>{t('common:dex')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
-                                {card.dex.map((dex, index) => (
+                                {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
                                     <Badge color="blue" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
                                 ))}
                             </Grid.Col>
@@ -130,12 +132,14 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 <Text fw={800}>{t('common:rarity')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
-                                <Group>
-                                    <Image
-                                        src={rarityImages[card.rarity]}
-                                        alt={`Rarity`}
-                                    />
-                                </Group>
+                                {card.rarity !== 0 && (
+                                    <Group>
+                                        <Image
+                                            src={rarityImages[card.rarity]}
+                                            alt={`Rarity`}
+                                        />
+                                    </Group>
+                                )}
                             </Grid.Col>
                             <Grid.Col span={2}>
                                 <Text fw={800}>{t('common:retreat')}</Text>
@@ -174,115 +178,127 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Group>
-                                    <Image
-                                        src={aspectImages[card.aspects]}
-                                        alt={`Aspect`}
-                                        height={30}
-                                        width={30}
-                                    />
+                                    {card.type === 0 ? (
+                                        <Image
+                                            src={aspectImages[card.aspects]}
+                                            alt="Aspect"
+                                            height={30}
+                                            width={30}
+                                            mr="md"
+                                        />
+                                    ) : null}
                                 </Group>
                             </Grid.Col>
                             <Grid.Col span={2}>
                                 <Text fw={800}>{t('common:weakness')}</Text>
                             </Grid.Col>
                             <Grid.Col span={4}>
-                                <Group>
-                                    <Image
-                                        src={aspectImages[card.weakness]}
-                                        alt={`Weakness`}
-                                        height={30}
-                                        width={30}
-                                    />
-                                    <Badge size="xl" circle variant="gradient"
-                                        gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.weakness_value}</Text></Badge>
-                                </Group>
-                            </Grid.Col>
-                        </Grid>
-                        <Grid mt="md" mb="md">
-                            <Grid.Col span={2}>
-                                <Text fw={800}>{t('common:attack')}</Text>
-                            </Grid.Col>
-                            <Grid.Col span={4}>
-                                <Group>
-                                    {card.attack_aspects_1.map((aspect, index) => (
+                                {card.weakness !== 10 && (
+                                    <Group>
                                         <Image
-                                            key={index}
-                                            src={aspectImages[aspect as number]}
-                                            alt={`Aspect`}
+                                            src={aspectImages[card.weakness]}
+                                            alt={`Weakness`}
                                             height={30}
                                             width={30}
                                         />
-                                    ))}
-                                </Group>
-                            </Grid.Col>
-                            <Grid.Col span={3}>
-                                <Badge color="blue"><Text fw={800}>{t(`skill:${card.attack_name_1}.name`)}</Text></Badge>
-                            </Grid.Col>
-                            <Grid.Col span={3}>
-                                <Badge size="xl" circle variant="gradient"
-                                    gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.attack_1}</Text></Badge>
+                                        <Badge size="xl" circle variant="gradient"
+                                            gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.weakness_value}</Text></Badge>
+                                    </Group>
+                                )}
                             </Grid.Col>
                         </Grid>
-                        {card.attack_skill_name_1 && card.attack_skill_name_1.length > 0 && (
-                            <Grid>
-                                <Grid.Col span={2}>
-                                    <Text fw={800}></Text>
-                                </Grid.Col>
-                                <Grid.Col span={10}>
-                                    <Text c="dimmed">{t(`skill:${card.attack_name_1}.description`)}</Text>
-                                </Grid.Col>
-                            </Grid>
-                        )}
-                        {card.attack_aspects_2 && card.attack_aspects_2.length > 0 && (
-                            <Grid mt="md" mb="md">
-                                <Grid.Col span={2}>
-                                    <Text fw={800}>{t('common:attack')}</Text>
-                                </Grid.Col>
-                                <Grid.Col span={4}>
-                                    <Group>
-                                        {card.attack_aspects_2.map((aspect, index) => (
-                                            <Image
-                                                key={index}
-                                                src={aspectImages[aspect as number]}
-                                                alt={`Aspect`}
-                                                height={30}
-                                                width={30}
-                                            />
-                                        ))}
-                                    </Group>
-                                </Grid.Col>
-                                <Grid.Col span={3}>
-                                    <Badge color="blue"><Text fw={800}>{t(`skill:${card.attack_name_2}.name`)}</Text></Badge>
-                                </Grid.Col>
-                                <Grid.Col span={3}>
-                                    <Badge size="xl" circle variant="gradient"
-                                        gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.attack_2}</Text></Badge>
-                                </Grid.Col>
-                            </Grid>
-                        )}
-                        {card.attack_skill_name_2 && card.attack_skill_name_2.length > 0 && (
-                            <Grid>
-                                <Grid.Col span={2}>
-                                    <Text fw={800}></Text>
-                                </Grid.Col>
-                                <Grid.Col span={10}>
-                                    <Text c="dimmed">{t(`skill:${card.attack_name_2}.description`)}</Text>
-                                </Grid.Col>
-                            </Grid>
-                        )}
-                        {card.ability_name && card.ability_name.length > 0 && (
-                            <Grid mt="md" mb="md">
-                                <Grid.Col span={2}>
-                                    <Text fw={800}>{t('common:ability')}</Text>
-                                </Grid.Col>
-                                <Grid.Col span={4}>
-                                    <Badge color="blue"><Text fw={800}>{t(`ability:${card.ability_name}.name`)}</Text></Badge>
-                                </Grid.Col>
-                                <Grid.Col span={6}>
-                                    <Text c="dimmed">{t(`ability:${card.ability_name}.description`)}</Text>
-                                </Grid.Col>
-                            </Grid>
-                        )}
+                        {card.type === 0 ? (
+                            <>
+                                <Grid mt="md" mb="md">
+                                    <Grid.Col span={2}>
+                                        <Text fw={800}>{t('common:attack')}</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={4}>
+                                        <Group>
+                                            {card.attack_aspects_1.map((aspect, index) => (
+                                                <Image
+                                                    key={index}
+                                                    src={aspectImages[aspect as number]}
+                                                    alt={`Aspect`}
+                                                    height={30}
+                                                    width={30}
+                                                />
+                                            ))}
+                                        </Group>
+                                    </Grid.Col>
+                                    <Grid.Col span={3}>
+                                        <Badge color="blue"><Text fw={800}>{t(`skill:${card.attack_name_1}.name`)}</Text></Badge>
+                                    </Grid.Col>
+                                    <Grid.Col span={3}>
+                                        <Badge size="xl" circle variant="gradient"
+                                            gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.attack_1}</Text></Badge>
+                                    </Grid.Col>
+                                </Grid>
+                                {card.attack_skill_name_1 && card.attack_skill_name_1.length > 0 && (
+                                    <Grid>
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}></Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={10}>
+                                            <Text c="dimmed">{t(`skill:${card.attack_name_1}.description`)}</Text>
+                                        </Grid.Col>
+                                    </Grid>
+                                )}
+                                {card.attack_aspects_2 && card.attack_aspects_2.length > 0 && (
+                                    <Grid mt="md" mb="md">
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}>{t('common:attack')}</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={4}>
+                                            <Group>
+                                                {card.attack_aspects_2.map((aspect, index) => (
+                                                    <Image
+                                                        key={index}
+                                                        src={aspectImages[aspect as number]}
+                                                        alt={`Aspect`}
+                                                        height={30}
+                                                        width={30}
+                                                    />
+                                                ))}
+                                            </Group>
+                                        </Grid.Col>
+                                        <Grid.Col span={3}>
+                                            <Badge color="blue"><Text fw={800}>{t(`skill:${card.attack_name_2}.name`)}</Text></Badge>
+                                        </Grid.Col>
+                                        <Grid.Col span={3}>
+                                            <Badge size="xl" circle variant="gradient"
+                                                gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.attack_2}</Text></Badge>
+                                        </Grid.Col>
+                                    </Grid>
+                                )}
+                                {card.attack_skill_name_2 && card.attack_skill_name_2.length > 0 && (
+                                    <Grid>
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}></Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={10}>
+                                            <Text c="dimmed">{t(`skill:${card.attack_name_2}.description`)}</Text>
+                                        </Grid.Col>
+                                    </Grid>
+                                )}
+                                {card.ability_name && card.ability_name.length > 0 && (
+                                    <Grid mt="md" mb="md">
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}>{t('common:ability')}</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={4}>
+                                            <Badge color="blue"><Text fw={800}>{t(`ability:${card.ability_name}.name`)}</Text></Badge>
+                                        </Grid.Col>
+                                        <Grid.Col span={6}>
+                                            <Text c="dimmed">{t(`ability:${card.ability_name}.description`)}</Text>
+                                        </Grid.Col>
+                                    </Grid>
+                                )}
+                            </>
+                        ) : 
+                        <>
+                        <Text c="dimmed">{t(`rule:${card.attack_skill_name_1}`)}</Text>
+                        </>}
                     </Card>
                 </Grid.Col>
             </Grid>

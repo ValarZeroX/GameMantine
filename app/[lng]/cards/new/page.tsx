@@ -25,7 +25,8 @@ const NewCardPage = async ({ params }: NewCardPageProps) => {
 
     return (
         <Layout lng={lng}>
-            <CardCreateClient lng={lng} />
+            <></>
+            {/* <CardCreateClient lng={lng} /> */}
         </Layout>
     );
 };

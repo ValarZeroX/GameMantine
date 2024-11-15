@@ -4,7 +4,7 @@ export const cookieName = "i18next";
 export const defaultNS = "translation";
 
 // lng = 採用的語言, ns = 採用的 name space
-export function getOptions(lng = fallbackLng, ns = defaultNS) {
+export function getOptions(lng = fallbackLng, ns: string | string[] = defaultNS) {
     // console.log('getOptions', lng, ns);
   return {
     // debug: true,

@@ -59,7 +59,7 @@ async function fetchCardData(number: string): Promise<CardDetail | null> {
 // 生成页面元数据
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; cardNumber: string }> }): Promise<Metadata> {
   const { lng, cardNumber } = await params; // 使用 await 确保 params 被正确解析
-  const translation = await useTranslation(lng, ['common', 'A1']);
+  const translation = await useTranslation(lng, ['common', 'pokemon']);
   const { t: t } = translation;
   
   const card = await fetchCardData(cardNumber);
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
       description: '無法找到指定的卡片。',
     };
   }
-  const pokemonName = t(`A1:${card.number}.name`)
+  const pokemonName = t(`A1:${card.name}`)
   return {
     title: t('common:metadata.card_detail_title', { title: pokemonName }),
     description: t('common:metadata.card_detail_description', { title: pokemonName }), // 使用翻譯鍵並替換佔位符
