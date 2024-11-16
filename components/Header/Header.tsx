@@ -60,7 +60,7 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
       <div className={classes.actionIcon}>
         <Group>
           <ColorSchemeToggle />
-          {/* <Menu withArrow>
+          <Menu withArrow>
             <Menu.Target>
               <ActionIcon variant="default" size="lg" aria-label="Language">
                 <IconLanguage />
@@ -68,15 +68,18 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Label>語言選擇</Menu.Label>
-              <Menu.Item onClick={() => changeLanguage('en')}>
+              {/* <Menu.Item onClick={() => changeLanguage('en')}>
                 <Text>English</Text>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item onClick={() => changeLanguage('zh-Hant')}>
                 <Text>繁體中文</Text>
               </Menu.Item>
+              <Menu.Item onClick={() => changeLanguage('zh-Hans')}>
+                <Text>簡體中文</Text>
+              </Menu.Item>
             </Menu.Dropdown>
           </Menu>
-          {status === 'loading' ? (
+          {/* {status === 'loading' ? (
             <ActionIcon variant="default" size="lg" aria-label="Loading">
               <Loader color="blue" />
             </ActionIcon>

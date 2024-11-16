@@ -622,7 +622,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                         <Table.Tbody>
                                             {filteredCards.slice(0, visibleCards).map((card) => (
                                                 //onClick={() => handleRowClick(card.number)}
-                                                <Table.Tr key={card.number} onClick={() => handleRowClick(card.number)}>
+                                                <Table.Tr key={card.number} >
                                                     <Table.Td>
                                                         <Stack gap="xs" align="center">
                                                             <Text mt="xs">{t(`A1:${card.name}`)}</Text>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { NavLink, Divider } from '@mantine/core';
-import { IconHome, IconFlame, IconCards } from '@tabler/icons-react';
+import { IconHome, IconFlame, IconCards, IconStack2 } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 
 function OriginMenu() {
@@ -32,6 +32,12 @@ function OriginMenu() {
         leftSection={<IconCards size="1rem" stroke={1.5} />}
         onClick={() => handleNavigation('/cards')}
       />
+      {/* <NavLink
+        component="button"
+        label="牌組"
+        leftSection={<IconStack2 size="1rem" stroke={1.5} />}
+        onClick={() => handleNavigation('/decks')}
+      /> */}
       {/* <Divider my="xs" label="討論區" labelPosition="left" />
       <Divider my="xs" label="部落格" labelPosition="left" /> */}
     </nav>
