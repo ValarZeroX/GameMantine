@@ -528,7 +528,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                 ]}
                                 aria-label={t('common:hp_range')}
                                 thumbSize={26}
-        thumbChildren={[<IconHeart size="1rem" key="1" />, <IconHeart size="1rem" key="2" />]}
+                                thumbChildren={[<IconHeart size="1rem" key="1" />, <IconHeart size="1rem" key="2" />]}
                             />
                         </Stack>
                     </Grid.Col>
@@ -551,7 +551,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                 ]}
                                 aria-label={t('common:attack_range')}
                                 thumbSize={26}
-        thumbChildren={[<IconSword size="1rem" key="1" />, <IconSword size="1rem" key="2" />]}
+                                thumbChildren={[<IconSword size="1rem" key="1" />, <IconSword size="1rem" key="2" />]}
                             />
                         </Stack>
                     </Grid.Col>
@@ -574,13 +574,13 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                         <Card.Section>
                                             <Image
                                                 src={`/${lng}/${card.set}/${card.number}.webp`}
-                                                alt={t(`A1:${card.name}`)}
+                                                alt={t(`pokemon:${card.name}`)}
                                                 loading="lazy"
                                             />
                                         </Card.Section>
                                         <Stack mt="md" align="center" gap="xs">
                                             <Text fw={700} size="lg">
-                                                {t(`A1:${card.name}`)}
+                                                {t(`pokemon:${card.name}`)}
                                             </Text>
                                             <Text color="dimmed" size="sm">
                                                 #{card.number}
@@ -608,14 +608,14 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                 <Box w={1060} >
                                     <Table striped verticalSpacing="lg">
                                         <Table.Thead>
-                                            <Table.Tr>
-                                                <Table.Th>{t('common:name')}</Table.Th>
-                                                <Table.Th>{t('common:aspects')}</Table.Th>
-                                                <Table.Th>{t('common:hp')}</Table.Th>
-                                                <Table.Th>{t('common:stage')}</Table.Th>
-                                                <Table.Th>{t('common:rarity')}</Table.Th>
-                                                <Table.Th>{t('common:weakness')}</Table.Th>
-                                                <Table.Th>{t('common:retreat')}</Table.Th>
+                                            <Table.Tr >
+                                                <Table.Th style={{ textAlign: 'center' }}>{t('common:name')}</Table.Th>
+                                                <Table.Th >{t('common:aspects')}</Table.Th>
+                                                <Table.Th >{t('common:hp')}</Table.Th>
+                                                <Table.Th >{t('common:stage')}</Table.Th>
+                                                <Table.Th >{t('common:rarity')}</Table.Th>
+                                                <Table.Th >{t('common:weakness')}</Table.Th>
+                                                <Table.Th >{t('common:retreat')}</Table.Th>
                                                 <Table.Th style={{ width: 300 }}>{t('common:attack')} & {t('common:ability')}</Table.Th>
                                             </Table.Tr>
                                         </Table.Thead>
@@ -624,10 +624,17 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                                 //onClick={() => handleRowClick(card.number)}
                                                 <Table.Tr key={card.number} >
                                                     <Table.Td>
-                                                        <Stack gap="xs" align="center">
-                                                            <Text mt="xs">{t(`A1:${card.name}`)}</Text>
-                                                            <Text c="dimmed" size="xs" mt="xs">#{card.number}</Text>
-                                                        </Stack>
+                                                        <Group> <Image
+                                                            src={`/${lng}/${card.set}/${card.number}.webp`}
+                                                            alt={t(`pokemon:${card.name}`)}
+                                                            loading="lazy"
+                                                            style={{ width: 100 }}
+                                                        />
+                                                            <Stack gap="xs" align="center">
+                                                                <Text mt="xs">{t(`pokemon:${card.name}`)}</Text>
+                                                                <Text c="dimmed" size="xs" mt="xs">#{card.number}</Text>
+                                                            </Stack>
+                                                        </Group>
                                                     </Table.Td>
                                                     <Table.Td>
                                                         {card.type === 0 ? (
