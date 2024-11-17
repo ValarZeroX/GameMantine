@@ -97,10 +97,11 @@
         "new_card_keywords": "新增卡牌, Pokemon, Nier",
         "cards_page_title": "宝可梦卡牌列表 - Pokemon Nier",
         "cards_page_description": "在此页面查看所有宝可梦卡牌。",
-        "cards_page_keywords": "卡牌列表, Pokemon TGC, 宝可梦, Pokemon TCG Pocket",
-        "card_detail_title": "{{title}} Pokemon TGC - Pokemon Nier",
+        "cards_page_keywords": "卡牌列表, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
+        "card_detail_title": "{{title}} Pokemon TCG - Pokemon Nier",
         "card_detail_description": "查看卡片 {{title}} 的详细信息，包括属性、攻击技能、特性。",
-        "card_detail_keywords": "{{title}}, Pokemon TGC, 宝可梦, Pokemon TCG Pocket"
+        "card_detail_keywords": "{{title}}, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
+        "decks_build_title": "Pokemon TCG Pocket牌組產生器"
     },
     "grass": "草",
     "fire": "火",

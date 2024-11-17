@@ -13,11 +13,12 @@ import { languages } from '../../app/i18n/settings';
 interface HeaderProps {
   opened: boolean;
   toggle: () => void;
-  toggleUserMenu: () => void;
+  desktopOpened: boolean;
+  toggleDesktop: () => void;
   lng: string
 }
 
-const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
+const Header: FC<HeaderProps> = ({ opened, toggle, desktopOpened, toggleDesktop, lng }) => {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, status } = useSession();
@@ -49,7 +50,9 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
   return (
     <div className={classes.inner}>
       <Group h="100%" px="md">
+        {/* <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" /> */}
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
         <IconPokeball
           style={{ width: rem(36), height: rem(36) }}
           stroke={1.5}
@@ -71,15 +74,15 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
               {/* <Menu.Item onClick={() => changeLanguage('en')}>
                 <Text>English</Text>
               </Menu.Item> */}
-              <Menu.Item onClick={() => changeLanguage('zh-Hant')}>
-                <Text>繁體中文</Text>
-              </Menu.Item>
               <Menu.Item onClick={() => changeLanguage('zh-Hans')}>
                 <Text>簡體中文</Text>
               </Menu.Item>
+              <Menu.Item onClick={() => changeLanguage('zh-Hant')}>
+                <Text>繁體中文</Text>
+              </Menu.Item>
             </Menu.Dropdown>
           </Menu>
-          {/* {status === 'loading' ? (
+          {status === 'loading' ? (
             <ActionIcon variant="default" size="lg" aria-label="Loading">
               <Loader color="blue" />
             </ActionIcon>
@@ -91,7 +94,7 @@ const Header: FC<HeaderProps> = ({ opened, toggle, toggleUserMenu, lng }) => {
             <ActionIcon variant="default" size="lg" aria-label="Login" onClick={() => handleNavigation('/login')}>
               <IconLogin />
             </ActionIcon>
-          )} */}
+          )}
         </Group>
       </div>
     </div>

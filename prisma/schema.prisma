@@ -22,6 +22,8 @@ model User {
   image          String?
   accounts       Account[]
   sessions       Session[]
+  role           Int        @default(0)  //層級
+  pokemonId      String?    //寶可夢Id  
 }
 
 model Account {
@@ -37,7 +39,6 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-  role              Int     @default(0)
 
   user User @relation(fields: [userId], references: [id])
 

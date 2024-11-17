@@ -97,10 +97,11 @@
         "new_card_keywords": "新增卡牌, Pokemon, Nier",
         "cards_page_title": "寶可夢卡牌列表 - Pokemon Nier",
         "cards_page_description": "在此頁面查看所有寶可夢卡牌。",
-        "cards_page_keywords": "卡牌列表, Pokemon TGC, 寶可夢, Pokemon TCG Pocket",
-        "card_detail_title": "{{title}} Pokemon TGC - Pokemon Nier",
+        "cards_page_keywords": "卡牌列表, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
+        "card_detail_title": "{{title}} Pokemon TCG - Pokemon Nier",
         "card_detail_description": "查看卡片 {{title}} 的詳細訊息，包括屬性、攻擊技能、特性。",
-        "card_detail_keywords": "{{title}}, Pokemon TGC, 寶可夢, Pokemon TCG Pocket"
+        "card_detail_keywords": "{{title}}, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
+        "decks_build_title": "Pokemon TCG Pocket牌組產生器"
     },
     "grass": "草",
     "fire": "火",
@@ -124,5 +125,9 @@
     "item": "物品",
     "supporter":"支援者",
     "search_card": "搜尋卡牌名稱、技能、特性",
-    "please_select_up_to_3_series": "請選擇最多3個系列。"
+    "please_select_up_to_3_series": "請選擇最多3個系列。",
+    "title": {
+        "cards_title": "Pokemon TCG Pocket卡牌",
+        "decks_build_title": "Pokemon TCG Pocket牌組產生器"
+    }
 }

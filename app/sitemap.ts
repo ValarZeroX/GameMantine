@@ -13,7 +13,7 @@ async function fetchCards() {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = process.env.NEXTAUTH_URL || 'https://pokemonnier.com/';
-    const languages = ['zh-Hant'];
+    const languages = ['zh-Hant', 'zh-Hans'];
 
     // 获取所有卡片数据
     const cards = await fetchCards();

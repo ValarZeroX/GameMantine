@@ -19,11 +19,11 @@ export default function Layout({ children, lng }: LayoutProps) {
   //   const { lng } = resolvedParams;
 
 
-  const [opened, { toggle }] = useDisclosure();
-  const [isUserMenu, setIsUserMenu] = useState(false);
-  const toggleUserMenu = () => {
-    setIsUserMenu(!isUserMenu);
-};
+  // const [opened, { toggle }] = useDisclosure();
+
+  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
+  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+
   return (
     <>
       {/* <Welcome />
@@ -33,12 +33,13 @@ export default function Layout({ children, lng }: LayoutProps) {
         navbar={{
           width: 300,
           breakpoint: 'sm',
-          collapsed: { mobile: !opened },
+          // collapsed: { mobile: !opened },
+          collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
         }}
         padding="md"
       >
         <AppShell.Header>
-            <Header opened={opened} toggle={toggle} toggleUserMenu={toggleUserMenu} lng={lng} />
+            <Header opened={mobileOpened} toggle={toggleMobile} desktopOpened={desktopOpened} toggleDesktop={toggleDesktop} lng={lng} />
         </AppShell.Header>
         <AppShell.Navbar p="md">
             <OriginMenu />

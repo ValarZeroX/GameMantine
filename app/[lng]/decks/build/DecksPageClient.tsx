@@ -1,12 +1,12 @@
-// app/[lng]/cards/CardsListClient.tsx
+// app/[lng]/decks/DecksPageClient.tsx
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Title,Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
-import { useTranslation } from "../../i18n/client";
-import classes from './CardsPage.module.css';
+import { useTranslation } from "../../../i18n/client";
+import classes from './DecksPageClient.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/lib/hooks/useLocalStorage';
@@ -47,18 +47,16 @@ interface Card {
     rule?: string;
 }
 
-interface CardsListClientProps {
+interface DecksPageClientProps {
     lng: string;
 }
 
-const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
-
+const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
     const theme = useMantineColorScheme(); // 获取当前主题
 
     // 定义图标颜色，根据主题色不同选择颜色
     const iconBlueColor = theme.colorScheme === 'dark' ? 'white' : '#228be6';
     const iconRedColor = theme.colorScheme === 'dark' ? 'white' : 'red';
-
 
     const router = useRouter();
     const { t } = useTranslation(lng, ['pokemon', 'common', 'skill', 'ability', 'rule']);
@@ -392,7 +390,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
 
     return (
         <Container size="lg">
-            <Title order={1}>{t('common:title.cards_title')}</Title>
+            <Title order={1}>{t('common:title.decks_build_title')}</Title>
             <Group align="center" justify="space-between" mb="md" mt="md">
                 <MultiSelect
                     // label={t('common:set')}
@@ -536,7 +534,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                 ]}
                                 aria-label={t('common:hp_range')}
                                 thumbSize={26}
-                                thumbChildren={[<IconHeart size="1rem" key="1" color={iconRedColor} />, <IconHeart size="1rem" key="2" color={iconRedColor}/>]}
+                                thumbChildren={[<IconHeart size="1rem" key="1" color={iconRedColor}/>, <IconHeart size="1rem" key="2" color={iconRedColor}/>]}
                                 color="red"
                             />
                         </Stack>
@@ -578,7 +576,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                     <Grid mt="md">
                         {filteredCards.slice(0, visibleCards).map((card) => (
                             <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3, lg: 2 }}>
-                                <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}>
+                                {/* <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}> */}
                                     <Card shadow="sm" padding="lg" radius="md" withBorder>
                                         <Card.Section>
                                             <Image
@@ -591,22 +589,12 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                             <Text fw={700} size="lg">
                                                 {t(`pokemon:${card.name}`)}
                                             </Text>
-                                            <Text c="dimmed" size="sm">
+                                            <Text color="dimmed" size="sm">
                                                 #{card.number}
                                             </Text>
-                                            <Flex gap="xs" justify="center" wrap="wrap">
-                                                <Badge color="blue" variant="light">
-                                                    {t(`common:cardSet.${card.set}`)}
-                                                </Badge>
-                                                {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
-                                                    <Badge color="green" variant="outline" key={index}>
-                                                        {t(`common:cardDex.${dex}`)}
-                                                    </Badge>
-                                                ))}
-                                            </Flex>
                                         </Stack>
                                     </Card>
-                                </Link>
+                                {/* </Link> */}
                             </Grid.Col>
                         ))}
                     </Grid>
@@ -774,4 +762,4 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
     );
 };
 
-export default CardsListClient;
+export default DecksPageClient;
