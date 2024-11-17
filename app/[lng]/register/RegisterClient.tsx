@@ -41,47 +41,48 @@ const RegisterClient: React.FC<RegisterClientProps> = ({ lng }) => {
         },
         validate: {
             email: (value) =>
-                /^\S+@\S+$/.test(value) ? null : '無效的電子郵件',
+                /^\S+@\S+$/.test(value) ? null : t('register.invalidEmail'),
             password: (value) =>
-                value.length >= 8 ? null : '密碼必須至少 8 個字符',
+                value.length >= 8 ? null : t('register.passwordLength'),
             confirmPassword: (value, values) =>
-                value === values.password ? null : '密碼不匹配',
+                value === values.password ? null : t('register.passwordMismatch'),
             termsOfService: (value) =>
-                value ? null : '您必須同意服務條款',
+                value ? null : t('register.agreeToTerms'),
         },
     });
 
     const handleSubmit = async (values: typeof form.values) => {
         setIsLoading(true);
         try {
+            const payload = { ...values, lng };
             const response = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(values),
+                body: JSON.stringify(payload),
             });
             const data = await response.json();
             if (response.ok) {
                 showNotification({
-                    title: '成功',
-                    message: '註冊成功！',
+                    title: t('notification.successTitle'),
+                    message: t('notification.successMessage'),
                     color: 'green',
                     icon: <IconCheck size={16} />,
                 });
-                router.push('/login');
+                router.push(`/${lng}/login`);
             } else {
                 showNotification({
-                    title: '失敗',
-                    message: data.error || '註冊失敗。',
+                    title: t('notification.errorTitle'),
+                    message: data.error || t('notification.errorMessage'),
                     color: 'red',
                     icon: <IconX size={16} />,
                 });
             }
         } catch (error) {
             showNotification({
-                title: '失敗',
-                message: '註冊過程中出現錯誤。',
+                title: t('notification.errorTitle'),
+                message: t('notification.errorMessage'),
                 color: 'red',
                 icon: <IconX size={16} />,
             });
@@ -93,7 +94,7 @@ const RegisterClient: React.FC<RegisterClientProps> = ({ lng }) => {
     return (
         <Container size={420} my={40}>
             <Center>
-                <Title >
+                <Title>
                     {t('register.createAccount')}
                 </Title>
             </Center>
@@ -121,14 +122,14 @@ const RegisterClient: React.FC<RegisterClientProps> = ({ lng }) => {
                     />
                     <PasswordInput
                         label={t('register.password')}
-                        placeholder={t('register.passwordPlaceholder')}
+                        placeholder={t('register.enterPassword')}
                         required
                         mt="md"
                         {...form.getInputProps('password')}
                     />
                     <PasswordInput
                         label={t('register.confirmPassword')}
-                        placeholder={t('register.confirmPasswordPlaceholder')}
+                        placeholder={t('register.reenterPassword')}
                         required
                         mt="md"
                         {...form.getInputProps('confirmPassword')}

@@ -1,15 +1,20 @@
 {
     "login": {
         "title": "登入",
-        "google": "繼續使用Google",
-        "facebook": "繼續使用Facebook",
-        "or": "或",
-        "invalidCredentials": "帳號密碼錯誤",
-        "error": "登入失敗，請稍後再試",
+        "agreementNotice": "請閱讀並同意服務條款後登入。",
+        "invalidEmail": "無效的電子郵件",
+        "passwordTooShort": "密碼必須至少 8 個字符",
+        "stayLoggedIn": "保持登入狀態",
         "login": "登入",
-        "noAccount": "還沒有帳號？",
-        "stayLoggedIn": "保持登入",
-        "agreementNotice": "繼續操作即表示您同意我們的使用者協議,並確認您了解隱私權政策。"
+        "or": "或",
+        "google": "使用 Google 登入",
+        "facebook": "使用 Facebook 登入",
+        "noAccount": "還沒有帳戶？",
+        "metadata": {
+            "login_page_title": "登入頁面",
+            "login_page_description": "用戶登入頁面",
+            "login_page_keywords": "登入, 用戶"
+        }
     },
     "notFound": {
         "title": "找不到頁面",
@@ -18,20 +23,39 @@
         "button": "返回首頁"
     },
     "register": {
-        "title": "註冊新帳戶",
         "email": "電子郵件",
         "password": "密碼",
-        "confirmPassword": "確認密碼",
-        "register": "註冊",
-        "error": "註冊失敗，請稍後再試",
-        "passwordPlaceholder": "您的密碼",
-        "confirmPasswordPlaceholder": "再次輸入密碼",
-        "createAccount": "創建帳號",
-        "alreadyHaveAccount": "已經有帳號了？",
         "name": "名稱",
+        "confirmPassword": "確認密碼",
         "yourName": "您的名稱",
+        "passwordPlaceholder": "輸入您的密碼",
+        "confirmPasswordPlaceholder": "重新輸入您的密碼",
         "agreeTo": "我同意",
-        "termsOfService": "服務條款"
+        "termsOfService": "服務條款",
+        "register": "註冊",
+        "createAccount": "創建帳戶",
+        "alreadyHaveAccount": "已經有帳戶？",
+        "invalidEmail": "無效的電子郵件",
+        "passwordLength": "密碼必須至少 8 個字符",
+        "passwordMismatch": "密碼不匹配",
+        "agreeToTerms": "您必須同意服務條款",
+        "metadata": {
+            "register_page_title": "註冊頁面",
+            "register_page_description": "用戶註冊頁面",
+            "register_page_keywords": "註冊, 用戶"
+        }
+    },
+    "verify": {
+        "title": "郵件驗證",
+        "invalid": "驗證令牌無效。",
+        "expired": "驗證令牌已過期。",
+        "success": "電子郵件驗證成功！您現在可以登入。",
+        "verifying": "正在驗證中...",
+        "failure": "驗證失敗。",
+        "error": "驗證過程中出現錯誤。",
+        "invalidToken": "驗證令牌無效。",
+        "expiredToken": "驗證令牌已過期。",
+        "goToLogin": "前往登入"
     },
     "cardSet": {
         "A1": "最強基因",
@@ -89,7 +113,10 @@
         "success_title": "成功",
         "success_message": "卡牌已成功新增！",
         "error_title": "錯誤",
-        "error_message": "新增卡牌失敗，請稍後再試。"
+        "error_message": "新增卡牌失敗，請稍後再試。",
+        "successMessage": "註冊成功！請檢查您的郵件進行驗證。",
+        "errorTitle": "失敗",
+        "errorMessage": "註冊過程中出現錯誤。"
     },
     "metadata": {
         "new_card_title": "新增卡牌 - Pokemon Nier",
@@ -123,12 +150,13 @@
     "UltraRare": "UR",
     "pokemon": "寶可夢",
     "item": "物品",
-    "supporter":"支援者",
+    "supporter": "支援者",
     "search_card": "搜尋卡牌名稱、技能、特性",
     "please_select_up_to_3_series": "請選擇最多3個系列。",
     "title": {
         "card_detail_title": "{{title}} Pokemon TCG Pocket 卡牌",
         "cards_title": "Pokemon TCG Pocket卡牌",
         "decks_build_title": "Pokemon TCG Pocket牌組產生器"
-    }
+    },
+    "points": "兌換點數"
 }

@@ -1,9 +1,9 @@
 // app/[lng]/decks/DecksPageClient.tsx
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Progress, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
-import { IconDownload, IconRefresh, IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
+import { IconDeviceFloppy, IconDownload, IconRefresh, IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../../i18n/client";
 import classes from './DecksPageClient.module.css';
@@ -11,7 +11,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
+import html2canvas from 'html2canvas';
 
 interface Card {
     id: number;
@@ -97,8 +97,10 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
     const [attackRange, setAttackRange] = useLocalStorage<[number, number]>('attackRange', [0, 250]);
 
 
-    const [selectedDeck, setSelectedDeck] = useState<Card[]>([]);
+    // const [selectedDeck, setSelectedDeck] = useState<Card[]>([]);
+    const [selectedDeck, setSelectedDeck] = useLocalStorage<Card[]>('selectedDeck', []);
 
+    const deckRef = useRef<HTMLDivElement>(null);
     // 無限滾動相關
     const [visibleCards, setVisibleCards] = useState<number>(24);
 
@@ -495,84 +497,116 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
         return selectedDeck.reduce((total, card) => total + pt[card.rarity], 0);
     }, [selectedDeck, pt]);
 
+    const handleDownload = async () => {
+        if (deckRef.current) {
+            // Clone the node to modify styles without affecting the actual UI
+            const clone = deckRef.current.cloneNode(true) as HTMLElement;
+
+            // Apply background color based on the current theme
+            clone.style.backgroundColor = colorScheme === 'dark' ? '#242424' : '#FFFFFF'; // Example colors
+
+            // Append the clone to the body to ensure styles are applied
+            document.body.appendChild(clone);
+
+            const canvas = await html2canvas(clone, {
+                backgroundColor: null, // Let the cloned element's background color apply
+                useCORS: true, // Enable cross-origin images if needed
+            });
+
+            // Remove the clone after capturing
+            document.body.removeChild(clone);
+
+            const imgData = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = imgData;
+            link.download = 'pokemonnier.png';
+            link.click();
+        }
+    };
+
     return (
         <Container size="lg">
             <Title order={1}>{t('common:title.decks_build_title')}</Title>
             <Group mt="md" justify="flex-end">
-                <ActionIcon variant="default" size="lg">
-                    <IconDownload />
-                </ActionIcon>
                 <ActionIcon variant="default" size="lg" onClick={clearDeck}>
                     <IconRefresh />
                 </ActionIcon>
+                <ActionIcon variant="default" size="lg" onClick={handleDownload}>
+                    <IconDownload />
+                </ActionIcon>
+                <ActionIcon variant="default" size="lg" >
+                    <IconDeviceFloppy />
+                </ActionIcon>
             </Group>
-            <Grid mt="md" columns={10}>
-                {sortedSelectedDeck.map((card, index) => (
-                    <Grid.Col key={`${card.id}-${index}`} span={{ base: 2, sm: 2, md: 1, lg: 1 }}>
-                        <Image
-                            radius="md"
-                            src={`/${lng}/${card.set}/${card.number}.webp`}
-                            alt={t(`pokemon:${card.name}`)}
-                            onClick={() => removeCard(card)}
-                        />
-                        <Text size="xs" mt="xs">
-                            {t(`pokemon:${card.name}`)}
-                        </Text>
-                        <Text size="xs">
-                            #{card.number}
-                        </Text>
+            <div ref={deckRef}>
+                <Grid mt="md" columns={10}>
+                    {sortedSelectedDeck.map((card, index) => (
+                        <Grid.Col key={`${card.id}-${index}`} span={{ base: 2, sm: 2, md: 1, lg: 1 }}>
+                            <Image
+                                radius="md"
+                                src={`/${lng}/${card.set}/${card.number}.webp`}
+                                alt={t(`pokemon:${card.name}`)}
+                                onClick={() => removeCard(card)}
+                            />
+                            <Text size="xs" mt="xs">
+                                {t(`pokemon:${card.name}`)}
+                            </Text>
+                            <Text size="xs">
+                                #{card.number}
+                            </Text>
+                        </Grid.Col>
+                    ))}
+                </Grid>
+                <Grid>
+                    <Grid.Col span={12}>
+                        <Card shadow="sm" padding="lg" radius="md" withBorder>
+                            <Group mb="md">
+                                <Badge color="cyan" variant="filled">
+                                    {t('common:pokemon')}
+                                </Badge>
+                                <Badge color="pink" variant="filled">
+                                    {t('common:item')}
+                                </Badge>
+                                <Badge color="orange" variant="filled">
+                                    {t('common:supporter')}
+                                </Badge>
+                            </Group>
+                            <Progress.Root size="20" >
+                                <Progress.Section
+                                    value={progressValues.pokemon}
+                                    color="cyan"
+                                >
+                                    <Progress.Label>{cardTypeCounts.pokemon}</Progress.Label>
+                                </Progress.Section>
+                                <Progress.Section
+                                    value={progressValues.item}
+                                    color="pink"
+                                >
+                                    <Progress.Label>{cardTypeCounts.item}</Progress.Label>
+                                </Progress.Section>
+                                <Progress.Section
+                                    value={progressValues.supporter}
+                                    color="orange"
+                                >
+                                    <Progress.Label>{cardTypeCounts.supporter}</Progress.Label>
+                                </Progress.Section>
+                            </Progress.Root>
+                        </Card>
                     </Grid.Col>
-                ))}
-            </Grid>
-            <Grid>
-                <Grid.Col span={12}>
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                        <Group mb="md">
-                        <Badge color="cyan" variant="filled">
-                            {t('common:pokemon')}
-                        </Badge>
-                        <Badge color="pink" variant="filled">
-                            {t('common:item')}
-                        </Badge>
-                        <Badge color="orange" variant="filled">
-                            {t('common:supporter')}
-                        </Badge>
-                        </Group>
-                        <Progress.Root size="20" >
-                            <Progress.Section
-                                value={progressValues.pokemon}
-                                color="cyan"
-                            >
-                                <Progress.Label>{cardTypeCounts.pokemon}</Progress.Label>
-                            </Progress.Section>
-                            <Progress.Section
-                                value={progressValues.item}
-                                color="pink"
-                            >
-                                <Progress.Label>{cardTypeCounts.item}</Progress.Label>
-                            </Progress.Section>
-                            <Progress.Section
-                                value={progressValues.supporter}
-                                color="orange"
-                            >
-                                <Progress.Label>{cardTypeCounts.supporter}</Progress.Label>
-                            </Progress.Section>
-                        </Progress.Root>
-                    </Card>
-                </Grid.Col>
-            </Grid>
-            <Grid>
-                <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                        {selectedDeck.length}/20
-                    </Card>
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                        兌換點數: {totalExchangePoints}
-                    </Card>
-                </Grid.Col>
-            </Grid>
+                </Grid>
+                <Grid>
+                    <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
+                        <Card shadow="sm" padding="lg" radius="md" withBorder>
+                            {selectedDeck.length}/20
+                        </Card>
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
+                        <Card shadow="sm" padding="lg" radius="md" withBorder>
+                            {t('common:points')}: {totalExchangePoints}
+                        </Card>
+                    </Grid.Col>
+                </Grid>
+            </div>
             <Divider my="md" />
             <Group align="center" justify="space-between" mb="md" mt="md">
                 <MultiSelect

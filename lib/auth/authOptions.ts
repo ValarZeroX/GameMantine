@@ -1,3 +1,4 @@
+//lib/auth/authOptions.ts
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
@@ -36,6 +37,11 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (user && user.password) {
+          // 檢查 emailVerified
+          if (!user.emailVerified) {
+            throw new Error('請先驗證您的電子郵件');
+          }
+
           // 使用 bcrypt 比较密码
           const isValid = await bcrypt.compare(credentials.password, user.password);
           if (isValid) {
@@ -102,6 +108,37 @@ export const authOptions: NextAuthOptions = {
               },
             });
           }
+
+          // 確保第三方登入的用戶 emailVerified 為 true
+          if (existingUser.email && !existingUser.emailVerified) {
+            await prisma.user.update({
+              where: { email: existingUser.email },
+              data: { emailVerified: new Date() },
+            });
+          }
+        } else {
+          // 如果用戶不存在，創建新用戶並設置 emailVerified 為 true
+          await prisma.user.create({
+            data: {
+              email: user.email!,
+              name: user.name || null,
+              emailVerified: new Date(),
+              accounts: {
+                create: {
+                  type: account.type,
+                  provider: account.provider,
+                  providerAccountId: account.providerAccountId,
+                  refresh_token: account.refresh_token,
+                  access_token: account.access_token,
+                  expires_at: account.expires_at,
+                  token_type: account.token_type,
+                  scope: account.scope,
+                  id_token: account.id_token,
+                  session_state: account.session_state,
+                },
+              },
+            },
+          });
         }
       }
       return true;

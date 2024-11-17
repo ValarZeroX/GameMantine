@@ -1,37 +1,61 @@
 {
     "login": {
         "title": "Login",
-        "google": "Continue with Google",
-        "facebook": "Continue with Facebook",
-        "or": "OR",
-        "invalidCredentials": "Incorrect username or password",
-        "error": "Login failed, please try again later",
-        "login": "Login",
-        "noAccount": "Don't have an account?",
+        "agreementNotice": "Please read and agree to the Terms of Service before logging in.",
+        "invalidEmail": "Invalid email",
+        "passwordTooShort": "Password must be at least 8 characters",
         "stayLoggedIn": "Stay logged in",
-        "agreementNotice": "By continuing, you agree to our Terms of Service and acknowledge that you understand our Privacy Policy."
+        "login": "Login",
+        "or": "or",
+        "google": "Login with Google",
+        "facebook": "Login with Facebook",
+        "noAccount": "Don't have an account?",
+        "metadata": {
+            "login_page_title": "Login Page",
+            "login_page_description": "User login page",
+            "login_page_keywords": "login, user"
+        }
     },
     "notFound": {
         "title": "Page Not Found",
-        "description": "You have found a secret place.",
-        "error": "Sorry, this is just a 404 page. You might have entered an incorrect address, or the page has moved to another URL.",
+        "description": "You've found a secret place.",
+        "error": "Sorry, this is just a 404 page. You may have entered the wrong address, or the page has moved to a different URL.",
         "button": "Return to Home"
     },
     "register": {
-        "title": "Register New Account",
         "email": "Email",
         "password": "Password",
+        "name": "Name",
         "confirmPassword": "Confirm Password",
+        "yourName": "Your Name",
+        "passwordPlaceholder": "Enter your password",
+        "confirmPasswordPlaceholder": "Re-enter your password",
+        "agreeTo": "I agree to",
+        "termsOfService": "Terms of Service",
         "register": "Register",
-        "error": "Registration failed, please try again later",
-        "passwordPlaceholder": "Your password",
-        "confirmPasswordPlaceholder": "Re-enter password",
         "createAccount": "Create Account",
         "alreadyHaveAccount": "Already have an account?",
-        "name": "Name",
-        "yourName": "Your Name",
-        "agreeTo": "I agree to",
-        "termsOfService": "Terms of Service"
+        "invalidEmail": "Invalid email",
+        "passwordLength": "Password must be at least 8 characters",
+        "passwordMismatch": "Passwords do not match",
+        "agreeToTerms": "You must agree to the Terms of Service",
+        "metadata": {
+            "register_page_title": "Register Page",
+            "register_page_description": "User registration page",
+            "register_page_keywords": "register, user"
+        }
+    },
+    "verify": {
+        "title": "Email Verification",
+        "invalid": "Invalid verification token.",
+        "expired": "Verification token has expired.",
+        "success": "Email verification successful! You can now log in.",
+        "verifying": "Verifying...",
+        "failure": "Verification failed.",
+        "error": "An error occurred during verification.",
+        "invalidToken": "Invalid verification token.",
+        "expiredToken": "Verification token has expired.",
+        "goToLogin": "Go to Login"
     },
     "cardSet": {
         "A1": "Genetic Apex",

@@ -82,7 +82,7 @@ const Header: FC<HeaderProps> = ({ opened, toggle, desktopOpened, toggleDesktop,
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
-          {/* {status === 'loading' ? (
+          {status === 'loading' ? (
             <ActionIcon variant="default" size="lg" aria-label="Loading">
               <Loader color="blue" />
             </ActionIcon>
@@ -94,7 +94,7 @@ const Header: FC<HeaderProps> = ({ opened, toggle, desktopOpened, toggleDesktop,
             <ActionIcon variant="default" size="lg" aria-label="Login" onClick={() => handleNavigation('/login')}>
               <IconLogin />
             </ActionIcon>
-          )} */}
+          )}
         </Group>
       </div>
     </div>

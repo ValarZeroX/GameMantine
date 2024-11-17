@@ -1,37 +1,61 @@
 {
     "login": {
         "title": "登录",
-        "google": "继续使用Google",
-        "facebook": "继续使用Facebook",
-        "or": "或",
-        "invalidCredentials": "账号密码错误",
-        "error": "登录失败，请稍后再试",
+        "agreementNotice": "请阅读并同意服务条款后登录。",
+        "invalidEmail": "无效的电子邮件",
+        "passwordTooShort": "密码必须至少8个字符",
+        "stayLoggedIn": "保持登录状态",
         "login": "登录",
-        "noAccount": "还没有账号？",
-        "stayLoggedIn": "保持登录",
-        "agreementNotice": "继续操作即表示您同意我们的用户协议，并确认您了解隐私权政策。"
+        "or": "或",
+        "google": "使用 Google 登录",
+        "facebook": "使用 Facebook 登录",
+        "noAccount": "还没有账户？",
+        "metadata": {
+            "login_page_title": "登录页面",
+            "login_page_description": "用户登录页面",
+            "login_page_keywords": "登录, 用户"
+        }
     },
     "notFound": {
         "title": "找不到页面",
         "description": "您找到一个秘密的地方。",
-        "error": "很抱歉，这只是一个404页面。您可能输入了错误的地址，或者该页面已移动到另一个URL。",
+        "error": "很抱歉，这只是一个404页面。您可能输入了错误的地址，或者该页面已移到另一个URL。",
         "button": "返回首页"
     },
     "register": {
-        "title": "注册新账户",
         "email": "电子邮件",
         "password": "密码",
-        "confirmPassword": "确认密码",
-        "register": "注册",
-        "error": "注册失败，请稍后再试",
-        "passwordPlaceholder": "您的密码",
-        "confirmPasswordPlaceholder": "再次输入密码",
-        "createAccount": "创建账号",
-        "alreadyHaveAccount": "已经有账号了吗？",
         "name": "名称",
+        "confirmPassword": "确认密码",
         "yourName": "您的名称",
+        "passwordPlaceholder": "输入您的密码",
+        "confirmPasswordPlaceholder": "重新输入您的密码",
         "agreeTo": "我同意",
-        "termsOfService": "服务条款"
+        "termsOfService": "服务条款",
+        "register": "注册",
+        "createAccount": "创建账户",
+        "alreadyHaveAccount": "已经有账户？",
+        "invalidEmail": "无效的电子邮件",
+        "passwordLength": "密码必须至少8个字符",
+        "passwordMismatch": "密码不匹配",
+        "agreeToTerms": "您必须同意服务条款",
+        "metadata": {
+            "register_page_title": "注册页面",
+            "register_page_description": "用户注册页面",
+            "register_page_keywords": "注册, 用户"
+        }
+    },
+    "verify": {
+        "title": "邮件验证",
+        "invalid": "验证令牌无效。",
+        "expired": "验证令牌已过期。",
+        "success": "电子邮件验证成功！您现在可以登录。",
+        "verifying": "正在验证中...",
+        "failure": "验证失败。",
+        "error": "验证过程中出现错误。",
+        "invalidToken": "验证令牌无效。",
+        "expiredToken": "验证令牌已过期。",
+        "goToLogin": "前往登录"
     },
     "cardSet": {
         "A1": "最强基因",
@@ -130,5 +154,6 @@
         "card_detail_title": "{{title}} Pokemon TCG Pocket 卡牌",
         "cards_title": "Pokemon TCG Pocket卡牌",
         "decks_build_title": "Pokemon TCG Pocket牌组产生器"
-    }
+    },
+    "points": "兌換點數"
 }
