@@ -1,9 +1,9 @@
 // app/[lng]/decks/DecksPageClient.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Title,Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
-import { IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Progress, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { IconDownload, IconRefresh, IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../../i18n/client";
 import classes from './DecksPageClient.module.css';
@@ -95,6 +95,9 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
     const [selectedRetreat, setSelectedRetreat] = useLocalStorage<string[]>('selectedRetreat', []);
     const [hpRange, setHpRange] = useLocalStorage<[number, number]>('hpRange', [0, 250]);
     const [attackRange, setAttackRange] = useLocalStorage<[number, number]>('attackRange', [0, 250]);
+
+
+    const [selectedDeck, setSelectedDeck] = useState<Card[]>([]);
 
     // 無限滾動相關
     const [visibleCards, setVisibleCards] = useState<number>(24);
@@ -399,9 +402,178 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
 
     const icon = <IconInfoCircle />;
 
+    const handleCardClick = (card: Card) => {
+        const count = selectedDeck.filter(selectedCard => selectedCard.id === card.id).length;
+
+        if (count >= 2) {
+            // alert('每張卡牌最多選擇兩次');
+            return;
+        }
+
+        if (selectedDeck.length >= 20) {
+            // alert('牌組已達到20張');
+            return;
+        }
+
+        setSelectedDeck([...selectedDeck, card]);
+    };
+
+    const clearDeck = () => {
+        setSelectedDeck([]);
+    };
+
+    // 排序選擇的牌組
+    const sortedSelectedDeck = useMemo(() => {
+        return [...selectedDeck].sort((a, b) => {
+            // 分割 card.number 為前綴和數字部分
+            const splitA = a.number.split('-');
+            const splitB = b.number.split('-');
+
+            // 前綴部分（可能包含多個 '-')
+            const prefixA = splitA.slice(0, -1).join('-').toUpperCase();
+            const prefixB = splitB.slice(0, -1).join('-').toUpperCase();
+
+            // 比較前綴
+            if (prefixA < prefixB) return -1;
+            if (prefixA > prefixB) return 1;
+
+            // 數字部分
+            const numA = parseInt(splitA[splitA.length - 1], 10);
+            const numB = parseInt(splitB[splitB.length - 1], 10);
+
+            return numA - numB;
+        });
+    }, [selectedDeck]);
+
+    const removeCard = (cardToRemove: Card) => {
+        // 找到要移除的卡牌在 selectedDeck 中的第一个匹配项
+        const index = selectedDeck.findIndex(
+            (card) =>
+                card.id === cardToRemove.id &&
+                card.number === cardToRemove.number &&
+                card.set === cardToRemove.set
+        );
+
+        if (index !== -1) {
+            const newDeck = [...selectedDeck];
+            newDeck.splice(index, 1);
+            setSelectedDeck(newDeck);
+        }
+    };
+
+    const cardTypeCounts = useMemo(() => {
+        const counts = { pokemon: 0, item: 0, supporter: 0 };
+        selectedDeck.forEach((card) => {
+            if (card.type === 0) counts.pokemon += 1;
+            else if (card.type === 1) counts.item += 1;
+            else if (card.type === 2) counts.supporter += 1;
+        });
+        return counts;
+    }, [selectedDeck]);
+
+    const progressValues = useMemo(() => {
+        return {
+            pokemon: cardTypeCounts.pokemon * 5,
+            item: cardTypeCounts.item * 5,
+            supporter: cardTypeCounts.supporter * 5,
+        };
+    }, [cardTypeCounts]);
+
+    const pt: { [key: number]: number } = {
+        0: 0,
+        1: 35,
+        2: 70,
+        3: 150,
+        4: 500,
+        5: 400,
+        6: 1250,
+        7: 1500,
+        8: 2500,
+    };
+
+    const totalExchangePoints = useMemo(() => {
+        return selectedDeck.reduce((total, card) => total + pt[card.rarity], 0);
+    }, [selectedDeck, pt]);
+
     return (
         <Container size="lg">
             <Title order={1}>{t('common:title.decks_build_title')}</Title>
+            <Group mt="md" justify="flex-end">
+                <ActionIcon variant="default" size="lg">
+                    <IconDownload />
+                </ActionIcon>
+                <ActionIcon variant="default" size="lg" onClick={clearDeck}>
+                    <IconRefresh />
+                </ActionIcon>
+            </Group>
+            <Grid mt="md" columns={10}>
+                {sortedSelectedDeck.map((card, index) => (
+                    <Grid.Col key={`${card.id}-${index}`} span={{ base: 2, sm: 2, md: 1, lg: 1 }}>
+                        <Image
+                            radius="md"
+                            src={`/${lng}/${card.set}/${card.number}.webp`}
+                            alt={t(`pokemon:${card.name}`)}
+                            onClick={() => removeCard(card)}
+                        />
+                        <Text size="xs" mt="xs">
+                            {t(`pokemon:${card.name}`)}
+                        </Text>
+                        <Text size="xs">
+                            #{card.number}
+                        </Text>
+                    </Grid.Col>
+                ))}
+            </Grid>
+            <Grid>
+                <Grid.Col span={12}>
+                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                        <Group mb="md">
+                        <Badge color="cyan" variant="filled">
+                            {t('common:pokemon')}
+                        </Badge>
+                        <Badge color="pink" variant="filled">
+                            {t('common:item')}
+                        </Badge>
+                        <Badge color="orange" variant="filled">
+                            {t('common:supporter')}
+                        </Badge>
+                        </Group>
+                        <Progress.Root size="20" >
+                            <Progress.Section
+                                value={progressValues.pokemon}
+                                color="cyan"
+                            >
+                                <Progress.Label>{cardTypeCounts.pokemon}</Progress.Label>
+                            </Progress.Section>
+                            <Progress.Section
+                                value={progressValues.item}
+                                color="pink"
+                            >
+                                <Progress.Label>{cardTypeCounts.item}</Progress.Label>
+                            </Progress.Section>
+                            <Progress.Section
+                                value={progressValues.supporter}
+                                color="orange"
+                            >
+                                <Progress.Label>{cardTypeCounts.supporter}</Progress.Label>
+                            </Progress.Section>
+                        </Progress.Root>
+                    </Card>
+                </Grid.Col>
+            </Grid>
+            <Grid>
+                <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
+                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                        {selectedDeck.length}/20
+                    </Card>
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
+                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                        兌換點數: {totalExchangePoints}
+                    </Card>
+                </Grid.Col>
+            </Grid>
+            <Divider my="md" />
             <Group align="center" justify="space-between" mb="md" mt="md">
                 <MultiSelect
                     // label={t('common:set')}
@@ -545,7 +717,7 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
                                 ]}
                                 aria-label={t('common:hp_range')}
                                 thumbSize={26}
-                                thumbChildren={[<IconHeart size="1rem" key="1" color={iconRedColor}/>, <IconHeart size="1rem" key="2" color={iconRedColor}/>]}
+                                thumbChildren={[<IconHeart size="1rem" key="1" color={iconRedColor} />, <IconHeart size="1rem" key="2" color={iconRedColor} />]}
                                 color="red"
                             />
                         </Stack>
@@ -569,7 +741,7 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
                                 ]}
                                 aria-label={t('common:attack_range')}
                                 thumbSize={26}
-                                thumbChildren={[<IconSword size="1rem" key="3" color={iconBlueColor}/>, <IconSword size="1rem" key="4" color={iconBlueColor}/>]}
+                                thumbChildren={[<IconSword size="1rem" key="3" color={iconBlueColor} />, <IconSword size="1rem" key="4" color={iconBlueColor} />]}
                             />
                         </Stack>
                     </Grid.Col>
@@ -588,23 +760,23 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
                         {filteredCards.slice(0, visibleCards).map((card) => (
                             <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3, lg: 2 }}>
                                 {/* <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}> */}
-                                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                                        <Card.Section>
-                                            <Image
-                                                src={`/${lng}/${card.set}/${card.number}.webp`}
-                                                alt={t(`pokemon:${card.name}`)}
-                                                loading="lazy"
-                                            />
-                                        </Card.Section>
-                                        <Stack mt="md" align="center" gap="xs">
-                                            <Text fw={700} size="lg">
-                                                {t(`pokemon:${card.name}`)}
-                                            </Text>
-                                            <Text color="dimmed" size="sm">
-                                                #{card.number}
-                                            </Text>
-                                        </Stack>
-                                    </Card>
+                                <Card shadow="sm" padding="lg" radius="md" withBorder onClick={() => handleCardClick(card)} style={{ cursor: 'pointer' }}>
+                                    <Card.Section>
+                                        <Image
+                                            src={`/${lng}/${card.set}/${card.number}.webp`}
+                                            alt={t(`pokemon:${card.name}`)}
+                                            loading="lazy"
+                                        />
+                                    </Card.Section>
+                                    <Stack mt="md" align="center" gap="xs">
+                                        <Text fw={700} size="lg">
+                                            {t(`pokemon:${card.name}`)}
+                                        </Text>
+                                        <Text color="dimmed" size="sm">
+                                            #{card.number}
+                                        </Text>
+                                    </Stack>
+                                </Card>
                                 {/* </Link> */}
                             </Grid.Col>
                         ))}
