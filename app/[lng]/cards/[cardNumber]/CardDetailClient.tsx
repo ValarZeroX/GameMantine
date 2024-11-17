@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { Card, Image, Group, Text, Container, Grid, Badge, ScrollArea, Box } from '@mantine/core';
+import { Title, Card, Image, Group, Text, Container, Grid, Badge, ScrollArea, Box } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 import { useTranslation } from "../../../i18n/client";
 
@@ -73,6 +73,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
     };
     return (
         <Container size="lg">
+            <Title order={1}>{t('common:title.card_detail_title', { title: card.name })}</Title>
             <Grid mt="md" mb="md">
                 <Grid.Col span={{ base: 12, sm: 4, md: 4, lg: 4 }}>
                     <Image

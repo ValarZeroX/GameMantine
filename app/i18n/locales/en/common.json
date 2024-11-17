@@ -98,7 +98,7 @@
         "cards_page_title": "Pokémon Card List - Pokémon Nier",
         "cards_page_description": "View all Pokémon cards on this page.",
         "cards_page_keywords": "Card list, Pokémon TCG, Pokémon, Pokémon TCG Pocket",
-        "card_detail_title": "{{title}} Pokémon TCG - Pokémon Nier",
+        "card_detail_title": "{{title}} Pokémon TCG Pocket - Pokémon Nier",
         "card_detail_description": "View detailed information of card {{title}}, including attributes, attack skills, abilities.",
         "card_detail_keywords": "{{title}}, Pokémon TCG, Pokémon, Pokémon TCG Pocket"
     },
@@ -124,5 +124,10 @@
     "item": "Item",
     "supporter": "Supporter",
     "search_card": "Search card name, skills, abilities",
-    "please_select_up_to_3_series": "Please select up to 3 series."
+    "please_select_up_to_3_series": "Please select up to 3 series.",
+    "title": {
+        "card_detail_title": "{{title}} Pokemon TCG Pocket Card",
+        "cards_title": "Pokemon TCG Pocket Cards",
+        "decks_build_title": "Pokemon TCG Pocket Deck Builder"
+    }
 }

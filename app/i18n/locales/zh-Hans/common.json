@@ -98,7 +98,7 @@
         "cards_page_title": "宝可梦卡牌列表 - Pokemon Nier",
         "cards_page_description": "在此页面查看所有宝可梦卡牌。",
         "cards_page_keywords": "卡牌列表, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
-        "card_detail_title": "{{title}} Pokemon TCG - Pokemon Nier",
+        "card_detail_title": "{{title}} Pokemon TCG Pocket - Pokemon Nier",
         "card_detail_description": "查看卡片 {{title}} 的详细信息，包括属性、攻击技能、特性。",
         "card_detail_keywords": "{{title}}, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
         "decks_build_title": "Pokemon TCG Pocket牌組產生器"
@@ -123,7 +123,12 @@
     "UltraRare": "UR",
     "pokemon": "宝可梦",
     "item": "物品",
-    "supporter":"支援者",
+    "supporter": "支援者",
     "search_card": "搜索卡牌名称、技能、特性",
-    "please_select_up_to_3_series": "请选择最多3个系列。"
+    "please_select_up_to_3_series": "请选择最多3个系列。",
+    "title": {
+        "card_detail_title": "{{title}} Pokemon TCG Pocket 卡牌",
+        "cards_title": "Pokemon TCG Pocket卡牌",
+        "decks_build_title": "Pokemon TCG Pocket牌组产生器"
+    }
 }
