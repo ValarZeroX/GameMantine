@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Title,Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
@@ -53,11 +53,22 @@ interface CardsListClientProps {
 
 const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
 
-    const theme = useMantineColorScheme(); // 获取当前主题
+    const { colorScheme } = useMantineColorScheme();  // 获取当前主题
 
     // 定义图标颜色，根据主题色不同选择颜色
-    const iconBlueColor = theme.colorScheme === 'dark' ? 'white' : '#228be6';
-    const iconRedColor = theme.colorScheme === 'dark' ? 'white' : 'red';
+    const [iconBlueColor, setIconBlueColor] = useState('#228be6'); // 默认蓝色
+    const [iconRedColor, setIconRedColor] = useState('red'); // 默认红色
+
+    useEffect(() => {
+        // 根据主题更新颜色
+        if (colorScheme === 'dark') {
+            setIconBlueColor('white');
+            setIconRedColor('white');
+        } else {
+            setIconBlueColor('#228be6');
+            setIconRedColor('red');
+        }
+    }, [colorScheme]);
 
 
     const router = useRouter();
@@ -536,7 +547,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                 ]}
                                 aria-label={t('common:hp_range')}
                                 thumbSize={26}
-                                thumbChildren={[<IconHeart size="1rem" key="1" color={iconRedColor} />, <IconHeart size="1rem" key="2" color={iconRedColor}/>]}
+                                thumbChildren={[<IconHeart size="1rem" key="1" color={iconRedColor} />, <IconHeart size="1rem" key="2" color={iconRedColor} />]}
                                 color="red"
                             />
                         </Stack>
@@ -560,7 +571,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                 ]}
                                 aria-label={t('common:attack_range')}
                                 thumbSize={26}
-                                thumbChildren={[<IconSword size="1rem" key="3" color={iconBlueColor}/>, <IconSword size="1rem" key="4" color={iconBlueColor}/>]}
+                                thumbChildren={[<IconSword size="1rem" key="3" color={iconBlueColor} />, <IconSword size="1rem" key="4" color={iconBlueColor} />]}
                             />
                         </Stack>
                     </Grid.Col>
