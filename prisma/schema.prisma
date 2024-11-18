@@ -24,6 +24,8 @@ model User {
   sessions       Session[]
   role           Int        @default(0)  //層級
   pokemonId      String?    //寶可夢Id  
+
+  deckUsers  DeckUser[]
 }
 
 model Account {
@@ -95,4 +97,30 @@ model Card {
   rule                String?  //規則
 
   @@map("Card") // 將模型映射到資料庫中的 "Card" 表
+}
+
+model Deck {
+  id          String      @id @default(uuid())
+  version     Int         @default(0)        //版本
+  createdAt   DateTime    @default(now())    //建立日期
+  updatedAt   DateTime    @updatedAt         //更動日期
+  deckCards   String                         //牌組 存入格式A1-001,A1-231,PROMO-A-001...以此類推
+  
+  deckUsers   DeckUser[]                    // 關聯到 DeckUser
+}
+
+model DeckUser {
+  id          Int         @id @default(autoincrement())
+  deckId      String                         //Deck的id
+  userId      String                         //對應User的id
+  deckName    String                         //牌組名稱
+  createdAt   DateTime    @default(now())    //建立日期
+  updatedAt   DateTime    @updatedAt         //更動日期
+
+  user        User        @relation(fields: [userId], references: [id])
+  deck        Deck        @relation(fields: [deckId], references: [id])
+
+  @@index([userId])
+  @@index([deckId])
+  @@unique([userId, deckId]) // 確保每個用戶對每個牌組只有一個收藏
 }

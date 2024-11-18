@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Progress, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
-import { IconDeviceFloppy, IconDownload, IconRefresh, IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
+import { Input, Progress, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { IconCheck, IconX, IconDeviceFloppy, IconDownload, IconRefresh, IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../../i18n/client";
 import classes from './DecksPageClient.module.css';
@@ -12,6 +12,8 @@ import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import html2canvas from 'html2canvas';
+import { useSession } from 'next-auth/react';
+import { showNotification } from "@mantine/notifications";
 
 interface Card {
     id: number;
@@ -52,6 +54,7 @@ interface DecksPageClientProps {
 }
 
 const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
+    const { data: session } = useSession();
     const { colorScheme } = useMantineColorScheme();  // 获取当前主题
 
     // 定义图标颜色，根据主题色不同选择颜色
@@ -98,7 +101,9 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
 
 
     // const [selectedDeck, setSelectedDeck] = useState<Card[]>([]);
+    const [deckName, setDeckName] = useState('');
     const [selectedDeck, setSelectedDeck] = useLocalStorage<Card[]>('selectedDeck', []);
+    const [isLoading, setIsLoading] = useState(false);
 
     const deckRef = useRef<HTMLDivElement>(null);
     // 無限滾動相關
@@ -524,17 +529,96 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
         }
     };
 
+    const handleSaveDeck = async () => {
+        if (!session?.user) {
+            showNotification({
+                title: '未登入',
+                message: '請先登入會員。',
+                color: 'red',
+                icon: <IconX size={16} />,
+            });
+            return;
+        }
+
+        const trimmedDeckName = deckName.trim();
+        if (trimmedDeckName.length > 30) {
+            showNotification({
+                title: '名稱過長',
+                message: '牌組名稱最多可輸入30個字。',
+                color: 'red',
+                icon: <IconX size={16} />,
+            });
+            return;
+        }
+
+        const deckCards = selectedDeck.map(card => card.number).sort().join(',');
+
+        setIsLoading(true);
+        try {
+            const response = await fetch(`/api/decks/build`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    deckCards,
+                    deckName: deckName.trim() || '未命名',
+                    userId: session.user.id,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                showNotification({
+                    title: '成功',
+                    message: '牌庫已儲存。',
+                    color: 'green',
+                    icon: <IconCheck size={16} />,
+                });
+            } else {
+                showNotification({
+                    title: '失敗',
+                    message: data.message || '儲存牌庫失敗。',
+                    color: 'red',
+                    icon: <IconX size={16} />,
+                });
+            }
+        } catch (error) {
+            showNotification({
+                title: '錯誤',
+                message: '儲存牌庫時發生錯誤。',
+                color: 'red',
+                icon: <IconX size={16} />,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <Container size="lg">
             <Title order={1}>{t('common:title.decks_build_title')}</Title>
-            <Group mt="md" justify="flex-end">
+            <Group mt="md" justify="flex-end" align="center" >
+                <Input
+                    placeholder={t(`common:deck_name`)}
+                    value={deckName}
+                    onChange={(event) => {
+                        const value = event.currentTarget.value;
+                        if (value.length <= 30) {
+                            setDeckName(value);
+                        }
+                    }}
+                    maxLength={30}
+                    style={{ flexGrow: 1 }}
+                />
                 <ActionIcon variant="default" size="lg" onClick={clearDeck}>
                     <IconRefresh />
                 </ActionIcon>
                 <ActionIcon variant="default" size="lg" onClick={handleDownload}>
                     <IconDownload />
                 </ActionIcon>
-                <ActionIcon variant="default" size="lg" >
+                <ActionIcon variant="default" size="lg" onClick={handleSaveDeck} loading={isLoading}>
                     <IconDeviceFloppy />
                 </ActionIcon>
             </Group>

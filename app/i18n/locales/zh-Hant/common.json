@@ -158,5 +158,6 @@
         "cards_title": "Pokemon TCG Pocket卡牌",
         "decks_build_title": "Pokemon TCG Pocket牌組產生器"
     },
-    "points": "兌換點數"
+    "points": "兌換點數",
+    "deck_name": "牌組名稱"
 }

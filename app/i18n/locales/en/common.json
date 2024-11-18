@@ -153,5 +153,6 @@
         "card_detail_title": "{{title}} Pokemon TCG Pocket Card",
         "cards_title": "Pokemon TCG Pocket Cards",
         "decks_build_title": "Pokemon TCG Pocket Deck Builder"
-    }
+    },
+    "deck_name": "Deck Name"
 }
