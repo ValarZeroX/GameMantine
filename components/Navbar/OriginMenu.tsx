@@ -4,9 +4,12 @@ import React from 'react';
 import { NavLink, Divider } from '@mantine/core';
 import { IconHome, IconFlame, IconCards, IconStack2 } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 function OriginMenu() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
 
   const handleNavigation = (path: string) => {
     router.push(path);
@@ -38,7 +41,10 @@ function OriginMenu() {
         leftSection={<IconStack2 size="1rem" stroke={1.5} />}
         // onClick={() => handleNavigation('/decks')}
       >
-        <NavLink label="創建牌組"  onClick={() => handleNavigation('/decks/build')}/>
+        <NavLink label="創建牌組" onClick={() => handleNavigation('/decks/build')} />
+        {session && (
+          <NavLink label="我的牌組" onClick={() => handleNavigation('/decks/user')} />
+        )}
       </NavLink>
       {/* <Divider my="xs" label="討論區" labelPosition="left" />
       <Divider my="xs" label="部落格" labelPosition="left" /> */}

@@ -57,12 +57,16 @@
         "expiredToken": "Verification token has expired.",
         "goToLogin": "Go to Login"
     },
+    "errors": {
+        "pleaseLogin": "Please log in",
+        "error_insufficient_permissions":"Insufficient permissions, please log in."
+    },
     "cardSet": {
         "A1": "Genetic Apex",
         "PROMO-A": "Promo-A"
     },
     "cardDex": {
-       "A1C": "Charizard Pack",
+        "A1C": "Charizard Pack",
         "A1M": "Mewtwo Pack",
         "A1P": "Pikachu Pack"
     },
@@ -111,9 +115,26 @@
     "add_card": "Add Card",
     "notification": {
         "success_title": "Success",
-        "success_message": "Card added successfully!",
+        "success": "Success",
+        "success_message": "Card has been successfully added!",
         "error_title": "Error",
-        "error_message": "Failed to add card, please try again later."
+        "error_message": "Failed to add card. Please try again later.",
+        "successMessage": "Registration successful! Please check your email to verify.",
+        "errorTitle": "Failure",
+        "errorMessage": "An error occurred during registration.",
+        "error_fetch_card_data": "Unable to retrieve card data.",
+        "error_not_logged_in": "Not logged in",
+        "error_please_login": "Please log in first.",
+        "error_name_too_long": "Name too long",
+        "error_deck_name_length": "Deck name can be up to 30 characters.",
+        "notification_unnamed": "Unnamed",
+        "success_deck_saved": "Deck has been saved.",
+        "error_save_deck": "An error occurred while saving the deck.",
+        "error_unauthorized": "Unauthorized, please log in.",
+        "error_card_data_not_loaded": "Card data not loaded yet.",
+        "error_fetch_deck": "Failed to retrieve deck.",
+        "error_deck_size": "The deck must contain 20 cards.",
+        "error_save_deck_failed": "Failed to save deck."
     },
     "metadata": {
         "new_card_title": "Add Card - Pokémon Nier",
@@ -124,7 +145,14 @@
         "cards_page_keywords": "Card list, Pokémon TCG, Pokémon, Pokémon TCG Pocket",
         "card_detail_title": "{{title}} Pokémon TCG Pocket - Pokémon Nier",
         "card_detail_description": "View detailed information of card {{title}}, including attributes, attack skills, abilities.",
-        "card_detail_keywords": "{{title}}, Pokémon TCG, Pokémon, Pokémon TCG Pocket"
+        "card_detail_keywords": "{{title}}, Pokémon TCG, Pokémon, Pokémon TCG Pocket",
+        "decks_build_title": "Pokemon TCG Pocket Deck Generator",
+        "decks_user_title": "Pokemon TCG Pocket Deck",
+        "decks_user_description": "View Pokemon TCG Pocket decks",
+        "decks_user_keywords": "decks, Pokemon TCG, Pokemon, Pokemon TCG Pocket",
+        "decks_edit_title": "Edit Deck - Pokemon TCG Pocket",
+        "decks_edi_description": "Edit deck Pokemon TCG Pocket",
+        "decks_edi_keywords": "decks, Pokemon TCG, Pokemon, Pokemon TCG Pocket"
     },
     "grass": "Grass",
     "fire": "Fire",
@@ -152,7 +180,10 @@
     "title": {
         "card_detail_title": "{{title}} Pokemon TCG Pocket Card",
         "cards_title": "Pokemon TCG Pocket Cards",
-        "decks_build_title": "Pokemon TCG Pocket Deck Builder"
+        "decks_build_title": "Pokemon TCG Pocket Deck Builder",
+        "my_decks": "My Decks",
+        "decks_user_edit_title": "Edit Decks"
     },
+    "points": "Exchange points",
     "deck_name": "Deck Name"
 }

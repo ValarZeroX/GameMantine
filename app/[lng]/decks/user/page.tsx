@@ -1,4 +1,4 @@
-// app/[lng]/decks/build/page.tsx
+// app/[lng]/decks/user/page.tsx
 
 import React from 'react';
 import { Metadata } from 'next';
@@ -6,7 +6,7 @@ import Layout from '../../../../components/Layout/Layout';
 import { useTranslation } from '../../../i18n/index';
 // import { showNotification } from "@mantine/notifications";
 import { IconX } from '@tabler/icons-react';
-import DecksPageClient from './DecksPageClient'; // 客戶端組件
+import UserDecksPageClient from './UserDecksPageClient'; // 客戶端組件
 
 interface Card {
     id: number;
@@ -66,16 +66,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const { t: translate } = translation;
 
     return {
-        title: translate('metadata.decks_build_title'),
-        description: translate('metadata.decks_build_description'),
-        keywords: translate('metadata.decks_build_keywords'),
+        title: translate('metadata.decks_user_title'),
+        description: translate('metadata.decks_user_description'),
+        keywords: translate('metadata.decks_user_keywords'),
     };
 }
 
-// 页面组件，作为服务器组件
-type DecksPageProps = { params: Promise<{ lng: string; }> };
+type UserDecksPageProps = { params: Promise<{ lng: string; }> };
 
-const DecksPage = async ({ params }: DecksPageProps) => {
+const UserDecksPage = async ({ params }: UserDecksPageProps) => {
     const { lng } = await params;
 
     // 使用同一个函数获取卡片数据
@@ -97,9 +96,9 @@ const DecksPage = async ({ params }: DecksPageProps) => {
 
     return (
         <Layout lng={lng}>
-            <DecksPageClient  lng={lng} />
+            <UserDecksPageClient  lng={lng} />
         </Layout>
     );
 };
 
-export default DecksPage;
+export default UserDecksPage;

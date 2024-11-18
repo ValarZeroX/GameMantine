@@ -1,4 +1,4 @@
-// app/[lng]/decks/DecksPageClient.tsx
+// app/[lng]/decks/build/DecksPageClient.tsx
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
@@ -244,7 +244,7 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
             const query = sets.length > 0 ? `?sets=${sets.join(',')}` : '';
             const response = await fetch(`/api/card${query}`);
             if (!response.ok) {
-                throw new Error('無法取得卡片資料。');
+                throw new Error(t('common:notification.error_fetch_card_data'));
             }
             const data: Card[] = await response.json();
             setAllCards(data);
@@ -532,8 +532,8 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
     const handleSaveDeck = async () => {
         if (!session?.user) {
             showNotification({
-                title: '未登入',
-                message: '請先登入會員。',
+                title: t('common:notification.error_not_logged_in'),
+                message: t('common:notification.error_please_login'),
                 color: 'red',
                 icon: <IconX size={16} />,
             });
@@ -543,8 +543,8 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
         const trimmedDeckName = deckName.trim();
         if (trimmedDeckName.length > 30) {
             showNotification({
-                title: '名稱過長',
-                message: '牌組名稱最多可輸入30個字。',
+                title: t('common:notification.error_name_too_long'),
+                message: t('common:notification.error_deck_name_length'),
                 color: 'red',
                 icon: <IconX size={16} />,
             });
@@ -552,6 +552,16 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
         }
 
         const deckCards = selectedDeck.map(card => card.number).sort().join(',');
+
+        if (selectedDeck.length !== 20) {
+            showNotification({
+                title: t('common:notification.error_title'),
+                message: t('common:notification.error_deck_size'),
+                color: 'red',
+                icon: <IconX size={16} />,
+            });
+            return;
+        }
 
         setIsLoading(true);
         try {
@@ -562,7 +572,7 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
                 },
                 body: JSON.stringify({
                     deckCards,
-                    deckName: deckName.trim() || '未命名',
+                    deckName: deckName.trim() || t('common:notification.notification_unnamed'),
                     userId: session.user.id,
                 }),
             });
@@ -571,23 +581,23 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
 
             if (response.ok) {
                 showNotification({
-                    title: '成功',
-                    message: '牌庫已儲存。',
+                    title: t('common:notification.success'),
+                    message: t('common:notification.success_deck_saved'),
                     color: 'green',
                     icon: <IconCheck size={16} />,
                 });
             } else {
                 showNotification({
-                    title: '失敗',
-                    message: data.message || '儲存牌庫失敗。',
+                    title: t("common:notification.error"),
+                    message: data.message || t("common:notification.error_save_deck_failed"),
                     color: 'red',
                     icon: <IconX size={16} />,
                 });
             }
         } catch (error) {
             showNotification({
-                title: '錯誤',
-                message: '儲存牌庫時發生錯誤。',
+                title: t("common:notification.error"),
+                message: t('common:notification.error_save_deck'),
                 color: 'red',
                 icon: <IconX size={16} />,
             });

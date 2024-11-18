@@ -57,6 +57,10 @@
         "expiredToken": "驗證令牌已過期。",
         "goToLogin": "前往登入"
     },
+    "errors": {
+        "pleaseLogin": "請登入",
+        "error_insufficient_permissions":"權限不夠，請登入。"
+    },
     "cardSet": {
         "A1": "最強基因",
         "PROMO-A": "Promo-A"
@@ -111,12 +115,26 @@
     "add_card": "新增卡牌",
     "notification": {
         "success_title": "成功",
+        "success": "成功",
         "success_message": "卡牌已成功新增！",
         "error_title": "錯誤",
         "error_message": "新增卡牌失敗，請稍後再試。",
         "successMessage": "註冊成功！請檢查您的郵件進行驗證。",
         "errorTitle": "失敗",
-        "errorMessage": "註冊過程中出現錯誤。"
+        "errorMessage": "註冊過程中出現錯誤。",
+        "error_fetch_card_data": "無法取得卡片資料。",
+        "error_not_logged_in": "未登入",
+        "error_please_login": "請先登入會員。",
+        "error_name_too_long": "名稱過長",
+        "error_deck_name_length": "牌組名稱最多可輸入30個字。",
+        "notification_unnamed": "未命名",
+        "success_deck_saved": "牌庫已儲存。",
+        "error_save_deck": "儲存牌庫時發生錯誤。",
+        "error_unauthorized": "未授權，請登入。",
+        "error_card_data_not_loaded": "卡片數據尚未加載。",
+        "error_fetch_deck": "獲取牌組失敗。",
+        "error_deck_size": "牌組必須包含20張卡牌。",
+        "error_save_deck_failed": "儲存牌庫失敗。"
     },
     "metadata": {
         "new_card_title": "新增卡牌 - Pokemon Nier",
@@ -128,7 +146,13 @@
         "card_detail_title": "{{title}} Pokemon TCG Pocket - Pokemon Nier",
         "card_detail_description": "查看卡片 {{title}} 的詳細訊息，包括屬性、攻擊技能、特性。",
         "card_detail_keywords": "{{title}}, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
-        "decks_build_title": "Pokemon TCG Pocket牌組產生器"
+        "decks_build_title": "創建牌組 - Pokemon TCG Pocket",
+        "decks_user_title": "Pokemon TCG Pocket牌組",
+        "decks_user_description": "查看Pokemon TCG Pocket牌組",
+        "decks_user_keywords": "牌組, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
+        "decks_edit_title": "編輯牌組 - Pokemon TCG Pocket",
+        "decks_edi_description": "編輯牌組Pokemon TCG Pocket",
+        "decks_edi_keywords": "牌組, Pokemon TCG, 寶可夢, Pokemon TCG Pocket"
     },
     "grass": "草",
     "fire": "火",
@@ -156,7 +180,9 @@
     "title": {
         "card_detail_title": "{{title}} Pokemon TCG Pocket 卡牌",
         "cards_title": "Pokemon TCG Pocket卡牌",
-        "decks_build_title": "Pokemon TCG Pocket牌組產生器"
+        "decks_build_title": "創建牌組 - Pokemon TCG Pocket",
+        "my_decks": "我的牌組",
+        "decks_user_edit_title": "編輯牌組"
     },
     "points": "兌換點數",
     "deck_name": "牌組名稱"
