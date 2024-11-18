@@ -185,5 +185,16 @@
         "decks_user_edit_title": "编辑牌组"
     },
     "points": "兌換點數",
-    "deck_name": "牌组名称"
+    "deck_name": "牌组名称",
+    "card_count": "卡片数量",
+    "creation_time": "创建时间",
+    "navigation": {
+        "home": "首页",
+        "cards": "卡牌",
+        "deck": "牌组",
+        "deck_list": "牌组列表",
+        "create_deck": "创建牌组",
+        "my_decks": "我的牌组",
+        "language_selection": "语言选择"
+    }
 }

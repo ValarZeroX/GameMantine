@@ -1,16 +1,24 @@
 'use client';
 
-import React from 'react';
+import { FC } from 'react';
 import { NavLink, Divider } from '@mantine/core';
 import { IconHome, IconFlame, IconCards, IconStack2 } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useTranslation } from "../../app/i18n/client";
 
-function OriginMenu() {
+interface OriginMenuProps {
+  lng: string;
+}
+
+const OriginMenu: FC<OriginMenuProps> = ({lng }) => {
+// function OriginMenu({ lng }:OriginMenuProps) {
   const router = useRouter();
   const { data: session, status } = useSession();
 
+  const { t } = useTranslation(lng, ['common']);
 
+// console.log('OriginMenu', lng);
   const handleNavigation = (path: string) => {
     router.push(path);
   };
@@ -19,7 +27,7 @@ function OriginMenu() {
     <nav>
       <NavLink
         component="button"
-        label="首頁"
+        label={t('common:navigation.home')}
         leftSection={<IconHome size="1rem" stroke={1.5} />}
         onClick={() => handleNavigation('/')}
       />
@@ -31,19 +39,20 @@ function OriginMenu() {
       /> */}
       <NavLink
         component="button"
-        label="卡牌"
+        label={t('common:navigation.cards')}
         leftSection={<IconCards size="1rem" stroke={1.5} />}
         onClick={() => handleNavigation('/cards')}
       />
       <NavLink
         component="button"
-        label="牌組"
+        label={t('common:navigation.deck')}
         leftSection={<IconStack2 size="1rem" stroke={1.5} />}
         // onClick={() => handleNavigation('/decks')}
       >
-        <NavLink label="創建牌組" onClick={() => handleNavigation('/decks/build')} />
+        <NavLink label={t('common:navigation.deck_list')} onClick={() => handleNavigation('/decks/list')} />
+        <NavLink label={t('common:navigation.create_deck')} onClick={() => handleNavigation('/decks/build')} />
         {session && (
-          <NavLink label="我的牌組" onClick={() => handleNavigation('/decks/user')} />
+          <NavLink label={t('common:navigation.my_decks')} onClick={() => handleNavigation('/decks/user')} />
         )}
       </NavLink>
       {/* <Divider my="xs" label="討論區" labelPosition="left" />

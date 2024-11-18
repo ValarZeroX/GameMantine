@@ -8,7 +8,7 @@ import classes from './Header.module.css';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { languages } from '../../app/i18n/settings';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from "../../app/i18n/client";
 
 interface HeaderProps {
   opened: boolean;
@@ -22,7 +22,8 @@ const Header: FC<HeaderProps> = ({ opened, toggle, desktopOpened, toggleDesktop,
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, status } = useSession();
-  // const { i18n } = useTranslation(); // 使用 useTranslation Hook
+  const { t } = useTranslation(lng, ['common']);
+
 
   const handleNavigation = (path: string) => {
     router.push(path);
@@ -70,12 +71,12 @@ const Header: FC<HeaderProps> = ({ opened, toggle, desktopOpened, toggleDesktop,
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Label>語言選擇</Menu.Label>
+              <Menu.Label>{t('common:navigation.language_selection')}</Menu.Label>
               {/* <Menu.Item onClick={() => changeLanguage('en')}>
                 <Text>English</Text>
               </Menu.Item> */}
               <Menu.Item onClick={() => changeLanguage('zh-Hans')}>
-                <Text>簡體中文</Text>
+                <Text>简体中文</Text>
               </Menu.Item>
               <Menu.Item onClick={() => changeLanguage('zh-Hant')}>
                 <Text>繁體中文</Text>

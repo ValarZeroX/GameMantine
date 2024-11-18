@@ -18,7 +18,6 @@ export default function Layout({ children, lng }: LayoutProps) {
   // const resolvedParams = use(params);
   //   const { lng } = resolvedParams;
 
-
   // const [opened, { toggle }] = useDisclosure();
 
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
@@ -42,7 +41,7 @@ export default function Layout({ children, lng }: LayoutProps) {
             <Header opened={mobileOpened} toggle={toggleMobile} desktopOpened={desktopOpened} toggleDesktop={toggleDesktop} lng={lng} />
         </AppShell.Header>
         <AppShell.Navbar p="md">
-            <OriginMenu />
+            <OriginMenu lng={lng}/>
         </AppShell.Navbar>
   
         <AppShell.Main>

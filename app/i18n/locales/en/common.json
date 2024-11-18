@@ -59,7 +59,7 @@
     },
     "errors": {
         "pleaseLogin": "Please log in",
-        "error_insufficient_permissions":"Insufficient permissions, please log in."
+        "error_insufficient_permissions": "Insufficient permissions, please log in."
     },
     "cardSet": {
         "A1": "Genetic Apex",
@@ -185,5 +185,16 @@
         "decks_user_edit_title": "Edit Decks"
     },
     "points": "Exchange points",
-    "deck_name": "Deck Name"
+    "deck_name": "Deck Name",
+    "card_count": "Number of Cards",
+    "creation_time": "Creation Time",
+    "navigation": {
+        "home": "Home",
+        "cards": "Cards",
+        "deck": "Decks",
+        "deck_list": "Deck List",
+        "create_deck": "Create Deck",
+        "my_decks": "My Decks",
+        "language_selection": "Language Selection"
+    }
 }

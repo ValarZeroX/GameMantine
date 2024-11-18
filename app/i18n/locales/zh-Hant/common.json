@@ -59,7 +59,7 @@
     },
     "errors": {
         "pleaseLogin": "請登入",
-        "error_insufficient_permissions":"權限不夠，請登入。"
+        "error_insufficient_permissions": "權限不夠，請登入。"
     },
     "cardSet": {
         "A1": "最強基因",
@@ -185,5 +185,16 @@
         "decks_user_edit_title": "編輯牌組"
     },
     "points": "兌換點數",
-    "deck_name": "牌組名稱"
+    "deck_name": "牌組名稱",
+    "card_count": "卡片數量",
+    "creation_time": "創建時間",
+    "navigation": {
+        "home": "首頁",
+        "cards": "卡牌",
+        "deck": "牌組",
+        "deck_list": "牌組列表",
+        "create_deck": "創建牌組",
+        "my_decks": "我的牌組",
+        "language_selection": "語言選擇"
+    }
 }

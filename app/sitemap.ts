@@ -1,25 +1,21 @@
 // app/sitemap.ts
 
 import type { MetadataRoute } from 'next';
-
-async function fetchCards() {
-    const res = await fetch(`${process.env.NEXTAUTH_URL || 'https://pokemonnier.com/'}/api/card`);
-    if (!res.ok) {
-        throw new Error('Failed to fetch cards data');
-    }
-    const cards = await res.json();
-    return cards;
-}
+import { prisma } from '@/lib/prisma'; // 確保 prisma 已正確導出
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = process.env.NEXTAUTH_URL || 'https://pokemonnier.com/';
     const languages = ['zh-Hant', 'zh-Hans'];
 
     // 获取所有卡片数据
-    const cards = await fetchCards();
+    const cards = await prisma.card.findMany({
+        select: {
+            number: true, // 只選取需要的字段
+        },
+    });
 
     // 生成卡片页面的 URL
-    const cardUrls = cards.flatMap((card: any) =>
+    const cardUrls = cards.flatMap((card) =>
         languages.map((lng) => ({
             url: `${baseUrl}/${lng}/cards/${card.number}`,
             lastModified: new Date().toISOString(),

@@ -1,23 +1,18 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
-
-// 假設有 Prisma 或其他 ORM
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from "@/lib/auth/authOptions";  // 根據您的項目結構調整路徑
 import { prisma } from '@/lib/prisma';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'Method not allowed' });
-    }
-
-    const session = await getSession({ req });
+export async function POST(req: NextRequest) {
+    const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
-        return res.status(401).json({ message: '未授權' });
+        return NextResponse.json({ message: '未授權' }, { status: 401 });
     }
 
-    const { deckUserId, deckName, deckCards, userId } = req.body;
+    const { deckUserId, deckName, deckCards, userId } = await req.json();
 
     if (userId !== session.user.id) {
-        return res.status(403).json({ message: '禁止存取' });
+        return NextResponse.json({ message: '禁止存取' }, { status: 403 });
     }
 
     try {
@@ -32,9 +27,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             },
         });
-        return res.status(200).json(updatedDeckUser);
+        return NextResponse.json(updatedDeckUser, { status: 200 });
     } catch (error) {
         console.error('Error updating DeckUser:', error);
-        return res.status(500).json({ message: '更新牌組失敗' });
+        return NextResponse.json({ message: '更新牌組失敗' }, { status: 500 });
     }
 }
+
+// 您可以添加其他 HTTP 方法的處理，例如 GET, PUT 等

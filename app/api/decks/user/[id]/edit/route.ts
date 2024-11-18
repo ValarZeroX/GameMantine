@@ -3,60 +3,38 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from "@/lib/auth/authOptions"; // 確保路徑正確
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma'; // 引入 Prisma 客戶端
+import type { DeckUser, Deck } from '@prisma/client'; // 正確導入 DeckUser 和 Deck 類型
 
-// 定義 DeckUser 的 TypeScript 接口
-interface DeckUser {
-  id: number;
-  deckName: string;
-  userId: number;
-  deck: {
-    id: number;
-    deckCards: string; // 卡片號碼以逗號分隔
-  };
-}
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+
   try {
-    // 等待 params 以取得動態路由參數
     const { id } = await params;
-    console.log(`Requested DeckUser ID: ${id}`);
 
-    // 獲取當前用戶的會話
     const session = await getServerSession(authOptions);
-    console.log(`session: ${session}`);
     if (!session?.user?.id) {
-        console.log(`401: ${401}`);
       return NextResponse.json({ message: '未授權' }, { status: 401 });
     }
 
-    // 確保 id 是有效的數字
     const deckUserId = parseInt(id, 10);
     if (isNaN(deckUserId)) {
       return NextResponse.json({ message: '無效的牌組 ID' }, { status: 400 });
     }
 
-    // 從資料庫中查詢 DeckUser 及其相關的 Deck 資料
     const deckUser: DeckUser | null = await prisma.deckUser.findUnique({
       where: { id: deckUserId },
-      include: { deck: true },
+      include: { deck: true }, // 包含 deck 關聯
     });
-    console.log(`Fetched DeckUser: ${JSON.stringify(deckUser)}`);
 
-    // 如果找不到 DeckUser，返回 404 錯誤
     if (!deckUser) {
       return NextResponse.json({ message: '牌組未找到' }, { status: 404 });
     }
 
-    // 確認該 DeckUser 屬於當前用戶
     if (deckUser.userId !== session.user.id) {
       return NextResponse.json({ message: '禁止存取' }, { status: 403 });
     }
 
-    // 返回 DeckUser 資料
     return NextResponse.json(deckUser);
   } catch (error) {
     console.error('Error fetching DeckUser:', error);
@@ -64,42 +42,33 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    console.log(`Updating DeckUser ID: ${id}`);
 
-    // 獲取當前用戶的會話
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ message: '未授權' }, { status: 401 });
     }
 
-    // 確保 id 是有效的數字
     const deckUserId = parseInt(id, 10);
     if (isNaN(deckUserId)) {
       return NextResponse.json({ message: '無效的牌組 ID' }, { status: 400 });
     }
 
-    // 從資料庫中查詢 DeckUser 及其相關的 Deck 資料
     const deckUser: DeckUser | null = await prisma.deckUser.findUnique({
       where: { id: deckUserId },
-      include: { deck: true },
+      include: { deck: true }, // 包含 deck 關聯
     });
 
     if (!deckUser) {
       return NextResponse.json({ message: '牌組未找到' }, { status: 404 });
     }
 
-    // 確認該 DeckUser 屬於當前用戶
     if (deckUser.userId !== session.user.id) {
       return NextResponse.json({ message: '禁止存取' }, { status: 403 });
     }
 
-    // 解析請求的 body
     const data = await request.json();
     const { deckName, deckCards } = data;
 
@@ -108,7 +77,7 @@ export async function PUT(
     }
 
     // 檢查是否已存在相同的 deckCards
-    let deck = await prisma.deck.findFirst({
+    let deck: Deck | null = await prisma.deck.findFirst({
       where: { deckCards },
     });
 
