@@ -137,7 +137,10 @@
         "error_save_deck_failed": "Failed to save deck.",
         "success_deck_deleted": "The deck has been deleted.",
         "error_delete_deck": "An error occurred while deleting the deck.",
-        "error_delete_deck_failed": "Failed to delete the deck."
+        "error_delete_deck_failed": "Failed to delete the deck.",
+        "ratingSubmitted": "Your rating has been submitted.",
+        "ratingError": "An error occurred while submitting your rating.",
+        "serverError": "A server error occurred while submitting your rating."
     },
     "metadata": {
         "new_card_title": "Add Card - Pokémon Nier",
@@ -210,5 +213,19 @@
         "title": "Privacy Policy",
         "content": "Our website is committed to not collecting any personal information from users. If you choose to log in using your Google account, we will only retain your email address and the nickname you have set. No other personal information will be stored. If you have any concerns, you may opt to register a new account to log in.",
         "content_2": "Additionally, please keep your account password secure. Our website does not offer password recovery or reset services, nor does it support password change functionality."
-    }
+    },
+    "sorting": {
+        "sortingMode": "Sorting Mode",
+        "chooseSortingMode": "Choose Sorting Mode",
+        "rating": "Rating",
+        "favorite": "Favorite",
+        "creationTime": "Creation Time",
+        "sortingOrder": "Sorting Order",
+        "chooseSortingOrder": "Choose Sorting Order",
+        "descendingNewest": "Descending/Newest First",
+        "ascendingOldest": "Ascending/Oldest First",
+        "search": "Search",
+        "submit": "Submit"
+    },
+    "advancedFiltering": "Advanced Filtering"
 }

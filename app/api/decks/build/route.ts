@@ -26,6 +26,7 @@ export async function POST(request: Request) {
             deck = await prisma.deck.create({
                 data: {
                     deckCards,
+                    version:Number(process.env.POKEMON_VERSION),
                 },
             });
         }

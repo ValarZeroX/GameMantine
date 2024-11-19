@@ -746,7 +746,7 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
                         <Text>{t('common:please_select_up_to_3_series')}</Text>
                     </Blockquote>
                     <Collapse in={isFilterOpen}>
-                        <Divider my="xs" label="進階過濾" labelPosition="left" />
+                        <Divider my="xs" label={t('common:advancedFiltering')} labelPosition="left" />
                         <Group>
                             <TextInput
                                 placeholder={t('common:search_card')}

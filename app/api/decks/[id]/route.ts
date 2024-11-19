@@ -61,11 +61,11 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
             });
             return NextResponse.json({ message: '牌組已儲存' }, { status: 200 });
         } else {
-            console.log('牌組已經儲存過了');
+            // console.log('牌組已經儲存過了');
             return NextResponse.json({ message: '牌組已儲存' }, { status: 200 });
         }
     } catch (error) {
-        console.error('Error updating DeckUser:', error);
+        // console.error('Error updating DeckUser:', error);
         return NextResponse.json({ message: '更新牌組失敗' }, { status: 500 });
     }
 }
@@ -97,7 +97,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
             return NextResponse.json({ message: '牌組未找到' }, { status: 404 });
         }
     } catch (error) {
-        console.error('Error deleting DeckUser:', error);
+        // console.error('Error deleting DeckUser:', error);
         return NextResponse.json({ message: '刪除牌組失敗' }, { status: 500 });
     }
 }

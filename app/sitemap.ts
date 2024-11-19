@@ -14,10 +14,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     });
 
+    const decks = await prisma.deck.findMany({
+        select: {
+            id: true, // 只選取需要的字段
+        },
+    });
+
     // 生成卡片页面的 URL
     const cardUrls = cards.flatMap((card) =>
         languages.map((lng) => ({
             url: `${baseUrl}/${lng}/cards/${card.number}`,
+            lastModified: new Date().toISOString(),
+        }))
+    );
+
+    const deckUrls = decks.flatMap((deck) =>
+        languages.map((lng) => ({
+            url: `${baseUrl}/${lng}/decks/${deck.id}`,
             lastModified: new Date().toISOString(),
         }))
     );
@@ -29,11 +42,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: new Date().toISOString(),
         },
         {
+            url: `${baseUrl}/favicon.svg`,
+            lastModified: new Date().toISOString(),
+        },
+        {
             url: `${baseUrl}/${lng}/cards`,
             lastModified: new Date().toISOString(),
         },
         // ...其他静态页面
     ]);
 
-    return [...staticUrls, ...cardUrls];
+    return [...staticUrls, ...cardUrls, ...deckUrls];
 }

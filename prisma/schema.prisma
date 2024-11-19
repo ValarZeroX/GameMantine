@@ -105,8 +105,7 @@ model Deck {
   version     Int         @default(0)        //版本
   createdAt   DateTime    @default(now())    //建立日期
   updatedAt   DateTime    @updatedAt         //更動日期
-  deckCards   String                         //牌組 存入格式A1-001,A1-231,PROMO-A-001...以此類推
-  averageRating Float?  
+  deckCards   String                         //牌組 存入格式A1-001,A1-231,PROMO-A-001...以此類推 
   
   deckUsers   DeckUser[]                    // 關聯到 DeckUser
   deckRatings DeckRating[] 
@@ -132,7 +131,8 @@ model DeckRating {
   id        Int     @id @default(autoincrement())
   userId    String
   deckId    String
-  rating    Int
+  rating    Float
+  comment   String   @default("")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

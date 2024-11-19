@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Progress, Badge, Image, Anchor, Title, Container, Grid, Card, Text, Group, ActionIcon, Center, Loader } from '@mantine/core';
-import { IconHeart, IconBookmark, IconBookmarkFilled, IconBookmarkPlus, IconCheck, IconX } from '@tabler/icons-react';
+import { Progress, Badge, Image, Button, Title, Container, Grid, Card, Rating, Group, ActionIcon, useMantineColorScheme, Loader, Text, Divider, Textarea } from '@mantine/core';
+import { IconHeart, IconBookmark, IconBookmarkFilled, IconSend, IconCheck, IconX, IconDownload } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../../i18n/client";
 import classes from './EditDecksPageClient.module.css';
@@ -81,9 +81,19 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
     const [deckCards, setDeckCards] = useState<Card[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [isSaved, setIsSaved] = useState<boolean>(false);
+    // 增加狀態變數
+    const [ratingValue, setRatingValue] = useState<number>(0);
+    const [comment, setComment] = useState<string>('');
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+    const [averageRating, setAverageRating] = useState<number>(0);
+    const [ratingCount, setRatingCount] = useState<number>(0);
 
     const params = useParams();
     const { id } = params;
+
+    const { colorScheme } = useMantineColorScheme();  // 获取当前主题
+    const deckRef = useRef<HTMLDivElement>(null);
     // console.log(id);
 
 
@@ -103,8 +113,8 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
             return;
         }
 
-        const fetchIsSaved= async () => {
-            try{
+        const fetchIsSaved = async () => {
+            try {
                 const isSavedResponse = await fetch(`/api/decks/${id}`, {
                     method: 'GET',
                     credentials: 'include', // 確保攜帶 Cookie
@@ -125,7 +135,7 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
                 setIsLoading(false);
             }
         };
-    
+
         fetchIsSaved();
     }, [id, t]);
 
@@ -234,30 +244,6 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
             return;
         }
 
-        // const trimmedDeckName = "";
-        // if (trimmedDeckName.length > 30) {
-        //     showNotification({
-        //         title: t('common:notification.error_name_too_long'),
-        //         message: t('common:notification.error_deck_name_length'),
-        //         color: 'red',
-        //         icon: <IconX size={16} />,
-        //     });
-        //     return;
-        // }
-
-        // const deckCards = selectedDeck.map(card => card.number).sort().join(',');
-
-        // if (selectedDeck.length !== 20) {
-        //     showNotification({
-        //         title: t('common:notification.error_title'),
-        //         message: t('common:notification.error_deck_size'),
-        //         color: 'red',
-        //         icon: <IconX size={16} />,
-        //     });
-        //     return;
-        // }
-
-        // setIsLoading(true);
         try {
             const response = await fetch(`/api/decks/${id}`, {
                 method: 'POST',
@@ -349,76 +335,236 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
         }
     };
 
+
+
+    // 發送評價的函數
+    const handleSubmitRating = async () => {
+        if (!session?.user) {
+            showNotification({
+                title: t('common:notification.error_not_logged_in'),
+                message: t('common:notification.error_please_login'),
+                color: 'red',
+                icon: <IconX size={16} />,
+            });
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch(`/api/decks/${id}/rating`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    rating: ratingValue,
+                    comment,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                showNotification({
+                    title: t('common:notification.success'),
+                    message: '您的評分已提交',
+                    color: 'green',
+                    icon: <IconCheck size={16} />,
+                });
+                // 清空評分
+                setRatingValue(0);
+                setComment('');
+            } else {
+                showNotification({
+                    title: t('common:notification.error_title'),
+                    message: data.message || '提交評分時出錯',
+                    color: 'red',
+                    icon: <IconX size={16} />,
+                });
+            }
+        } catch (error) {
+            console.error('Error submitting rating:', error);
+            showNotification({
+                title: t('common:notification.error_title'),
+                message: '提交評分時發生伺服器錯誤',
+                color: 'red',
+                icon: <IconX size={16} />,
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    useEffect(() => {
+        const fetchAverageRating = async () => {
+            try {
+                const response = await fetch(`/api/decks/${id}/rating`);
+                const data = await response.json();
+                if (response.ok) {
+                    setAverageRating(data.averageRating);
+                    setRatingCount(data.ratingCount);
+                } else {
+                    console.error(data.message);
+                }
+            } catch (error) {
+                // console.error('獲取平均評分時發生錯誤：', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchAverageRating();
+    }, [id]);
+
+    const handleDownload = async () => {
+        if (deckRef.current) {
+            // Clone the node to modify styles without affecting the actual UI
+            const clone = deckRef.current.cloneNode(true) as HTMLElement;
+
+            // Apply background color based on the current theme
+            clone.style.backgroundColor = colorScheme === 'dark' ? '#242424' : '#FFFFFF'; // Example colors
+
+            // Append the clone to the body to ensure styles are applied
+            document.body.appendChild(clone);
+
+            const canvas = await html2canvas(clone, {
+                backgroundColor: null, // Let the cloned element's background color apply
+                useCORS: true, // Enable cross-origin images if needed
+            });
+
+            // Remove the clone after capturing
+            document.body.removeChild(clone);
+
+            const imgData = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = imgData;
+            link.download = 'pokemonnier.png';
+            link.click();
+        }
+    };
+
     return (
         <Container size="lg">
-            <Title order={1}>{id} - 牌組</Title>
+            <Title order={1}>{id} - {t("common:navigation.deck")}</Title>
             <Group mt="md" justify='flex-end'>
+            <ActionIcon variant="default" size="lg" onClick={handleDownload}>
+                            <IconDownload />
+                        </ActionIcon>
                 {isSaved ? (
                     <ActionIcon variant="default" size="lg" onClick={handlDeleteDeck} loading={isLoading} >
-                        <IconBookmarkFilled color="#fcc419"/>
+                        <IconBookmarkFilled color="#fcc419" />
                     </ActionIcon>
                 ) : (
                     <ActionIcon variant="default" size="lg" onClick={handleSaveDeck} loading={isLoading} >
-                        <IconBookmark color="#fcc419"/>
+                        <IconBookmark color="#fcc419" />
                     </ActionIcon>
                 )}
             </Group>
-            <Card shadow="sm" padding="lg" radius="md" withBorder mt="md">
-                <Grid columns={10} >
-                    {deckCards.map((card, index) => (
-                        <Grid.Col key={`${id}-${card.set}-${card.number}-${index}`} span={{ base: 2, sm: 2, md: 1, lg: 1 }}>
-                            <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}>
-                            <Image
-                                radius="md"
-                                src={`/${lng}/${card.set}/${card.number}.webp`}
-                                alt={`${card.number}`}
-                            />
-                            </Link>
-                        </Grid.Col>
-                    ))}
+            <div ref={deckRef}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder mt="md">
+                    <Grid columns={10} >
+                        {deckCards.map((card, index) => (
+                            <Grid.Col key={`${id}-${card.set}-${card.number}-${index}`} span={{ base: 2, sm: 2, md: 1, lg: 1 }}>
+                                <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}>
+                                    <Image
+                                        radius="md"
+                                        src={`/${lng}/${card.set}/${card.number}.webp`}
+                                        alt={`${card.number}`}
+                                    />
+                                </Link>
+                            </Grid.Col>
+                        ))}
+                    </Grid>
+                </Card>
+                <Grid mt="md">
+                    <Grid.Col span={12}>
+                        <Card shadow="sm" padding="lg" radius="md" withBorder>
+                            <Group mb="md">
+                                <Badge color="cyan" variant="filled">
+                                    {t('common:pokemon')}
+                                </Badge>
+                                <Badge color="pink" variant="filled">
+                                    {t('common:item')}
+                                </Badge>
+                                <Badge color="orange" variant="filled">
+                                    {t('common:supporter')}
+                                </Badge>
+                            </Group>
+                            <Progress.Root size="20" >
+                                <Progress.Section
+                                    value={progressValues.pokemon}
+                                    color="cyan"
+                                >
+                                    <Progress.Label>{cardTypeCounts.pokemon}</Progress.Label>
+                                </Progress.Section>
+                                <Progress.Section
+                                    value={progressValues.item}
+                                    color="pink"
+                                >
+                                    <Progress.Label>{cardTypeCounts.item}</Progress.Label>
+                                </Progress.Section>
+                                <Progress.Section
+                                    value={progressValues.supporter}
+                                    color="orange"
+                                >
+                                    <Progress.Label>{cardTypeCounts.supporter}</Progress.Label>
+                                </Progress.Section>
+                            </Progress.Root>
+                        </Card>
+                    </Grid.Col>
                 </Grid>
-            </Card>
+                <Grid>
+                    <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
+                        <Card shadow="sm" padding="lg" radius="md" withBorder>
+                            {t('common:points')}: {totalExchangePoints}
+                        </Card>
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
+                        <Card shadow="sm" padding="md" radius="md" withBorder>
+                            <Group align="center">
+                                <Rating value={averageRating} fractions={4} readOnly size="lg" />
+                                <Text fw="600">{averageRating.toFixed(2)}</Text>
+                            </Group>
+                        </Card>
+                    </Grid.Col>
+                </Grid>
+            </div>
+            <Divider my="xs" labelPosition="left" />
             <Grid mt="md">
                 <Grid.Col span={12}>
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                        <Group mb="md">
-                            <Badge color="cyan" variant="filled">
-                                {t('common:pokemon')}
-                            </Badge>
-                            <Badge color="pink" variant="filled">
-                                {t('common:item')}
-                            </Badge>
-                            <Badge color="orange" variant="filled">
-                                {t('common:supporter')}
-                            </Badge>
-                        </Group>
-                        <Progress.Root size="20" >
-                            <Progress.Section
-                                value={progressValues.pokemon}
-                                color="cyan"
-                            >
-                                <Progress.Label>{cardTypeCounts.pokemon}</Progress.Label>
-                            </Progress.Section>
-                            <Progress.Section
-                                value={progressValues.item}
-                                color="pink"
-                            >
-                                <Progress.Label>{cardTypeCounts.item}</Progress.Label>
-                            </Progress.Section>
-                            <Progress.Section
-                                value={progressValues.supporter}
-                                color="orange"
-                            >
-                                <Progress.Label>{cardTypeCounts.supporter}</Progress.Label>
-                            </Progress.Section>
-                        </Progress.Root>
-                    </Card>
-                </Grid.Col>
-            </Grid>
-            <Grid>
-                <Grid.Col span={{ base: 12, sm: 12, md: 4, lg: 4 }}>
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                        {t('common:points')}: {totalExchangePoints}
+                    <Card padding="xs" radius="md" withBorder>
+                        <Card.Section withBorder inheritPadding py="xs">
+                            <Group justify="space-between">
+                                <Text>{t("common:sorting.rating")}</Text>
+                            </Group>
+                        </Card.Section>
+                        {/* <Textarea
+                            mt="md"
+                            placeholder="e.g. 這是一個很棒的牌組"
+                            value={comment}
+                            onChange={(event) => setComment(event.currentTarget.value)}
+                        /> */}
+
+                        <Rating
+                            defaultValue={0}
+                            size="lg"
+                            fractions={2}
+                            value={ratingValue}
+                            onChange={setRatingValue}
+                            mt="sm"
+                        />
+                        <Button
+                            leftSection={<IconSend size={14} />}
+                            variant="default"
+                            fullWidth
+                            mt="md"
+                            radius="md"
+                            onClick={handleSubmitRating}
+                            disabled={isSubmitting}
+                        >
+                            {t("common:sorting.submit")}
+                        </Button>
                     </Card>
                 </Grid.Col>
             </Grid>

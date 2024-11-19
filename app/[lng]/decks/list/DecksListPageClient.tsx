@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Image, Anchor, Title, Container, Grid, Card, Text, Group, ActionIcon, Center, Loader } from '@mantine/core';
-import { IconX, IconListDetails, IconCheck, IconBookmarkFilled, IconBookmark } from '@tabler/icons-react';
+import { Image, Select, Title, Container, Grid, Card, Text, Group, ActionIcon, Center, Loader, Button, Flex } from '@mantine/core';
+import { IconX, IconStarFilled, IconCheck, IconBookmarkFilled, IconBookmark } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from "../../../i18n/client";
@@ -23,6 +23,7 @@ interface Deck {
     updatedAt: string;
     isSaved: boolean;
     usageCount: number;
+    averageRating: number;
 }
 
 interface DeckResponse {
@@ -42,6 +43,10 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
     const [cursor, setCursor] = useState<string | null>(null);
     const limit = 20; // 每次載入的數量
 
+    // 新增排序狀態
+    const [sortBy, setSortBy] = useState<string>('createdAt');
+    const [sortOrder, setSortOrder] = useState<string>('desc');
+
     const fetchDecks = async () => {
         try {
             const url = new URL(`/api/decks/list`, window.location.origin);
@@ -49,6 +54,10 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
             if (cursor) {
                 url.searchParams.append('cursor', cursor);
             }
+
+            // 添加排序參數
+            url.searchParams.append('sortBy', sortBy);
+            url.searchParams.append('sortOrder', sortOrder);
 
             const res = await fetch(url.toString());
             if (!res.ok) {
@@ -72,9 +81,18 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
     };
 
     useEffect(() => {
+        // 初次載入資料
         fetchDecks();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const handleApplySort = () => {
+        // 重置狀態以重新撈取資料
+        setDecks([]);
+        setCursor(null);
+        setHasMore(true);
+        fetchDecks();
+    };
 
     const parseDeckCards = (deckCards: string): Card[] => {
         return deckCards.split(',').map(code => {
@@ -125,7 +143,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
                     icon: <IconCheck size={16} />,
                 });
                 // setIsSaved(true);
-                setDecks(prevDecks => prevDecks.map(deck => 
+                setDecks(prevDecks => prevDecks.map(deck =>
                     deck.id === id ? { ...deck, isSaved: true, usageCount: deck.usageCount + 1 } : deck
                 ));
             } else {
@@ -168,7 +186,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
             });
 
             const data = await response.json();
-            
+
             if (response.ok) {
                 showNotification({
                     title: t('common:notification.success'),
@@ -177,7 +195,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
                     icon: <IconCheck size={16} />,
                 });
                 // setIsSaved(false);
-                setDecks(prevDecks => prevDecks.map(deck => 
+                setDecks(prevDecks => prevDecks.map(deck =>
                     deck.id === id ? { ...deck, isSaved: false, usageCount: deck.usageCount - 1 } : deck
                 ));
             } else {
@@ -202,7 +220,43 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
 
     return (
         <Container size="lg">
-            <Title order={1}>牌組列表</Title>
+            <Title order={1}>{t("common:navigation.deck_title")}</Title>
+            <Flex mt="md" align="flex-end" gap="md">
+                <Select
+                    label={t("common:sorting.sortingMode")}
+                    placeholder={t("common:sorting.chooseSortingMode")}
+                    data={[
+                        { value: 'averageRating', label: t("common:sorting.rating") },
+                        { value: 'isSaved', label: t("common:sorting.favorite") },
+                        { value: 'createdAt', label: t("common:sorting.creationTime") },
+                    ]}
+                    value={sortBy}
+                    onChange={(value) => {
+                        if (value !== null) {
+                            setSortBy(value);
+                        }
+                    }}
+                    style={{ width: 200 }}
+                />
+                <Select
+                    label={t("common:sorting.sortingOrder")}
+                    placeholder={t("common:sorting.chooseSortingOrder")}
+                    data={[
+                        { value: 'desc', label: t("common:sorting.descendingNewest") },
+                        { value: 'asc', label: t("common:sorting.ascendingOldest") },
+                    ]}
+                    value={sortOrder}
+                    onChange={(value) => {
+                        if (value !== null) {
+                            setSortOrder(value);
+                        }
+                    }}
+                    style={{ width: 200 }}
+                />
+                <Button onClick={handleApplySort} style={{ height: 42 }}>
+                    {t("common:sorting.submit")}
+                </Button>
+            </Flex>
             <InfiniteScroll
                 dataLength={decks.length}
                 next={fetchDecks}
@@ -224,16 +278,18 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
                                     <Group style={{ marginBottom: 5 }} justify="space-between">
                                         <Title order={4}>{deck.id}</Title>
                                         <Group>
-                                        {deck.isSaved ? (
-                                            <ActionIcon variant="default" size="lg" onClick={() => handleDeleteDeck(deck.id)}>
-                                                <IconBookmarkFilled color="#fcc419" />
-                                            </ActionIcon>
-                                        ) : (
-                                            <ActionIcon variant="default" size="lg" onClick={() => handleSaveDeck(deck.id)}>
-                                                <IconBookmark color="#fcc419" /> 
-                                            </ActionIcon>
-                                        )}
-                                        <Text  fw={500}>{deck.usageCount}</Text>
+                                            <IconStarFilled color="#fcc419" />
+                                            <Text fw={500}>{deck.averageRating.toFixed(2)}</Text>
+                                            {deck.isSaved ? (
+                                                <ActionIcon variant="default" size="lg" onClick={() => handleDeleteDeck(deck.id)}>
+                                                    <IconBookmarkFilled color="#fcc419" />
+                                                </ActionIcon>
+                                            ) : (
+                                                <ActionIcon variant="default" size="lg" onClick={() => handleSaveDeck(deck.id)}>
+                                                    <IconBookmark color="#fcc419" />
+                                                </ActionIcon>
+                                            )}
+                                            <Text fw={500}>{deck.usageCount}</Text>
                                         </Group>
                                     </Group>
                                 </Card.Section>
