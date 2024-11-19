@@ -6,9 +6,9 @@ import { authOptions } from "@/lib/auth/authOptions"; // 確保路徑正確
 import { prisma } from '@/lib/prisma'; // 引入 Prisma 客戶端
 
 
-export async function POST(request: Request, { params }: { params: { id: string } }) {
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-      const { id } = params;
+      const { id } = await params;
       const session = await getServerSession(authOptions);
 
       if (!session || !session.user || !session.user.id) {
