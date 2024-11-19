@@ -155,7 +155,13 @@
         "decks_user_keywords": "牌組, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
         "decks_edit_title": "編輯牌組 - Pokemon TCG Pocket",
         "decks_edi_description": "編輯牌組Pokemon TCG Pocket",
-        "decks_edi_keywords": "牌組, Pokemon TCG, 寶可夢, Pokemon TCG Pocket"
+        "decks_edi_keywords": "牌組, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
+        "login_page_title":"Pokemon Nier 登入頁面",
+        "login_page_description":"Pokemon Nier 用戶登入頁面",
+        "login_page_keywords":"Pokemon Nier, 登入, 用戶",
+        "register_page_title":"Pokemon Nier 註冊頁面",
+        "register_page_description":"Pokemon Nier 用戶註冊頁面",
+        "register_page_keywords":"Pokemon Nier, 註冊, 用戶"
     },
     "grass": "草",
     "fire": "火",

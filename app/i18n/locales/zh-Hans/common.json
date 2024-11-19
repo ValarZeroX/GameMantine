@@ -59,7 +59,7 @@
     },
     "errors": {
         "pleaseLogin": "请登入",
-        "error_insufficient_permissions":"权限不足，请登录。"
+        "error_insufficient_permissions": "权限不足，请登录。"
     },
     "cardSet": {
         "A1": "最强基因",
@@ -155,7 +155,13 @@
         "decks_user_keywords": "牌组, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
         "decks_edit_title": "编辑牌组 - Pokemon TCG Pocket",
         "decks_edi_description": "编辑牌组Pokemon TCG Pocket",
-        "decks_edi_keywords": "牌组, Pokemon TCG, 宝可梦, Pokemon TCG Pocket"
+        "decks_edi_keywords": "牌组, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
+        "login_page_title": "Pokemon Nier 登入页面",
+        "login_page_description": "Pokemon Nier 用户登入页面",
+        "login_page_keywords": "Pokemon Nier, 登入, 用户",
+        "register_page_title": "Pokemon Nier 注册页面",
+        "register_page_description": "Pokemon Nier 用户注册页面",
+        "register_page_keywords": "Pokemon Nier, 注册, 用户"
     },
     "grass": "草",
     "fire": "火",
@@ -203,6 +209,6 @@
     "privacyPolicy": {
         "title": "隐私政策",
         "content": "本网站承诺不会收集任何用户的个人信息。如果您选择使用Google账号登录，我们仅会保留您的电子邮件地址及您所设置的昵称。其他任何个人信息均不会被存储。如您对此有任何疑虑，您可选择注册新账号进行登录。",
-        "content_2":"此外，请妥善保管您的账号密码。本网站不提供密码找回或重置服务，也不支持更改密码的功能。"
+        "content_2": "此外，请妥善保管您的账号密码。本网站不提供密码找回或重置服务，也不支持更改密码的功能。"
     }
 }

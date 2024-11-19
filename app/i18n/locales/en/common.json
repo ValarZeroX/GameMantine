@@ -155,7 +155,13 @@
         "decks_user_keywords": "decks, Pokemon TCG, Pokemon, Pokemon TCG Pocket",
         "decks_edit_title": "Edit Deck - Pokemon TCG Pocket",
         "decks_edi_description": "Edit deck Pokemon TCG Pocket",
-        "decks_edi_keywords": "decks, Pokemon TCG, Pokemon, Pokemon TCG Pocket"
+        "decks_edi_keywords": "decks, Pokemon TCG, Pokemon, Pokemon TCG Pocket",
+        "login_page_title": "Pokemon Nier login page",
+        "login_page_description": "Pokemon Nier user login page",
+        "login_page_keywords": "Pokemon Nier, login, user",
+        "register_page_title": "Pokemon Nier registration page",
+        "register_page_description": "Pokemon Nier user registration page",
+        "register_page_keywords": "Pokemon Nier, registration, user"
     },
     "grass": "Grass",
     "fire": "Fire",
@@ -203,6 +209,6 @@
     "privacyPolicy": {
         "title": "Privacy Policy",
         "content": "Our website is committed to not collecting any personal information from users. If you choose to log in using your Google account, we will only retain your email address and the nickname you have set. No other personal information will be stored. If you have any concerns, you may opt to register a new account to log in.",
-        "content_2":"Additionally, please keep your account password secure. Our website does not offer password recovery or reset services, nor does it support password change functionality."
+        "content_2": "Additionally, please keep your account password secure. Our website does not offer password recovery or reset services, nor does it support password change functionality."
     }
 }

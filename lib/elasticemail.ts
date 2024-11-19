@@ -84,5 +84,12 @@ export async function sendVerificationEmail(email: string, token: string, lng: s
         },
     };
 
-    await emailsApi.emailsTransactionalPost(emailTransactionalMessageData);
+    try {
+        // 發送交易郵件
+        const { data } = await emailsApi.emailsTransactionalPost(emailTransactionalMessageData);
+        console.log('Email sent successfully:', data);
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+    }
 }

@@ -65,7 +65,7 @@ const RegisterClient: React.FC<RegisterClientProps> = ({ lng }) => {
             const data = await response.json();
             if (response.ok) {
                 showNotification({
-                    title: t('notification.successTitle'),
+                    title: t('notification.success'),
                     message: t('notification.successMessage'),
                     color: 'green',
                     icon: <IconCheck size={16} />,
