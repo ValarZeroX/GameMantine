@@ -220,7 +220,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
 
     return (
         <Container size="lg">
-            <Title order={1}>{t("common:navigation.deck_title")}</Title>
+            <Title order={1}>{t("common:navigation.deck_list")}</Title>
             <Flex mt="md" align="flex-end" gap="md">
                 <Select
                     label={t("common:sorting.sortingMode")}
