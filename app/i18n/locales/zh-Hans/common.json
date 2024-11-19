@@ -134,7 +134,10 @@
         "error_card_data_not_loaded": "卡片数据尚未加载。",
         "error_fetch_deck": "获取牌组失败。",
         "error_deck_size": "牌组必须包含20张卡牌。",
-        "error_save_deck_failed": "保存牌库失败。"
+        "error_save_deck_failed": "保存牌库失败。",
+        "success_deck_deleted": "牌库已删除。",
+        "error_delete_deck": "删除牌库时发生错误。",
+        "error_delete_deck_failed": "删除牌库失败。"
     },
     "metadata": {
         "new_card_title": "新增卡牌 - Pokemon Nier",
@@ -196,5 +199,10 @@
         "create_deck": "创建牌组",
         "my_decks": "我的牌组",
         "language_selection": "语言选择"
+    },
+    "privacyPolicy": {
+        "title": "隐私政策",
+        "content": "本网站承诺不会收集任何用户的个人信息。如果您选择使用Google账号登录，我们仅会保留您的电子邮件地址及您所设置的昵称。其他任何个人信息均不会被存储。如您对此有任何疑虑，您可选择注册新账号进行登录。",
+        "content_2":"此外，请妥善保管您的账号密码。本网站不提供密码找回或重置服务，也不支持更改密码的功能。"
     }
 }

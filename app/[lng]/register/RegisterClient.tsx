@@ -37,7 +37,7 @@ const RegisterClient: React.FC<RegisterClientProps> = ({ lng }) => {
             email: '',
             password: '',
             confirmPassword: '',
-            termsOfService: false,
+            // termsOfService: false,
         },
         validate: {
             email: (value) =>
@@ -46,8 +46,8 @@ const RegisterClient: React.FC<RegisterClientProps> = ({ lng }) => {
                 value.length >= 8 ? null : t('register.passwordLength'),
             confirmPassword: (value, values) =>
                 value === values.password ? null : t('register.passwordMismatch'),
-            termsOfService: (value) =>
-                value ? null : t('register.agreeToTerms'),
+            // termsOfService: (value) =>
+            //     value ? null : t('register.agreeToTerms'),
         },
     });
 
@@ -122,19 +122,19 @@ const RegisterClient: React.FC<RegisterClientProps> = ({ lng }) => {
                     />
                     <PasswordInput
                         label={t('register.password')}
-                        placeholder={t('register.enterPassword')}
+                        placeholder={t('register.passwordPlaceholder')}
                         required
                         mt="md"
                         {...form.getInputProps('password')}
                     />
                     <PasswordInput
                         label={t('register.confirmPassword')}
-                        placeholder={t('register.reenterPassword')}
+                        placeholder={t('register.confirmPasswordPlaceholder')}
                         required
                         mt="md"
                         {...form.getInputProps('confirmPassword')}
                     />
-                    <Checkbox
+                    {/* <Checkbox
                         label={
                             <Text size="sm">
                                 {t('register.agreeTo')}{' '}
@@ -145,7 +145,7 @@ const RegisterClient: React.FC<RegisterClientProps> = ({ lng }) => {
                         }
                         mt="xl"
                         {...form.getInputProps('termsOfService', { type: 'checkbox' })}
-                    />
+                    /> */}
                     <Button fullWidth mt="xl" type="submit" loading={isLoading}>
                         {t('register.register')}
                     </Button>

@@ -134,7 +134,10 @@
         "error_card_data_not_loaded": "Card data not loaded yet.",
         "error_fetch_deck": "Failed to retrieve deck.",
         "error_deck_size": "The deck must contain 20 cards.",
-        "error_save_deck_failed": "Failed to save deck."
+        "error_save_deck_failed": "Failed to save deck.",
+        "success_deck_deleted": "The deck has been deleted.",
+        "error_delete_deck": "An error occurred while deleting the deck.",
+        "error_delete_deck_failed": "Failed to delete the deck."
     },
     "metadata": {
         "new_card_title": "Add Card - Pokémon Nier",
@@ -196,5 +199,10 @@
         "create_deck": "Create Deck",
         "my_decks": "My Decks",
         "language_selection": "Language Selection"
+    },
+    "privacyPolicy": {
+        "title": "Privacy Policy",
+        "content": "Our website is committed to not collecting any personal information from users. If you choose to log in using your Google account, we will only retain your email address and the nickname you have set. No other personal information will be stored. If you have any concerns, you may opt to register a new account to log in.",
+        "content_2":"Additionally, please keep your account password secure. Our website does not offer password recovery or reset services, nor does it support password change functionality."
     }
 }

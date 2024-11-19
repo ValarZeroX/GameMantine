@@ -15,6 +15,7 @@ import html2canvas from 'html2canvas';
 import { useSession } from 'next-auth/react';
 import { showNotification } from "@mantine/notifications";
 import { useParams } from 'next/navigation';
+import { pt, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, rarityImages } from '@/lib/constants';
 
 interface Card {
     id: number;
@@ -150,70 +151,6 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
         setDisplayMode(mode);
         setActive(mode);
         localStorage.setItem('displayMode', mode);
-    };
-
-    const aspectImages: { [key: number]: string } = {
-        0: '/common/grass.webp',
-        1: '/common/fire.webp',
-        2: '/common/water.webp',
-        3: '/common/lightning.webp',
-        4: '/common/psychic.webp',
-        5: '/common/fighting.webp',
-        6: '/common/darkness.webp',
-        7: '/common/metal.webp',
-        8: '/common/dragon.webp',
-        9: '/common/colorless.webp',
-    };
-
-    // const aspectStringImages: { [key: string]: string } = {
-    //     'grass': '/common/grass.webp',
-    //     'fire': '/common/fire.webp',
-    //     'water': '/common/water.webp',
-    //     'lightning': '/common/lightning.webp',
-    //     'psychic': '/common/psychic.webp',
-    //     'fighting': '/common/fighting.webp',
-    //     'darkness': '/common/darkness.webp',
-    //     'metal': '/common/metal.webp',
-    //     'dragon': '/common/dragon.webp',
-    //     'colorless': '/common/colorless.webp',
-    // };
-
-    const aspectStringToNumber: { [key: string]: number } = {
-        'grass': 0,
-        'fire': 1,
-        'water': 2,
-        'lightning': 3,
-        'psychic': 4,
-        'fighting': 5,
-        'darkness': 6,
-        'metal': 7,
-        'dragon': 8,
-        'colorless': 9,
-    };
-
-    const rarityStringToNumber: { [key: string]: number } = {
-        'Common': 1,
-        'Uncommon': 2,
-        'Rare': 3,
-        'DoubleRare': 4,
-        'ArtRare': 5,
-        'SuperRare': 6,
-        'ImmersiveRare': 7,
-        'UltraRare': 8,
-    };
-
-    const typeStringToNumber: { [key: string]: number } = {
-        'pokemon': 0,
-        'item': 1,
-        'supporter': 2,
-    };
-
-    const retreatStringToNumber: { [key: string]: number } = {
-        '1': 1,
-        '2': 2,
-        '3': 3,
-        '4': 4,
-        '5': 5,
     };
 
     const setControlRef = (name: string) => (node: HTMLButtonElement) => {
@@ -386,19 +323,6 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
         setVisibleCards(24); // 重置可見卡片數量
     }, [allCards, searchTerm, selectedSets, selectedDexs, selectedAspects, selectedRarity, selectedType, selectedWeakness, selectedRetreat, hpRange, attackRange]);
 
-
-    const rarityImages: { [key: number]: string } = {
-        0: '',
-        1: '/common/Common.webp',
-        2: '/common/Uncommon.webp',
-        3: '/common/Rare.webp',
-        4: '/common/DoubleRare.webp',
-        5: '/common/ArtRare.webp',
-        6: '/common/SuperRare.webp',
-        7: '/common/ImmersiveRare.webp',
-        8: '/common/UltraRare.webp',
-    };
-
     const renderMultiSelectOption: MultiSelectProps['renderOption'] = ({ option }) => (
         <Group gap="sm">
             <Image src={`/common/${option.value}.webp`} alt={t(`common:${option.value}`)} height={20} width={20} />
@@ -505,18 +429,6 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
         };
     }, [cardTypeCounts]);
 
-    const pt: { [key: number]: number } = {
-        0: 0,
-        1: 35,
-        2: 70,
-        3: 150,
-        4: 500,
-        5: 400,
-        6: 1250,
-        7: 1500,
-        8: 2500,
-    };
-
     const totalExchangePoints = useMemo(() => {
         return selectedDeck.reduce((total, card) => total + pt[card.rarity], 0);
     }, [selectedDeck, pt]);
@@ -560,7 +472,7 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
         }
 
         const trimmedDeckName = deckName.trim();
-        if (trimmedDeckName.length > 30) {
+        if (trimmedDeckName.length > 50) {
             showNotification({
                 title: t('common:notification.error_name_too_long'),
                 message: t('common:notification.error_deck_name_length'),

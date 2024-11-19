@@ -1,9 +1,9 @@
 // app/[lng]/login/LoginClient.tsx
 'use client';
 import React, { useState } from 'react';
-import { Button, Container, Title, Text, Divider, Checkbox, TextInput, PasswordInput } from '@mantine/core';
+import { Button, Container, Title, Text, Divider, Checkbox, TextInput, PasswordInput, Blockquote } from '@mantine/core';
 import { useRouter } from 'next/navigation';
-import { IconBrandGoogleFilled, IconBrandFacebookFilled } from '@tabler/icons-react';
+import { IconBrandGoogleFilled, IconBrandFacebookFilled, IconInfoCircle } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import Link from 'next/link';
 import { signIn } from "next-auth/react";
@@ -47,15 +47,15 @@ const LoginClient: React.FC<LoginClientProps> = ({ lng }) => {
     const handleGoogleSignIn = () => {
         signIn("google", { callbackUrl: '/' });
     };
-
+    const icon = <IconInfoCircle />;
     return (
         <Container size="xs">
             <Title order={2} style={{ marginBottom: 30, textAlign: 'center' }}>
                 {t('login.title')}
             </Title>
-            <Text size="sm" style={{ marginBottom: 20, textAlign: 'center' }}>
+            {/* <Text size="sm" style={{ marginBottom: 20, textAlign: 'center' }}>
                 {t('login.agreementNotice')}
-            </Text>
+            </Text> */}
             {error && (
                 <Text color="red" size="sm" style={{ marginBottom: 10, textAlign: 'center' }}>
                     {error}
@@ -86,6 +86,10 @@ const LoginClient: React.FC<LoginClientProps> = ({ lng }) => {
             <Button justify="space-between" fullWidth leftSection={<IconBrandGoogleFilled size={14} />} variant="default" style={{ marginBottom: 10 }} rightSection={<span />} onClick={handleGoogleSignIn}>
                 {t('login.google')}
             </Button>
+            <Blockquote color="blue" cite="" icon={icon} mt="xl">
+            <p>{t('privacyPolicy.content')}</p>
+            <p>{t('privacyPolicy.content_2')}</p>
+            </Blockquote>
             <Text size="sm" style={{ marginBottom: 30 }}>
                 {t('login.noAccount')} <Link href="/register">{t('register.register')}</Link>
             </Text>

@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Box, Anchor, Title, Container, Grid, Card, Text, Group, ActionIcon, Center,Loader } from '@mantine/core';
+import { Box, Anchor, Title, Container, Grid, Card, Text, Group, ActionIcon, Center,Loader, Image } from '@mantine/core';
 import { IconX, IconCards, IconEdit } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -31,6 +31,11 @@ interface UserDecksPageClientProps {
     lng: string;
 }
 
+interface Card {
+    set: string;
+    number: string;
+}
+
 const UserDecksPageClient: React.FC<UserDecksPageClientProps> = ({ lng }) => {
     const { data: session } = useSession();
     const { t } = useTranslation(lng, ['pokemon', 'common', 'skill', 'ability', 'rule']);
@@ -45,7 +50,6 @@ const UserDecksPageClient: React.FC<UserDecksPageClientProps> = ({ lng }) => {
             try {
                 const response = await fetch('/api/decks/user');
                 const data = await response.json();
-
                 if (response.ok) {
                     setUserDecks(data);
                 } else {
@@ -71,6 +75,22 @@ const UserDecksPageClient: React.FC<UserDecksPageClientProps> = ({ lng }) => {
         fetchUserDecks();
     }, [session]);
 
+    const parseDeckCards = (deckCards: string): Card[] => {
+        return deckCards.split(',').map(code => {
+            const lastHyphenIndex = code.lastIndexOf('-');
+
+            // 如果沒有找到連字符，則整個代碼作為 set，number 留空
+            if (lastHyphenIndex === -1) {
+                return { set: code.trim(), number: '' };
+            }
+
+            const set = code.substring(0, lastHyphenIndex).trim();
+            const number = code.substring(lastHyphenIndex + 1).trim();
+
+            return { set, number };
+        });
+    };
+
     return (
         <Container size="lg">
             {!session?.user ? (
@@ -88,7 +108,7 @@ const UserDecksPageClient: React.FC<UserDecksPageClientProps> = ({ lng }) => {
             ) : (
                 <Grid mt="md" columns={10}>
                     {userDecks.map((deckUser) => (
-                        <Grid.Col key={deckUser.id}  span={{ base: 10, sm: 5, md: 5, lg: 5 }}>
+                        <Grid.Col key={deckUser.id}  span={10}>
                             <Card shadow="sm" padding="lg" radius="md" withBorder>
                             <Card.Section withBorder inheritPadding py="xs">
                                 <Group  mb="xs" justify="space-between">
@@ -105,12 +125,17 @@ const UserDecksPageClient: React.FC<UserDecksPageClientProps> = ({ lng }) => {
                                     </Group>
                                 </Group>
                                 </Card.Section>
-                                <Text mt="sm" size="sm" c="dimmed">
-                                    {t('common:card_count')}: {deckUser.deck.deckCards.split(',').length}
-                                </Text>
-                                <Text size="xs" c="dimmed">
-                                    {t('common:creation_time')}: {new Date(deckUser.createdAt).toLocaleDateString()}
-                                </Text>
+                                <Grid columns={10} mt="md">
+                                        {parseDeckCards(deckUser.deck.deckCards).map((card, index) => (
+                                            <Grid.Col key={`${deckUser.id}-${card.set}-${card.number}-${index}`} span={{ base: 2, sm: 2, md: 1, lg: 1 }}>
+                                                <Image
+                                                    radius="md"
+                                                    src={`/${lng}/${card.set}/${card.set}-${card.number}.webp`}
+                                                    alt={`${card.set}-${card.number}`}
+                                                />
+                                            </Grid.Col>
+                                        ))}
+                                    </Grid>
                             </Card>
                         </Grid.Col>
                     ))}
