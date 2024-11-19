@@ -21,6 +21,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.3",
     "@elasticemail/elasticemail-client": "^4.0.23",
+    "@elasticemail/elasticemail-client-ts-axios": "^4.0.22",
     "@mantine/core": "^7.14.0",
     "@mantine/form": "^7.14.0",
     "@mantine/hooks": "^7.14.0",

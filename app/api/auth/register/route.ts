@@ -3,7 +3,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcrypt';
-import { sendVerificationEmail } from '@/lib/mailer';
+import { sendVerificationEmail } from '@/lib/elasticemail';
+// import { sendVerificationEmail } from '@/lib/mailer';
 import { randomBytes } from 'crypto';
 
 interface RegisterRequestBody {

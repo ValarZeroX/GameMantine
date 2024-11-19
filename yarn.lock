@@ -1074,6 +1074,13 @@
   resolved "https://registry.npmjs.org/@dual-bundle/import-meta-resolve/-/import-meta-resolve-4.1.0.tgz"
   integrity sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg==
 
+"@elasticemail/elasticemail-client-ts-axios@^4.0.22":
+  version "4.0.22"
+  resolved "https://registry.npmjs.org/@elasticemail/elasticemail-client-ts-axios/-/elasticemail-client-ts-axios-4.0.22.tgz"
+  integrity sha512-JscAH9k7+R78gW1QGzuqTgjLkcynzqSWDZv7FeMKPhI9DDEe53hBw90949SHpm6vQatUerZJfpV4XMDI5I5Utw==
+  dependencies:
+    axios "^0.21.4"
+
 "@elasticemail/elasticemail-client@^4.0.23":
   version "4.0.23"
   resolved "https://registry.npmjs.org/@elasticemail/elasticemail-client/-/elasticemail-client-4.0.23.tgz"
@@ -2843,6 +2850,13 @@ axe-core@^4.10.0:
   version "4.10.2"
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.10.2.tgz"
   integrity sha512-RE3mdQ7P3FRSe7eqCWoeQ/Z9QXrtniSjp1wUjt5nRC3WIpz5rSCve6o3fsZ2aCpJtrZjSZgjwXAoTO5k4tEI0w==
+
+axios@^0.21.4:
+  version "0.21.4"
+  resolved "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
 
 axobject-query@^4.1.0:
   version "4.1.0"
@@ -4687,6 +4701,11 @@ flatted@^3.2.9, flatted@^3.3.1:
   version "3.3.1"
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.3.1.tgz"
   integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
+
+follow-redirects@^1.14.0:
+  version "1.15.9"
+  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz"
+  integrity sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==
 
 for-each@^0.3.3:
   version "0.3.3"

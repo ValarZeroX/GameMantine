@@ -61,7 +61,7 @@ const LoginClient: React.FC<LoginClientProps> = ({ lng }) => {
                     {error}
                 </Text>
             )}
-            {/* <form onSubmit={form.onSubmit(handleSubmit)}>
+            <form onSubmit={form.onSubmit(handleSubmit)}>
                 <TextInput
                     withAsterisk
                     label={t('register.email')}
@@ -82,17 +82,17 @@ const LoginClient: React.FC<LoginClientProps> = ({ lng }) => {
                 />
                 <Button fullWidth type="submit" variant="default">{t('login.login')}</Button>
             </form>
-            <Divider my="md" label={t('login.or')} labelPosition="center" /> */}
+            <Divider my="md" label={t('login.or')} labelPosition="center" />
             <Button justify="space-between" fullWidth leftSection={<IconBrandGoogleFilled size={14} />} variant="default" style={{ marginBottom: 10 }} rightSection={<span />} onClick={handleGoogleSignIn}>
                 {t('login.google')}
             </Button>
             <Blockquote color="blue" cite="" icon={icon} mt="xl">
             <p>{t('privacyPolicy.content')}</p>
-            {/* <p>{t('privacyPolicy.content_2')}</p> */}
+            <p>{t('privacyPolicy.content_2')}</p>
             </Blockquote>
-            {/* <Text size="sm" style={{ marginBottom: 30 }}>
+            <Text size="sm" style={{ marginBottom: 30 }}>
                 {t('login.noAccount')} <Link href="/register">{t('register.register')}</Link>
-            </Text> */}
+            </Text>
         </Container>
     );
 };
