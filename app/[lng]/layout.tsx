@@ -8,6 +8,7 @@ import ClientProviders from './providers/ClientProviders';
 import SessionProvider from "./providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
+import AdSense from "../../components/GoogleAd/AdSense";
 
 import { dir } from "i18next";
 
@@ -63,12 +64,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
             `,
           }}
         />
-        {/* Google AdSense 腳本 */}
-        <Script
-          data-ad-client="ca-pub-9868429025931364"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        />
+        <AdSense pId="ca-pub-9868429025931364"/>
       </head>
       <body>
         <SessionProvider session={session}>
