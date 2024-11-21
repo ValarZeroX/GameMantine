@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import {Anchor, Input, Progress, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { Breadcrumbs, Anchor, Input, Progress, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconCheck, IconX, IconDeviceFloppy, IconDownload, IconRefresh, IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../../../i18n/client";
@@ -47,7 +47,7 @@ interface Card {
     weakness_value: number;
     illustrator: string;
     point: number;
-    reprints?: string[] | null;
+    reprints?: { [key: string]: string[] } | null;
     rule?: string;
 }
 
@@ -599,18 +599,29 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
         fetchDeckUser();
     }, [session, id, allCards, cardMap]);
 
+    const items = [
+        { title: t("common:navigation.home"), href: '/' },
+        { title: t("common:navigation.my_decks"), href: '/decks/user' },
+        { title: t('common:title.decks_user_edit_title'), href: '#' },
+    ].map((item, index) => (
+        <Anchor href={item.href} key={index}>
+            {item.title}
+        </Anchor>
+    ));
+
     return (
         <Container size="lg">
             {!session?.user ? (
                 <Center>
                     <Text>{t('common:errors.error_insufficient_permissions')}{' '}
-                    <Anchor component={Link} href="/login" size="sm">
-                        {t('common:login.login')}
-                    </Anchor></Text>
+                        <Anchor component={Link} href="/login" size="sm">
+                            {t('common:login.login')}
+                        </Anchor></Text>
                 </Center>
             ) : (
                 <>
-                    <Title order={1}>{t('common:title.decks_user_edit_title')}</Title>
+                    <Breadcrumbs>{items}</Breadcrumbs>
+                    <Title order={1} mt="sm">{t('common:title.decks_user_edit_title')}</Title>
                     <Group mt="md" justify="flex-end" align="center" >
                         <Input
                             placeholder={t(`common:deck_name`)}

@@ -31,7 +31,8 @@ export async function GET(request: Request): Promise<NextResponse> {
         const cursor = searchParams.get('cursor');
         const sortBy = searchParams.get('sortBy') || 'createdAt';
         const sortOrder = searchParams.get('sortOrder') || 'desc';
-
+        const search = searchParams.get('search') || '';
+        
         // 定義可接受的排序欄位和順序
         const validSortBy = ['averageRating', 'isSaved', 'createdAt'];
         const validSortOrder = ['asc', 'desc'];

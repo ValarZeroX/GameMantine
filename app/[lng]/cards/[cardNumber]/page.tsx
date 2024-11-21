@@ -37,7 +37,7 @@ interface CardDetail {
   weakness_value: number;
   illustrator: string;
   point: number;
-  reprints?: string[] | null;
+  reprints?: { [key: string]: string[] } | null;
   rule?: string;
 }
 
@@ -51,7 +51,6 @@ async function fetchCardData(number: string): Promise<CardDetail | null> {
     const card: CardDetail = await response.json();
     return card;
   } catch (error) {
-    console.error('Error fetching card data:', error);
     return null;
   }
 }

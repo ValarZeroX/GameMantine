@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Input, Progress, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { Breadcrumbs, Anchor, Input, Progress, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconCheck, IconX, IconDeviceFloppy, IconDownload, IconRefresh, IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../../i18n/client";
@@ -46,7 +46,7 @@ interface Card {
     weakness_value: number;
     illustrator: string;
     point: number;
-    reprints?: string[] | null;
+    reprints?: { [key: string]: string[] } | null;
     rule?: string;
 }
 
@@ -521,9 +521,19 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
         }
     };
 
+    const items = [
+        { title: t("common:navigation.home"), href: '/' },
+        { title: t("common:navigation.create_deck"), href: '#' },
+      ].map((item, index) => (
+        <Anchor href={item.href} key={index}>
+          {item.title}
+        </Anchor>
+      ));
+
     return (
         <Container size="lg">
-            <Title order={1}>{t('common:title.decks_build_title')}</Title>
+            <Breadcrumbs>{items}</Breadcrumbs>
+            <Title order={1} mt="md">{t('common:title.decks_build_title')}</Title>
             <Group mt="md" justify="flex-end" align="center" >
                 <Input
                     placeholder={t(`common:deck_name`)}

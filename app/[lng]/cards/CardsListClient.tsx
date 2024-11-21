@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { Breadcrumbs, Anchor,Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
@@ -43,7 +43,7 @@ interface Card {
     weakness_value: number;
     illustrator: string;
     point: number;
-    reprints?: string[] | null;
+    reprints?: { [key: string]: string[] } | null;
     rule?: string;
 }
 
@@ -324,9 +324,19 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
 
     const icon = <IconInfoCircle />;
 
+    const items = [
+        { title: t("common:navigation.home"), href: '/' },
+        { title: t("common:navigation.cards"), href: '#' },
+      ].map((item, index) => (
+        <Anchor href={item.href} key={index}>
+          {item.title}
+        </Anchor>
+      ));
+
     return (
         <Container size="lg">
-            <Title order={1}>{t('common:title.cards_title')}</Title>
+            <Breadcrumbs>{items}</Breadcrumbs>
+            <Title order={1} mt="sm">{t('common:title.cards_title')}</Title>
             <Group align="center" justify="space-between" mb="md" mt="md">
                 <MultiSelect
                     // label={t('common:set')}
@@ -526,7 +536,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                                 {t(`pokemon:${card.name}`)}
                                             </Text>
                                             <Text c="dimmed" size="sm">
-                                                #{card.number}
+                                                {card.number}
                                             </Text>
                                             <Flex gap="xs" justify="center" wrap="wrap">
                                                 <Badge color="blue" variant="light">

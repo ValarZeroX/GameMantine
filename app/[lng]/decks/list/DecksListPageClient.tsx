@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Image, Select, Title, Container, Grid, Card, Text, Group, ActionIcon, Center, Loader, Button, Flex } from '@mantine/core';
+import { Breadcrumbs, Anchor, Image, Select, Title, Container, Grid, Card, Text, Group, ActionIcon, Center, Loader, Button, Flex } from '@mantine/core';
 import { IconX, IconStarFilled, IconCheck, IconBookmarkFilled, IconBookmark } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -218,9 +218,19 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
         }
     };
 
+    const items = [
+        { title: t("common:navigation.home"), href: '/' },
+        { title: t("common:navigation.deck_list"), href: '#' },
+    ].map((item, index) => (
+        <Anchor href={item.href} key={index}>
+            {item.title}
+        </Anchor>
+    ));
+
     return (
         <Container size="lg">
-            <Title order={1}>{t("common:navigation.deck_list")}</Title>
+            <Breadcrumbs>{items}</Breadcrumbs>
+            <Title order={1} mt="sm">{t("common:navigation.deck_list")}</Title>
             <Flex mt="md" align="flex-end" gap="md">
                 <Select
                     label={t("common:sorting.sortingMode")}
@@ -301,6 +311,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
                                                     radius="md"
                                                     src={`/${lng}/${card.set}/${card.set}-${card.number}.webp`}
                                                     alt={`${card.set}-${card.number}`}
+                                                    loading="lazy"
                                                 />
                                             </Grid.Col>
                                         ))}

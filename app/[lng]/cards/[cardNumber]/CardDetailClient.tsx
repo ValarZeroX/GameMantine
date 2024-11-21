@@ -2,9 +2,10 @@
 'use client';
 
 import React from 'react';
-import { Title, Card, Image, Group, Text, Container, Grid, Badge, ScrollArea, Box } from '@mantine/core';
+import { Breadcrumbs, Anchor, Title, Card, Image, Group, Text, Container, Grid, Badge, SimpleGrid, Stack } from '@mantine/core';
 import { IconX } from '@tabler/icons-react';
 import { useTranslation } from "../../../i18n/client";
+import Link from 'next/link';
 
 interface CardDetail {
     id: number;
@@ -36,7 +37,7 @@ interface CardDetail {
     weakness_value: number;
     illustrator: string;
     point: number;
-    reprints?: string[] | null;
+    reprints?: { [key: string]: string[] } | null;
     rule?: string;
 }
 
@@ -46,8 +47,8 @@ interface CardDetailClientProps {
 }
 
 const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
-    const { t } = useTranslation(lng, ['pokemon', 'common', 'skill', 'ability','rule']);
-    // console.log(card);
+    const { t } = useTranslation(lng, ['pokemon', 'common', 'skill', 'ability', 'rule']);
+
     const aspectImages: { [key: number]: string } = {
         0: '/common/grass.webp',
         1: '/common/fire.webp',
@@ -71,9 +72,29 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
         7: '/common/ImmersiveRare.webp',
         8: '/common/UltraRare.webp',
     };
+
+    const items = [
+        { title: t("common:navigation.home"), href: '/' },
+        { title: t("common:navigation.cards"), href: '/cards' },
+        { title: t(`${card.name}`), href: '#' },
+    ].map((item, index) => (
+        <Anchor href={item.href} key={index}>
+            {item.title}
+        </Anchor>
+    ));
+
+    const evolutionStages: { [key: string]: string } = {
+        '0': '基礎',
+        '1': '1階進化',
+        '2': '2階進化',
+    };
+
+    const { reprints } = card;
+
     return (
         <Container size="lg">
-            <Title order={1}>{t('common:title.card_detail_title', { title: card.name })}</Title>
+            <Breadcrumbs>{items}</Breadcrumbs>
+            <Title order={1} mt="sm">{t('common:title.card_detail_title', { title: card.name })}</Title>
             <Grid mt="md" mb="md">
                 <Grid.Col span={{ base: 12, sm: 4, md: 4, lg: 4 }}>
                     <Image
@@ -296,13 +317,58 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                     </Grid>
                                 )}
                             </>
-                        ) : 
-                        <>
-                        <Text c="dimmed">{t(`rule:${card.attack_skill_name_1}`)}</Text>
-                        </>}
+                        ) :
+                            <>
+                                <Text c="dimmed">{t(`rule:${card.attack_skill_name_1}`)}</Text>
+                            </>}
                     </Card>
                 </Grid.Col>
             </Grid>
+            {reprints && Object.keys(reprints).length > 0 && (
+                <SimpleGrid cols={1} spacing="md">
+                    {Object.entries(evolutionStages).map(([stageKey, stageName]) => {
+                        const stageReprints = reprints[stageKey];
+
+                        // 檢查當前階段是否有 reprints
+                        if (stageReprints && stageReprints.length > 0) {
+                            return (
+                                <Card key={stageKey} shadow="sm" padding="lg">
+                                    <Card.Section withBorder>
+                                        <Group justify="space-between" mt="md" mb="xs">
+                                            <Text fw={800} size="xl" ml="md">
+                                                {stageName}
+                                            </Text>
+                                        </Group>
+                                    </Card.Section>
+                                    <Grid columns={10} mt="md">
+                                        {stageReprints.map((number) => (
+                                            <Grid.Col key={`${stageKey}-${number}`} span={{ base: 4, sm: 4, md: 2, lg: 2 }}>
+                                                <Link href={`/${lng}/cards/${number}`} passHref style={{ textDecoration: 'none' }}>
+                                                    <Image
+                                                        radius="md"
+                                                        src={`/${lng}/${card.set}/${number}.webp`}
+                                                        alt={`${number}`}
+                                                    />
+                                                </Link>
+                                                <Stack mt="md" align="center" gap="xs">
+                                                    <Text fw={700} size="xs">
+                                                        {t(`pokemon:${card.name}`)}
+                                                    </Text>
+                                                    <Text c="dimmed" size="xs">
+                                                        {number}
+                                                    </Text>
+                                                </Stack>
+                                            </Grid.Col>
+                                        ))}
+                                    </Grid>
+                                </Card>
+                            );
+                        }
+
+                        return null;
+                    })}
+                </SimpleGrid>
+            )}
         </Container>
     );
 };

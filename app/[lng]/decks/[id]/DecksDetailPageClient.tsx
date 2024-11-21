@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Progress, Badge, Image, Button, Title, Container, Grid, Card, Rating, Group, ActionIcon, useMantineColorScheme, Loader, Text, Divider, Textarea } from '@mantine/core';
+import { Breadcrumbs, Anchor,Progress, Badge, Image, Button, Title, Container, Grid, Card, Rating, Group, ActionIcon, useMantineColorScheme, Stack, Text, Divider, Textarea } from '@mantine/core';
 import { IconHeart, IconBookmark, IconBookmarkFilled, IconSend, IconCheck, IconX, IconDownload } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../../i18n/client";
@@ -444,9 +444,20 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
         }
     };
 
+    const items = [
+        { title: t("common:navigation.home"), href: '/' },
+        { title: t("common:navigation.deck_list"), href: '/decks/list' },
+        { title: t("common:navigation.deck"), href: '#' },
+      ].map((item, index) => (
+        <Anchor href={item.href} key={index}>
+          {item.title}
+        </Anchor>
+      ));
+
     return (
         <Container size="lg">
-            <Title order={1}>{id} - {t("common:navigation.deck")}</Title>
+            <Breadcrumbs>{items}</Breadcrumbs>
+            <Title order={1} mt="md">{id} - {t("common:navigation.deck")}</Title>
             <Group mt="md" justify='flex-end'>
             <ActionIcon variant="default" size="lg" onClick={handleDownload}>
                             <IconDownload />
@@ -473,6 +484,14 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
                                         alt={`${card.number}`}
                                     />
                                 </Link>
+                                <Stack mt="md" align="center" gap="xs">
+                                    <Text fw={700} size="xs">
+                                        {t(`pokemon:${card.name}`)}
+                                    </Text>
+                                    <Text c="dimmed" size="xs">
+                                        {card.number}
+                                    </Text>
+                                </Stack>
                             </Grid.Col>
                         ))}
                     </Grid>

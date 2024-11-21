@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Box, Anchor, Title, Container, Grid, Card, Text, Group, ActionIcon, Center,Loader, Image } from '@mantine/core';
+import { Breadcrumbs,Box, Anchor, Title, Container, Grid, Card, Text, Group, ActionIcon, Center,Loader, Image } from '@mantine/core';
 import { IconX, IconCards, IconEdit } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -91,6 +91,15 @@ const UserDecksPageClient: React.FC<UserDecksPageClientProps> = ({ lng }) => {
         });
     };
 
+    const items = [
+        { title: t("common:navigation.home"), href: '/' },
+        { title: t("common:navigation.my_decks"), href: '#' },
+      ].map((item, index) => (
+        <Anchor href={item.href} key={index}>
+          {item.title}
+        </Anchor>
+      ));
+
     return (
         <Container size="lg">
             {!session?.user ? (
@@ -102,7 +111,8 @@ const UserDecksPageClient: React.FC<UserDecksPageClientProps> = ({ lng }) => {
                 </Center>
             ) : (
                 <>
-            <Title order={1}>{t('common:title.my_decks')}</Title>
+                <Breadcrumbs>{items}</Breadcrumbs>
+            <Title order={1} mt="sm">{t('common:title.my_decks')}</Title>
             {isLoading ? (
                 <Text component="div"><Center><Loader size="md" my="md" /></Center></Text>
             ) : (

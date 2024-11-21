@@ -3,6 +3,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma'; // 根據您的專案結構調整路徑
 
+
 interface CardRequestBody {
   number: string;
   set: string;
@@ -31,7 +32,7 @@ interface CardRequestBody {
   retreat_aspects: number[];
   weakness: number;
   weakness_value: number;
-  reprints?: string[];
+  reprints?: { [key: string]: string[] } | null;
 }
 
 // Helper function to convert arrays to comma-separated strings
@@ -122,7 +123,7 @@ export async function POST(request: Request) {
         retreat_aspects: arrayToString(body.retreat_aspects) || '',
         weakness: body.weakness,
         weakness_value: body.weakness_value,
-        reprints: body.reprints ? arrayToString(body.reprints) : null,
+        ...(body.reprints ? { reprints: body.reprints } : {}),
       },
     });
 
@@ -157,7 +158,7 @@ export async function GET(request: Request) {
       attack_aspects_1: stringToArray(card.attack_aspects_1) as number[] | string[],
       attack_aspects_2: stringToArray(card.attack_aspects_2 || null) as number[] | string[] | null,
       retreat_aspects: stringToArray(card.retreat_aspects) as number[] | string[],
-      reprints: stringToArray(card.reprints || null) as string[] | null,
+      reprints: card.reprints ? (card.reprints as { [key: string]: string[] }) : null,
     }));
 
     return NextResponse.json(processedCards, { status: 200 });

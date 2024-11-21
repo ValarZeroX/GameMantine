@@ -94,7 +94,7 @@ model Card {
   weakness_value      Int      // 弱點傷害
   illustrator         String   // 畫家
   point               Int      // 兌換點數
-  reprints            String?   // 相關卡牌 (多個卡片編號以逗號分隔)
+  reprints            Json?   // 相關卡牌 (多個卡片編號以逗號分隔)
   rule                String?  //規則
 
   @@map("Card") // 將模型映射到資料庫中的 "Card" 表
