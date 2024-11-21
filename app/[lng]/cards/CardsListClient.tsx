@@ -99,10 +99,10 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
     const [attackRange, setAttackRange] = useLocalStorage<[number, number]>('attackRange', [0, 250]);
 
     // 無限滾動相關
-    const [visibleCards, setVisibleCards] = useState<number>(24);
+    const [visibleCards, setVisibleCards] = useState<number>(20);
 
     const loadMoreCards = () => {
-        setVisibleCards((prev) => prev + 24);
+        setVisibleCards((prev) => prev + 20);
     };
 
     const handleRowClick = (cardNumber: string) => {
@@ -292,7 +292,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
         );
 
         setFilteredCards(filtered);
-        setVisibleCards(24); // 重置可見卡片數量
+        setVisibleCards(20); // 重置可見卡片數量
     }, [allCards, searchTerm, selectedSets, selectedDexs, selectedAspects, selectedRarity, selectedType, selectedWeakness, selectedRetreat, hpRange, attackRange]);
 
     const renderMultiSelectOption: MultiSelectProps['renderOption'] = ({ option }) => (
@@ -519,9 +519,9 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                 style={{ width: '100%', overflow: 'hidden' }}
             >
                 {displayMode === 'grid' ? (
-                    <Grid mt="md">
+                    <Grid mt="md" columns={10}>
                         {filteredCards.slice(0, visibleCards).map((card) => (
-                            <Grid.Col key={card.id} span={{ base: 6, sm: 4, md: 3, lg: 2 }}>
+                            <Grid.Col key={card.id} span={{ base: 5, sm: 2, md: 2, lg: 2 }}>
                                 <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}>
                                     <Card shadow="sm" padding="lg" radius="md" withBorder>
                                         <Card.Section>

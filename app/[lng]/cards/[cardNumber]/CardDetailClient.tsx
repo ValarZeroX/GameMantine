@@ -91,6 +91,15 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
 
     const { reprints } = card;
 
+    const getSetFromNumber = (number: string): string => {
+        // 使用正則表達式匹配從開頭到最後一個 "-" 之前的所有內容
+        const lastDashIndex = number.lastIndexOf('-');
+        if (lastDashIndex !== -1) {
+          return number.substring(0, lastDashIndex);
+        }
+        return number; // 如果沒有 "-"，返回整個 number
+      };
+
     return (
         <Container size="lg">
             <Breadcrumbs>{items}</Breadcrumbs>
@@ -346,7 +355,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                                 <Link href={`/${lng}/cards/${number}`} passHref style={{ textDecoration: 'none' }}>
                                                     <Image
                                                         radius="md"
-                                                        src={`/${lng}/${card.set}/${number}.webp`}
+                                                        src={`/${lng}/${getSetFromNumber(number)}/${number}.webp`}
                                                         alt={`${number}`}
                                                     />
                                                 </Link>
