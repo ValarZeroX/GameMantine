@@ -164,7 +164,10 @@
         "login_page_keywords": "Pokemon Nier, login, user",
         "register_page_title": "Pokemon Nier registration page",
         "register_page_description": "Pokemon Nier user registration page",
-        "register_page_keywords": "Pokemon Nier, registration, user"
+        "register_page_keywords": "Pokemon Nier, registration, user",
+        "about_title": "About This Site",
+        "about_description": "Introduction About This Site",
+        "about_keywords": "About This Site"
     },
     "grass": "Grass",
     "fire": "Fire",
@@ -207,7 +210,8 @@
         "deck_list": "Deck List",
         "create_deck": "Create Deck",
         "my_decks": "My Decks",
-        "language_selection": "Language Selection"
+        "language_selection": "Language Selection",
+        "about": "About"
     },
     "privacyPolicy": {
         "title": "Privacy Policy",

@@ -164,7 +164,10 @@
         "login_page_keywords":"Pokemon Nier, 登入, 用戶",
         "register_page_title":"Pokemon Nier 註冊頁面",
         "register_page_description":"Pokemon Nier 用戶註冊頁面",
-        "register_page_keywords":"Pokemon Nier, 註冊, 用戶"
+        "register_page_keywords":"Pokemon Nier, 註冊, 用戶",
+        "about_title": "關於本站",
+        "about_description": "關於本站的介紹",
+        "about_keywords": "關於本站"
     },
     "grass": "草",
     "fire": "火",
@@ -207,7 +210,8 @@
         "deck_list": "牌組列表",
         "create_deck": "創建牌組",
         "my_decks": "我的牌組",
-        "language_selection": "語言選擇"
+        "language_selection": "語言選擇",
+        "about": "關於本站"
     },
     "privacyPolicy": {
         "title": "隱私政策",

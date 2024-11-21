@@ -84,7 +84,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
     const [active, setActive] = useState('grid');
     const [displayMode, setDisplayMode] = useState<'grid' | 'list'>('grid');
     // const [isFilterOpen, { toggle }] = useDisclosure(false); // 新增狀態
-    const [isFilterOpen, setIsFilterOpen] = useLocalStorage<boolean>('isFilterOpen', false);
+    const [isFilterOpen, setIsFilterOpen] = useLocalStorage<boolean>('isFilterOpen', true);
     const toggle = () => setIsFilterOpen(!isFilterOpen);
 
     //過濾卡片
