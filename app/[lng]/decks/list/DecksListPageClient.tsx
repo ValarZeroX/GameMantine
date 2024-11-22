@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Blockquote,Box, ScrollArea, Badge, useMantineColorScheme, RangeSlider, MultiSelectProps, MultiSelect, TextInput, Stack, Collapse, Divider, Breadcrumbs, Anchor, Image, Select, Title, Container, Grid, Card, Text, Group, ActionIcon, Center, Loader, Button, Flex } from '@mantine/core';
-import { IconInfoCircle,IconX, IconStarFilled, IconCheck, IconBookmarkFilled, IconBookmark, IconFilter, IconSearch, IconHeart, IconSword, IconFilterOff } from '@tabler/icons-react';
+import { Blockquote, Box, ScrollArea, Badge, useMantineColorScheme, RangeSlider, MultiSelectProps, MultiSelect, TextInput, Stack, Collapse, Divider, Breadcrumbs, Anchor, Image, Select, Title, Container, Grid, Card, Text, Group, ActionIcon, Center, Loader, Button, Flex } from '@mantine/core';
+import { IconSend, IconInfoCircle, IconX, IconStarFilled, IconCheck, IconBookmarkFilled, IconBookmark, IconFilter, IconSearch, IconHeart, IconSword, IconFilterOff } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from "../../../i18n/client";
@@ -13,6 +13,7 @@ import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import { pt, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, rarityImages } from '@/lib/constants';
 import styles from './DecksListPageClient.module.css'; // 引入 CSS 模組
 import { useSearchParams } from 'next/navigation';
+import { Trans } from 'react-i18next';
 
 
 interface CardList {
@@ -323,7 +324,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
         } else {
             setSelectedCard('');
         }
-        
+
     }, [searchParams]);
 
     const fetchDecks = async (number: string | null) => {
@@ -337,12 +338,12 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
             // 添加排序參數
             url.searchParams.append('sortBy', sortBy);
             url.searchParams.append('sortOrder', sortOrder);
-            if (number !== null){
+            if (number !== null) {
                 url.searchParams.append('card', number);
             } else {
                 url.searchParams.append('card', selectedCard);
             }
-           
+
             const res = await fetch(url.toString());
             if (!res.ok) {
                 throw new Error('Failed to fetch decks');
@@ -516,7 +517,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
         </Anchor>
     ));
 
-    
+
 
     const icon = <IconInfoCircle />;
 
@@ -525,7 +526,11 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
             <Breadcrumbs>{items}</Breadcrumbs>
             <Title order={1} mt="sm">{t("common:navigation.deck_list")}</Title>
             <Blockquote color="blue" icon={icon} mt="xl">
-                <Text>點<IconFilter />過濾搜尋條件，選擇要尋找的卡牌，點送出搜尋相關牌組。</Text>
+                <Text><Trans i18nKey="common:filterInstruction" components={[
+                    <IconFilter size={18} />,
+                    <IconSend size={18} />
+                ]} />
+                </Text>
             </Blockquote>
             <Group align="center" justify="space-between" mb="md" mt="md">
                 <MultiSelect
@@ -759,8 +764,8 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
                     }}
                     style={{ width: 200 }}
                 />
-                <Button onClick={handleApplySort} style={{ height: 42 }}>
-                    {t("common:sorting.submit")}
+                <Button onClick={handleApplySort} style={{ height: 36 }}>
+                    <IconSend />{t("common:sorting.submit")}
                 </Button>
             </Flex>
             <InfiniteScroll

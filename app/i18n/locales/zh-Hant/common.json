@@ -232,5 +232,6 @@
         "submit": "送出"
     },
     "advancedFiltering": "進階過濾",
-    "relatedDecks": "相關牌組"
+    "relatedDecks": "相關牌組",
+    "filterInstruction": "點<0/>過濾搜尋條件，選擇要尋找的卡牌，點<1/>送出搜尋相關牌組。"
 }

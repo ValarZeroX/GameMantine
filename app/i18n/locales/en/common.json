@@ -232,5 +232,6 @@
         "submit": "Submit"
     },
     "advancedFiltering": "Advanced Filtering",
-    "relatedDecks": "Related Decks"
+    "relatedDecks": "Related Decks",
+    "filterInstruction": "Click <0/> to filter search criteria, select the card you want to find, and click <1/> to submit and search related decks."
 }
