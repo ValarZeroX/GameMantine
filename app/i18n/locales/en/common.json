@@ -231,5 +231,6 @@
         "search": "Search",
         "submit": "Submit"
     },
-    "advancedFiltering": "Advanced Filtering"
+    "advancedFiltering": "Advanced Filtering",
+    "relatedDecks": "Related Decks"
 }

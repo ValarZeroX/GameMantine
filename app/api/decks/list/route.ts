@@ -31,7 +31,7 @@ export async function GET(request: Request): Promise<NextResponse> {
         const cursor = searchParams.get('cursor');
         const sortBy = searchParams.get('sortBy') || 'createdAt';
         const sortOrder = searchParams.get('sortOrder') || 'desc';
-        const search = searchParams.get('search') || '';
+        const card = searchParams.get('card');
         
         // 定義可接受的排序欄位和順序
         const validSortBy = ['averageRating', 'isSaved', 'createdAt'];
@@ -72,6 +72,19 @@ export async function GET(request: Request): Promise<NextResponse> {
         if (cursor) {
             queryOptions.cursor = { id: cursor };
             queryOptions.skip = 1; // 跳過游標所在的那一筆
+        }
+
+        // 添加卡片過濾條件
+        if (card) {
+            queryOptions.where = {
+                ...queryOptions.where,
+                OR: [
+                    { deckCards: card },
+                    { deckCards: { startsWith: `${card},` } },
+                    { deckCards: { endsWith: `,${card}` } },
+                    { deckCards: { contains: `,${card},` } },
+                ],
+            };
         }
 
         // 根據排序方式建立查詢

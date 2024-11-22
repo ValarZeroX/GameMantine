@@ -1,0 +1,8 @@
+.clickableCard {
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
+  
+  .clickableCard.grayscale {
+    filter: grayscale(100%);
+  }

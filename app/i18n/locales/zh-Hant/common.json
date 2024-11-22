@@ -231,5 +231,6 @@
         "search": "搜尋",
         "submit": "送出"
     },
-    "advancedFiltering": "進階過濾"
+    "advancedFiltering": "進階過濾",
+    "relatedDecks": "相關牌組"
 }

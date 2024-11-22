@@ -2,10 +2,12 @@
 'use client';
 
 import React from 'react';
-import { Breadcrumbs, Anchor, Title, Card, Image, Group, Text, Container, Grid, Badge, SimpleGrid, Stack } from '@mantine/core';
-import { IconX } from '@tabler/icons-react';
+import { Button, Breadcrumbs, Anchor, Title, Card, Image, Group, Text, Container, Grid, Badge, SimpleGrid, Stack } from '@mantine/core';
+import { IconStack2 } from '@tabler/icons-react';
 import { useTranslation } from "../../../i18n/client";
 import Link from 'next/link';
+import { pt } from '@/lib/constants';
+import { useRouter } from 'next/navigation';
 
 interface CardDetail {
     id: number;
@@ -47,6 +49,7 @@ interface CardDetailClientProps {
 }
 
 const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
+    const router = useRouter();
     const { t } = useTranslation(lng, ['pokemon', 'common', 'skill', 'ability', 'rule']);
 
     const aspectImages: { [key: number]: string } = {
@@ -95,10 +98,14 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
         // 使用正則表達式匹配從開頭到最後一個 "-" 之前的所有內容
         const lastDashIndex = number.lastIndexOf('-');
         if (lastDashIndex !== -1) {
-          return number.substring(0, lastDashIndex);
+            return number.substring(0, lastDashIndex);
         }
         return number; // 如果沒有 "-"，返回整個 number
-      };
+    };
+
+    const handleRelatedDecksClick = () => {
+        router.push(`/${lng}/decks/list?selectedCard=${card.number}`);
+    };
 
     return (
         <Container size="lg">
@@ -156,6 +163,29 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             </Grid.Col>
                             <Grid.Col span={4}>
                                 <Badge color="blue">{t(`common:cardStage.${card.stage}`)}</Badge>
+                            </Grid.Col>
+                        </Grid>
+                        <Grid mt="md" mb="md">
+                            <Grid.Col span={2}>
+                                <Text fw={800}>{t('common:points')}</Text>
+                            </Grid.Col>
+                            <Grid.Col span={4}>
+                                <Group>
+                                    <Image
+                                        src='/common/pack.webp'
+                                        alt={`PT`}
+                                        width={30}
+                                        height={30}
+                                    />{pt[card.rarity]}
+                                </Group>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text fw={800}>{t('common:navigation.deck')}</Text>
+                            </Grid.Col>
+                            <Grid.Col span={4}>
+                                <Button color="green" variant="filled" leftSection={<IconStack2 size={14} />} onClick={handleRelatedDecksClick}>
+                                    {t('common:relatedDecks')}
+                                </Button>
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">

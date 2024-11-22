@@ -231,5 +231,6 @@
         "search": "搜索",
         "submit": "提交"
     },
-    "advancedFiltering": "高级过滤"
+    "advancedFiltering": "高级过滤",
+    "relatedDecks": "相关牌组"
 }
