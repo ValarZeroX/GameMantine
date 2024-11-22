@@ -503,6 +503,10 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
         }
     };
 
+    const handleNext = () => {
+        fetchDecks(null); // 或傳遞適當的參數
+    };
+
     const items = [
         { title: t("common:navigation.home"), href: '/' },
         { title: t("common:navigation.deck_list"), href: '#' },
@@ -761,7 +765,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
             </Flex>
             <InfiniteScroll
                 dataLength={decks.length}
-                next={fetchDecks}
+                next={handleNext}
                 hasMore={hasMore}
                 loader={
                     <Center mt="md">
