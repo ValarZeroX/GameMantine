@@ -167,7 +167,13 @@
         "register_page_keywords": "Pokemon Nier, registration, user",
         "about_title": "About This Site",
         "about_description": "Introduction About This Site",
-        "about_keywords": "About This Site"
+        "about_keywords": "About This Site",
+        "decks_list_title": "Pokemon TCG Pocket Deck List",
+        "decks_list_description": "View the Pokemon TCG Pocket deck list",
+        "decks_list_keywords": "deck list, Pokemon TCG, Pokemon, Pokemon TCG Pocket",
+        "decks_title": "Pokemon TCG Pocket Deck",
+        "decks_description": "View the Pokemon TCG Pocket deck",
+        "decks_keywords": "deck, Pokemon TCG, Pokemon, Pokemon TCG Pocket"
     },
     "grass": "Grass",
     "fire": "Fire",

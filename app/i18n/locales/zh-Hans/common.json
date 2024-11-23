@@ -167,7 +167,13 @@
         "register_page_keywords": "Pokemon Nier, 注册, 用户",
         "about_title": "关于本站",
         "about_description": "关于本站的介绍",
-        "about_keywords": "关于本站"
+        "about_keywords": "关于本站",
+        "decks_list_title": "Pokemon TCG Pocket牌组列表",
+        "decks_list_description": "查看Pokemon TCG Pocket牌组列表",
+        "decks_list_keywords": "牌组列表, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
+        "decks_title": "Pokemon TCG Pocket牌组",
+        "decks_description": "查看Pokemon TCG Pocket牌组",
+        "decks_keywords": "牌组, Pokemon TCG, 宝可梦, Pokemon TCG Pocket"
     },
     "grass": "草",
     "fire": "火",

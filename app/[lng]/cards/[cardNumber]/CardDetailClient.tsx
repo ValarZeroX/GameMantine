@@ -136,40 +136,40 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             </Group>
                         </Card.Section>
                         <Grid mt="md" mb="md">
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:set')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Badge color="blue">({card.set}){t(`common:cardSet.${card.set}`)}</Badge>
                             </Grid.Col>
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:dex')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
                                     <Badge color="blue" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
                                 ))}
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:type')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Badge color="blue">{t(`common:cardType.${card.type}`)}</Badge>
                             </Grid.Col>
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:stage')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Badge color="blue">{t(`common:cardStage.${card.stage}`)}</Badge>
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:points')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Group>
                                     <Image
                                         src='/common/pack.webp'
@@ -179,20 +179,20 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                     />{pt[card.rarity]}
                                 </Group>
                             </Grid.Col>
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:navigation.deck')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Button color="green" variant="filled" leftSection={<IconStack2 size={14} />} onClick={handleRelatedDecksClick}>
                                     {t('common:relatedDecks')}
                                 </Button>
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:rarity')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 {card.rarity !== 0 && (
                                     <Group>
                                         <Image
@@ -202,10 +202,10 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                     </Group>
                                 )}
                             </Grid.Col>
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:retreat')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Group>
                                     {card.retreat_aspects.filter((aspect) => aspect !== 99).map((aspect, index) => (
                                         <Image
@@ -220,24 +220,24 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">
-                            <Grid.Col span={2}><Text fw={800}>{t('common:hp')}</Text>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}><Text fw={800}>{t('common:hp')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Badge size="xl" circle variant="gradient"
                                     gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.hp}</Text></Badge>
                             </Grid.Col>
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:illustrator')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Badge color="blue">{card.illustrator}</Badge>
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:aspects')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Group>
                                     {card.type === 0 ? (
                                         <Image
@@ -250,10 +250,10 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                     ) : null}
                                 </Group>
                             </Grid.Col>
-                            <Grid.Col span={2}>
+                            <Grid.Col span={{ base: 4, sm: 2, md: 2, lg: 2 }}>
                                 <Text fw={800}>{t('common:weakness')}</Text>
                             </Grid.Col>
-                            <Grid.Col span={4}>
+                            <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 {card.weakness !== 10 && (
                                     <Group>
                                         <Image
@@ -287,10 +287,10 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                             ))}
                                         </Group>
                                     </Grid.Col>
-                                    <Grid.Col span={3}>
+                                    <Grid.Col span={4}>
                                         <Badge color="blue"><Text fw={800}>{t(`skill:${card.attack_name_1}.name`)}</Text></Badge>
                                     </Grid.Col>
-                                    <Grid.Col span={3}>
+                                    <Grid.Col span={2}>
                                         <Badge size="xl" circle variant="gradient"
                                             gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.attack_1}</Text></Badge>
                                     </Grid.Col>
@@ -323,10 +323,10 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                                 ))}
                                             </Group>
                                         </Grid.Col>
-                                        <Grid.Col span={3}>
+                                        <Grid.Col span={4}>
                                             <Badge color="blue"><Text fw={800}>{t(`skill:${card.attack_name_2}.name`)}</Text></Badge>
                                         </Grid.Col>
-                                        <Grid.Col span={3}>
+                                        <Grid.Col span={2}>
                                             <Badge size="xl" circle variant="gradient"
                                                 gradient={{ from: 'red', to: 'violet', deg: 90 }}><Text fw={600}>{card.attack_2}</Text></Badge>
                                         </Grid.Col>

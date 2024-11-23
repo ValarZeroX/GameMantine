@@ -59,20 +59,20 @@ interface Card {
 // }
 
 // 生成页面元数据
-export async function generateMetadata({ params }: { params: Promise<{ lng: string; }> }): Promise<Metadata> {
-    const { lng } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ lng: string; id: string }> }): Promise<Metadata> {
+    const { lng, id } = await params;
 
     const translation = await useTranslation(lng, 'common');
     const { t: translate } = translation;
-
+    
     return {
-        title: translate('metadata.decks_user_title'),
-        description: translate('metadata.decks_user_description'),
-        keywords: translate('metadata.decks_user_keywords'),
+        title: translate('metadata.decks_title'),
+        description: `${translate('metadata.decks_description')} - ${id}`,
+        keywords: translate('metadata.decks_keywords'),
     };
 }
 
-type DecksDetailPageProps = { params: Promise<{ lng: string; }> };
+type DecksDetailPageProps = { params: Promise<{ lng: string; id: string }> };
 
 const DecksDetailPage = async ({ params }: DecksDetailPageProps) => {
     const { lng } = await params;

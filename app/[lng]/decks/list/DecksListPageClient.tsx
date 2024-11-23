@@ -69,7 +69,8 @@ interface Deck {
 
 interface DeckResponse {
     decks: Deck[];
-    nextCursor: string | null;
+    nextCursor: number;
+    endCursor: boolean;
 }
 
 interface DecksListPageClientProps {
@@ -82,8 +83,8 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
     const { t } = useTranslation(lng, ['pokemon', 'common', 'skill', 'ability', 'rule']);
     const [decks, setDecks] = useState<Deck[]>([]);
     const [hasMore, setHasMore] = useState(true);
-    const [cursor, setCursor] = useState<string | null>(null);
-    const limit = 20; // 每次載入的數量
+    const [cursor, setCursor] = useState<number>(0);
+    const limit = 10; // 每次載入的數量
 
     // 新增排序狀態
     const [sortBy, setSortBy] = useState<string>('createdAt');
@@ -327,12 +328,21 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
 
     }, [searchParams]);
 
-    const fetchDecks = async (number: string | null) => {
+    const fetchDecks = async (number: string | null, first: number | null) => {
         try {
-            const url = new URL(`/api/decks/list`, window.location.origin);
+            let url = new URL(`/api/decks/list`, window.location.origin);
+            if (sortBy === 'usageCount') {
+                 url = new URL(`/api/decks/list/usage`, window.location.origin);
+            }
+            if (sortBy === 'averageRating') {
+                 url = new URL(`/api/decks/list/rating`, window.location.origin);
+            }
+
             url.searchParams.append('limit', limit.toString());
-            if (cursor) {
-                url.searchParams.append('cursor', cursor);
+            if (first !== null) {
+                url.searchParams.append('cursor', first.toString());
+            } else{
+                url.searchParams.append('cursor', cursor.toString());
             }
 
             // 添加排序參數
@@ -344,17 +354,44 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
                 url.searchParams.append('card', selectedCard);
             }
 
+            
             const res = await fetch(url.toString());
             if (!res.ok) {
                 throw new Error('Failed to fetch decks');
             }
 
             const data: DeckResponse = await res.json();
-            setDecks((prev) => [...prev, ...data.decks]);
-            setCursor(data.nextCursor);
-            if (!data.nextCursor) {
-                setHasMore(false);
-            }
+            // 检查是否存在重复的 deck.id
+        const deckIds = data.decks.map(deck => deck.id);
+        const uniqueDeckIds = new Set(deckIds);
+        if (uniqueDeckIds.size !== deckIds.length) {
+            console.warn('Duplicate deck IDs found in the response:', deckIds);
+        }
+
+        setDecks(prev => {
+            const mergedDecks = first !== null ? data.decks : [...prev, ...data.decks];
+            // 使用 Map 确保 deck.id 的唯一性
+            const uniqueDeckMap = new Map<string, Deck>();
+            mergedDecks.forEach(deck => {
+                uniqueDeckMap.set(deck.id, deck);
+            });
+            return Array.from(uniqueDeckMap.values());
+        });
+
+        setCursor(data.nextCursor);
+        setHasMore(!data.endCursor);
+            // console.log(data);
+            // setDecks((prev) => [...prev, ...data.decks]);
+            // // setDecks((prev) => {
+            // //     const newDecks = data.decks.filter(
+            // //         (deck) => !prev.some((existingDeck) => existingDeck.id === deck.id)
+            // //     );
+            // //     return [...prev, ...newDecks];
+            // // });
+            // setCursor(data.nextCursor);
+            // if (data.endCursor) {
+            //     setHasMore(false);
+            // }
         } catch (error) {
             console.error('Error fetching decks:', error);
             showNotification({
@@ -368,16 +405,17 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
     useEffect(() => {
         const cardNumber = searchParams.get('selectedCard');
         // 初次載入資料
-        fetchDecks(cardNumber);
+        setCursor(0);
+        fetchDecks(cardNumber, 0);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleApplySort = () => {
         // 重置狀態以重新撈取資料
         setDecks([]);
-        setCursor(null);
+        setCursor(0);
         setHasMore(true);
-        fetchDecks(null);
+        fetchDecks(null, 0);
     };
 
     const parseDeckCards = (deckCards: string): CardList[] => {
@@ -505,7 +543,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
     };
 
     const handleNext = () => {
-        fetchDecks(null); // 或傳遞適當的參數
+        fetchDecks(null, null); // 或傳遞適當的參數
     };
 
     const items = [
@@ -738,7 +776,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
                     placeholder={t("common:sorting.chooseSortingMode")}
                     data={[
                         { value: 'averageRating', label: t("common:sorting.rating") },
-                        { value: 'isSaved', label: t("common:sorting.favorite") },
+                        { value: 'usageCount', label: t("common:sorting.favorite") },
                         { value: 'createdAt', label: t("common:sorting.creationTime") },
                     ]}
                     value={sortBy}
