@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { Table, Button, Breadcrumbs, Anchor, Title, Card, Image, Group, Text, Container, Grid, Badge, SimpleGrid, Stack } from '@mantine/core';
-import { IconStack2 } from '@tabler/icons-react';
+import { IconStack2, IconArrowRight } from '@tabler/icons-react';
 import { useTranslation } from "../../../i18n/client";
 import Link from 'next/link';
 import { pt } from '@/lib/constants';
@@ -146,9 +146,11 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 <Text fw={800}>{t('common:dex')}</Text>
                             </Grid.Col>
                             <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
-                                {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
-                                    <Badge color="blue" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
-                                ))}
+                                <Group>
+                                    {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
+                                        <Badge color="green" variant="outline" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
+                                    ))}
+                                </Group>
                             </Grid.Col>
                         </Grid>
                         <Grid mt="md" mb="md">
@@ -371,6 +373,17 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 <Text fw={800} size="xl" ml="md">{t("common:rate")}</Text>
                             </Group>
                         </Card.Section>
+                        <Grid columns={10} mt="md">
+                            <Grid.Col span={10}>
+                                <Group>
+                                    <Badge color="blue">({card.set}){t(`common:cardSet.${card.set}`)}</Badge> 
+                                    <IconArrowRight size={20} />
+                                    {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
+                                        <Badge color="green" variant="outline" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
+                                    ))}
+                                </Group>
+                            </Grid.Col>
+                        </Grid>
                         <Text c="blue" mt="md" fw={700}>{t("common:common_pack")}</Text>
                         <Grid columns={10}>
                             <Grid.Col span={2}>
