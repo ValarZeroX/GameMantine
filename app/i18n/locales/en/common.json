@@ -239,5 +239,8 @@
     },
     "advancedFiltering": "Advanced Filtering",
     "relatedDecks": "Related Decks",
-    "filterInstruction": "Click <0/> to filter search criteria, select the card you want to find, and click <1/> to submit and search related decks."
+    "filterInstruction": "Click <0/> to filter search criteria, select the card you want to find, and click <1/> to submit and search related decks.",
+    "common_pack": "Common Pack",
+    "rare_pack": "Rare Pack",
+    "rate": "Rate"
 }

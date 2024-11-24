@@ -239,5 +239,8 @@
     },
     "advancedFiltering": "高级过滤",
     "relatedDecks": "相关牌组",
-    "filterInstruction": "点<0/>过滤搜索条件，选择要查找的卡牌，点<1/>提交搜索相关牌组。"
+    "filterInstruction": "点<0/>过滤搜索条件，选择要查找的卡牌，点<1/>提交搜索相关牌组。",
+    "common_pack": "基本卡包",
+    "rare_pack": "稀有卡包",
+    "rate": "抽卡机率"
 }

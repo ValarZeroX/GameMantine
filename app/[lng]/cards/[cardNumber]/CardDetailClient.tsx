@@ -2,13 +2,13 @@
 'use client';
 
 import React from 'react';
-import { Button, Breadcrumbs, Anchor, Title, Card, Image, Group, Text, Container, Grid, Badge, SimpleGrid, Stack } from '@mantine/core';
+import { Table, Button, Breadcrumbs, Anchor, Title, Card, Image, Group, Text, Container, Grid, Badge, SimpleGrid, Stack } from '@mantine/core';
 import { IconStack2 } from '@tabler/icons-react';
 import { useTranslation } from "../../../i18n/client";
 import Link from 'next/link';
 import { pt } from '@/lib/constants';
 import { useRouter } from 'next/navigation';
-
+import { commonRate, rareRate } from '@/lib/constants';
 interface CardDetail {
     id: number;
     number: string;
@@ -360,6 +360,91 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             <>
                                 <Text c="dimmed">{t(`rule:${card.attack_skill_name_1}`)}</Text>
                             </>}
+                    </Card>
+                </Grid.Col>
+            </Grid>
+            <Grid mt="md" mb="md" columns={10}>
+                <Grid.Col span={10}>
+                    <Card shadow="sm" padding="lg" radius="md" withBorder>
+                        <Card.Section withBorder>
+                            <Group justify="space-between" mt="md" mb="xs">
+                                <Text fw={800} size="xl" ml="md">{t("common:rate")}</Text>
+                            </Group>
+                        </Card.Section>
+                        <Text c="blue" mt="md" fw={700}>{t("common:common_pack")}</Text>
+                        <Grid columns={10}>
+                            <Grid.Col span={2}>
+                                <Text fw={800}>#1</Text>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text fw={800}>#2</Text>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text fw={800}>#3</Text>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text fw={800}>#4</Text>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text fw={800}>#5</Text>
+                            </Grid.Col>
+                        </Grid>
+                        <Grid columns={10}>
+                            <Grid.Col span={2}>
+                                <Text size='sm'>{commonRate[card.rarity][0]}%</Text>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text size='sm'>{commonRate[card.rarity][1]}%</Text>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text size='sm'>{commonRate[card.rarity][2]}%</Text>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text size='sm'>{commonRate[card.rarity][3]}%</Text>
+                            </Grid.Col>
+                            <Grid.Col span={2}>
+                                <Text size='sm'>{commonRate[card.rarity][4]}%</Text>
+                            </Grid.Col>
+                        </Grid>
+                        {card.rarity > 4 && (
+                            <>
+                                <Text c="blue" mt="md" fw={700}>{t("common:rare_pack")}(0.05%)</Text>
+                                <Grid columns={10}>
+                                    <Grid.Col span={2}>
+                                        <Text fw={800}>#1</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={2}>
+                                        <Text fw={800}>#2</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={2}>
+                                        <Text fw={800}>#3</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={2}>
+                                        <Text fw={800}>#4</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={2}>
+                                        <Text fw={800}>#5</Text>
+                                    </Grid.Col>
+                                </Grid>
+                                <Grid columns={10}>
+                                    <Grid.Col span={2}>
+                                        <Text size='sm'>{rareRate[card.rarity][0]}%</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={2}>
+                                        <Text size='sm'>{rareRate[card.rarity][1]}%</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={2}>
+                                        <Text size='sm'>{rareRate[card.rarity][2]}%</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={2}>
+                                        <Text size='sm'>{rareRate[card.rarity][3]}%</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={2}>
+                                        <Text size='sm'>{rareRate[card.rarity][4]}%</Text>
+                                    </Grid.Col>
+                                </Grid>
+                            </>
+                        )}
                     </Card>
                 </Grid.Col>
             </Grid>
