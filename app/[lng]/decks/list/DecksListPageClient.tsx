@@ -110,7 +110,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
     const [searchTerm, setSearchTerm] = useLocalStorage<string>('searchTerm', '');
     const [filteredCards, setFilteredCards] = useState<Card[]>([]);
     const [allCards, setAllCards] = useState<Card[]>([]);
-    const [isFilterOpen, setIsFilterOpen] = useLocalStorage<boolean>('isFilterOpenList', true);
+    const [isFilterOpen, setIsFilterOpen] = useLocalStorage<boolean>('isFilterOpenList', false);
     const toggle = () => setIsFilterOpen(!isFilterOpen);
     const [selectedSets, setSelectedSets] = useLocalStorage<string[]>('selectedSetsList', []);
     const [selectedDexs, setSelectedDexs] = useLocalStorage<string[]>('selectedDexsList', []);
