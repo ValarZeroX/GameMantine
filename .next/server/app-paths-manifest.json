@@ -1,8 +1,0 @@
-{
-  "/api/decks/list/route": "app/api/decks/list/route.js",
-  "/api/card/route": "app/api/card/route.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/[lng]/cards/[cardNumber]/page": "app/[lng]/cards/[cardNumber]/page.js",
-  "/[lng]/decks/list/page": "app/[lng]/decks/list/page.js"
-}
