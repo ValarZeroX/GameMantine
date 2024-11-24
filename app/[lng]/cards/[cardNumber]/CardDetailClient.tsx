@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { Table, Button, Breadcrumbs, Anchor, Title, Card, Image, Group, Text, Container, Grid, Badge, SimpleGrid, Stack } from '@mantine/core';
+import { Divider, Button, Breadcrumbs, Anchor, Title, Card, Image, Group, Text, Container, Grid, Badge, SimpleGrid, Stack } from '@mantine/core';
 import { IconStack2, IconArrowRight } from '@tabler/icons-react';
 import { useTranslation } from "../../../i18n/client";
 import Link from 'next/link';
@@ -272,6 +272,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         </Grid>
                         {card.type === 0 ? (
                             <>
+                            <Divider my="xs" label={t('common:attack')} labelPosition="center" />
                                 <Grid mt="md" mb="md">
                                     <Grid.Col span={2}>
                                         <Text fw={800}>{t('common:attack')}</Text>
@@ -345,6 +346,8 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                     </Grid>
                                 )}
                                 {card.ability_name && card.ability_name.length > 0 && (
+                                    <>
+                                    <Divider my="xs" label={t('common:ability')} labelPosition="center" />
                                     <Grid mt="md" mb="md">
                                         <Grid.Col span={2}>
                                             <Text fw={800}>{t('common:ability')}</Text>
@@ -356,6 +359,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                             <Text c="dimmed">{t(`ability:${card.ability_name}.description`)}</Text>
                                         </Grid.Col>
                                     </Grid>
+                                    </>
                                 )}
                             </>
                         ) :

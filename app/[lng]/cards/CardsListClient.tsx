@@ -204,6 +204,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
             const lowerSearch = searchTerm.toLowerCase();
             filtered = filtered.filter(card =>
                 t(`pokemon:${card.name}`).toLowerCase().includes(lowerSearch) ||
+                t(`pokemon:${card.number}`).toLowerCase().includes(lowerSearch) ||
                 t(`skill:${card.attack_name_1}.name`).toLowerCase().includes(lowerSearch) ||
                 t(`skill:${card.attack_name_1}.description`).toLowerCase().includes(lowerSearch) ||
                 t(`skill:${card.attack_name_2}.name`).toLowerCase().includes(lowerSearch) ||
