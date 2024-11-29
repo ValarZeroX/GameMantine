@@ -543,7 +543,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                                 <Badge color="blue" variant="light">
                                                     {t(`common:cardSet.${card.set}`)}
                                                 </Badge>
-                                                {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
+                                                {card.dex.filter((dex) => dex !== "NO" && dex !== "HIDDEN").map((dex, index) => (
                                                     <Badge color="green" variant="outline" key={index}>
                                                         {t(`common:cardDex.${dex}`)}
                                                     </Badge>

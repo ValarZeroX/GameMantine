@@ -8,7 +8,7 @@ import { useTranslation } from "../../../i18n/client";
 import Link from 'next/link';
 import { pt } from '@/lib/constants';
 import { useRouter } from 'next/navigation';
-import { commonRate, rareRate } from '@/lib/constants';
+import { commonRate, rareRate, odds, oddsRare } from '@/lib/constants';
 interface CardDetail {
     id: number;
     number: string;
@@ -43,12 +43,20 @@ interface CardDetail {
     rule?: string;
 }
 
+interface CountPerDex {
+    [dex: string]: {
+      [rarity: number]: number;
+    };
+  }
+  
+
 interface CardDetailClientProps {
     card: CardDetail;
     lng: string;
+    countCards: CountPerDex;
 }
 
-const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
+const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCards }) => {
     const router = useRouter();
     const { t } = useTranslation(lng, ['pokemon', 'common', 'skill', 'ability', 'rule']);
 
@@ -107,6 +115,16 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
         router.push(`/${lng}/decks/list?selectedCard=${card.number}`);
     };
 
+    const formatProbability = (value: number | undefined, count: number, rarity: number, rare: boolean): string => {
+        if (value === undefined || count === 0) return '0%';
+        let percentage = (value / count);
+        if (rare && rarity === 8) {
+            percentage  = value;
+        }
+        
+        return percentage === 0 ? '0%' : `${percentage.toFixed(3)}%`;
+    };
+
     return (
         <Container size="lg">
             <Breadcrumbs>{items}</Breadcrumbs>
@@ -147,7 +165,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                             </Grid.Col>
                             <Grid.Col span={{ base: 8, sm: 4, md: 4, lg: 4 }}>
                                 <Group>
-                                    {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
+                                    {card.dex.filter((dex) => dex !== "NO" && dex !== "HIDDEN").map((dex, index) => (
                                         <Badge color="green" variant="outline" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
                                     ))}
                                 </Group>
@@ -369,6 +387,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                     </Card>
                 </Grid.Col>
             </Grid>
+            {!card.dex.includes("NO") && !card.dex.includes("HIDDEN") && (
             <Grid mt="md" mb="md" columns={10}>
                 <Grid.Col span={10}>
                     <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -382,7 +401,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 <Group>
                                     <Badge color="blue">({card.set}){t(`common:cardSet.${card.set}`)}</Badge> 
                                     <IconArrowRight size={20} />
-                                    {card.dex.filter((dex) => dex !== "NO").map((dex, index) => (
+                                    {card.dex.filter((dex) => dex !== "NO" && dex !== "HIDDEN").map((dex, index) => (
                                         <Badge color="green" variant="outline" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
                                     ))}
                                 </Group>
@@ -408,19 +427,29 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                         </Grid>
                         <Grid columns={10}>
                             <Grid.Col span={2}>
-                                <Text size='sm'>{commonRate[card.rarity][0]}%</Text>
+                                <Text size='sm'>
+                                {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                </Text>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text size='sm'>{commonRate[card.rarity][1]}%</Text>
+                                <Text size='sm'>
+                                {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                </Text>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text size='sm'>{commonRate[card.rarity][2]}%</Text>
+                                <Text size='sm'>
+                                {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                </Text>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text size='sm'>{commonRate[card.rarity][3]}%</Text>
+                                <Text size='sm'>
+                                {formatProbability(odds[card.rarity][1], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                </Text>
                             </Grid.Col>
                             <Grid.Col span={2}>
-                                <Text size='sm'>{commonRate[card.rarity][4]}%</Text>
+                                <Text size='sm'>
+                                {formatProbability(odds[card.rarity][2], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                </Text>
                             </Grid.Col>
                         </Grid>
                         {card.rarity > 4 && (
@@ -445,19 +474,19 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                                 </Grid>
                                 <Grid columns={10}>
                                     <Grid.Col span={2}>
-                                        <Text size='sm'>{rareRate[card.rarity][0]}%</Text>
+                                        <Text size='sm'>{formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
                                     </Grid.Col>
                                     <Grid.Col span={2}>
-                                        <Text size='sm'>{rareRate[card.rarity][1]}%</Text>
+                                        <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
                                     </Grid.Col>
                                     <Grid.Col span={2}>
-                                        <Text size='sm'>{rareRate[card.rarity][2]}%</Text>
+                                        <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
                                     </Grid.Col>
                                     <Grid.Col span={2}>
-                                        <Text size='sm'>{rareRate[card.rarity][3]}%</Text>
+                                        <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][1], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
                                     </Grid.Col>
                                     <Grid.Col span={2}>
-                                        <Text size='sm'>{rareRate[card.rarity][4]}%</Text>
+                                        <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][2], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
                                     </Grid.Col>
                                 </Grid>
                             </>
@@ -465,6 +494,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng }) => {
                     </Card>
                 </Grid.Col>
             </Grid>
+            )}
             {reprints && Object.keys(reprints).length > 0 && (
                 <SimpleGrid cols={1} spacing="md">
                     {Object.entries(evolutionStages).map(([stageKey, stageName]) => {

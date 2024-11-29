@@ -67,8 +67,10 @@
     },
     "cardDex": {
         "A1C": "噴火龍",
-        "A1M": "超夢卡",
-        "A1P": "皮卡丘"
+        "A1M": "超夢",
+        "A1P": "皮卡丘",
+        "NO": "無",
+        "HIDDEN": "隱藏"
     },
     "cardType": {
         "0": "寶可夢",
@@ -140,7 +142,10 @@
         "error_delete_deck_failed": "刪除牌庫失敗。",
         "ratingSubmitted": "您的評分已提交。",
         "ratingError": "提交評分時出錯。",
-        "serverError": "提交評分時發生伺服器錯誤。"
+        "serverError": "提交評分時發生伺服器錯誤。",
+        "success_recommend_saved": "圖鑑已儲存。",
+        "error_save_recommend_failed": "儲存圖鑑失敗。",
+        "error_save_recommend": "儲存圖鑑時發生錯誤。"
     },
     "metadata": {
         "new_card_title": "新增卡牌 - Pokemon Nier",
@@ -159,12 +164,12 @@
         "decks_edit_title": "編輯牌組 - Pokemon TCG Pocket",
         "decks_edi_description": "編輯牌組Pokemon TCG Pocket",
         "decks_edi_keywords": "牌組, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
-        "login_page_title":"Pokemon Nier 登入頁面",
-        "login_page_description":"Pokemon Nier 用戶登入頁面",
-        "login_page_keywords":"Pokemon Nier, 登入, 用戶",
-        "register_page_title":"Pokemon Nier 註冊頁面",
-        "register_page_description":"Pokemon Nier 用戶註冊頁面",
-        "register_page_keywords":"Pokemon Nier, 註冊, 用戶",
+        "login_page_title": "Pokemon Nier 登入頁面",
+        "login_page_description": "Pokemon Nier 用戶登入頁面",
+        "login_page_keywords": "Pokemon Nier, 登入, 用戶",
+        "register_page_title": "Pokemon Nier 註冊頁面",
+        "register_page_description": "Pokemon Nier 用戶註冊頁面",
+        "register_page_keywords": "Pokemon Nier, 註冊, 用戶",
         "about_title": "關於本站",
         "about_description": "關於本站的介紹",
         "about_keywords": "關於本站",
@@ -222,7 +227,7 @@
     "privacyPolicy": {
         "title": "隱私政策",
         "content": "本網站承諾不會收集任何用戶的個人資訊。若您選擇使用Google帳號登入，我們僅會保留您的電子郵件地址及您所設定的暱稱。其他任何個人資訊均不會被儲存。如您對此有任何疑慮，您可選擇註冊新帳號進行登入。",
-        "content_2":"此外，請妥善保管您的帳號密碼。本網站不提供密碼找回或重設服務，亦不支援變更密碼的功能。"
+        "content_2": "此外，請妥善保管您的帳號密碼。本網站不提供密碼找回或重設服務，亦不支援變更密碼的功能。"
     },
     "sorting": {
         "sortingMode": "排序方式",
@@ -242,5 +247,11 @@
     "filterInstruction": "點<0/>過濾搜尋條件，選擇要尋找的卡牌，點<1/>送出搜尋相關牌組。",
     "common_pack": "基本卡包",
     "rare_pack": "稀有卡包",
-    "rate": "抽卡機率"
+    "rate": "抽卡機率",
+    "pokedex_collection": "圖鑑收集",
+    "first_three_card_rate": "第1-3張卡獲得新卡機率",
+    "fourth_card_rate": "第4張卡獲得新卡機率",
+    "fifth_card_rate": "第5張卡獲得新卡機率",
+    "select_card": "選擇卡片",
+    "collection_progress": "收集進度"
 }

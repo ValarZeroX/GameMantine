@@ -67,8 +67,10 @@
     },
     "cardDex": {
         "A1C": "喷火龙",
-        "A1M": "超梦卡",
-        "A1P": "皮卡丘"
+        "A1M": "超梦",
+        "A1P": "皮卡丘",
+        "NO": "无",
+        "HIDDEN": "隐藏"
     },
     "cardType": {
         "0": "宝可梦",
@@ -242,5 +244,11 @@
     "filterInstruction": "点<0/>过滤搜索条件，选择要查找的卡牌，点<1/>提交搜索相关牌组。",
     "common_pack": "基本卡包",
     "rare_pack": "稀有卡包",
-    "rate": "抽卡机率"
+    "rate": "抽卡机率",
+    "pokedex_collection": "图鉴收集",
+    "first_three_card_rate": "第1-3张卡获得新卡几率",
+    "fourth_card_rate": "第4张卡获得新卡几率",
+    "fifth_card_rate": "第5张卡获得新卡几率",
+    "select_card": "选择卡片",
+    "collection_progress": "收集进度"
 }

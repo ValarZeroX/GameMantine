@@ -41,6 +41,12 @@ interface CardDetail {
   rule?: string;
 }
 
+interface CountPerDex {
+  [dex: string]: {
+    [rarity: number]: number;
+  };
+}
+
 // 获取卡片详细数据的函数
 async function fetchCardData(number: string): Promise<CardDetail | null> {
   try {
@@ -54,6 +60,21 @@ async function fetchCardData(number: string): Promise<CardDetail | null> {
     return null;
   }
 }
+
+async function fetchCardCount(sets: string): Promise<CountPerDex | null> {
+  try {
+    const query =  `?sets=${sets}`;
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card/count${query}`);
+    if (!response.ok) {
+      return null;
+    }
+    const card: CountPerDex = await response.json();
+    return card;
+  } catch (error) {
+    return null;
+  }
+}
+
 
 // 生成页面元数据
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; cardNumber: string }> }): Promise<Metadata> {
@@ -89,10 +110,15 @@ const CardDetailPage = async ({ params }: CardDetailPageProps) => {
   if (!card) {
     notFound();
   }
+  const countCards = await fetchCardCount(card.set);
+  
+  if (!countCards) {
+    notFound();
+  }
 
   return (
     <Layout lng={lng}>
-      <CardDetailClient card={card} lng={lng} />
+      <CardDetailClient card={card} lng={lng} countCards={countCards} />
     </Layout>
   );
 };

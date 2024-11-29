@@ -27,6 +27,7 @@ model User {
 
   deckUsers  DeckUser[]
   deckRatings    DeckRating[]
+  favoriteCards  FavoriteCard[]
 }
 
 model Account {
@@ -140,4 +141,17 @@ model DeckRating {
   deck      Deck   @relation(fields: [deckId], references: [id])
 
   @@unique([userId, deckId]) // 每個用戶對每個牌組只有一個評分
+}
+
+model FavoriteCard {
+  id           Int          @id @default(autoincrement())
+  userId       String       //對應User的id
+  set          String       // 卡片系列 (A1, A2, etc., 可多個)
+  mycards        Json       
+
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([set])
+  @@unique([userId, set])
 }
