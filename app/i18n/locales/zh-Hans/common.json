@@ -175,7 +175,10 @@
         "decks_list_keywords": "牌组列表, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
         "decks_title": "Pokemon TCG Pocket牌组",
         "decks_description": "查看Pokemon TCG Pocket牌组",
-        "decks_keywords": "牌组, Pokemon TCG, 宝可梦, Pokemon TCG Pocket"
+        "decks_keywords": "牌组, Pokemon TCG, 宝可梦, Pokemon TCG Pocket",
+        "recommend_page_title": "图鉴收集 Pokemon TCG Pocket - Pokemon Nier",
+        "recommend_page_description": "记录图鉴收集进度，查看获得新卡片机率，推荐要抽取的卡包。",
+        "recommend_page_keywords": "Pokemon TCG, 宝可梦, Pokemon TCG Pocket, 图鉴, 抽卡机率, 抽卡推荐, 卡包推荐"
     },
     "grass": "草",
     "fire": "火",

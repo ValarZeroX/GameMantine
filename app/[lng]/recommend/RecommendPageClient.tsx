@@ -62,6 +62,10 @@ interface CountPerDex {
     };
 }
 
+interface SetCount {
+    [type: number]: { collected: number; total: number }
+}
+
 interface ProbabilityPerDex {
     [dex: string]: {
         pos1_3: number;
@@ -121,6 +125,7 @@ const calculateNewCardProbabilities = (
     return probabilities;
 };
 
+
 const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
     const { data: session } = useSession();
     const { colorScheme } = useMantineColorScheme();  // 获取当前主题
@@ -172,6 +177,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
     const [selectedCards, setSelectedCards] = useState<Card[]>([]);
     const [dexCounts, setDexCounts] = useState<{ [dex: string]: { collected: number; total: number } }>({});
     const [cardCounts, setCardCounts] = useState<CountPerDex>({});
+    const [setCounts, setSetCounts] = useState<SetCount>({});
     const [collectedCards, setCollectedCards] = useState<Set<string>>(new Set());
     const [isLoading, setIsLoading] = useState(false);
     const [probabilities, setProbabilities] = useState<ProbabilityPerDex>({});
@@ -236,7 +242,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
 
     useEffect(() => {
         const counts: { [dex: string]: { collected: number; total: number } } = {};
-
+        const countsSet: SetCount = {};
         allCards.forEach(card => {
             card.dex.forEach(dex => {
                 if (!counts[dex]) {
@@ -247,8 +253,36 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                     counts[dex].collected += 1;
                 }
             });
-        });
+            if (card.rarity < 5) {
+                if (!countsSet[0]) {
+                    countsSet[0] = { collected: 0, total: 0 };
+                }
+                countsSet[0].total += 1;
+                if (collectedCards.has(card.number)) {
+                    countsSet[0].collected += 1;
+                }
+            }
+            if (card.rarity >= 5 && card.rarity <= 7) {
+                if (!countsSet[1]) {
+                    countsSet[1] = { collected: 0, total: 0 };
+                }
+                countsSet[1].total += 1;
+                if (collectedCards.has(card.number)) {
+                    countsSet[1].collected += 1;
+                }
+            }
 
+            if (card.rarity == 8) {
+                if (!countsSet[2]) {
+                    countsSet[2] = { collected: 0, total: 0 };
+                }
+                countsSet[2].total += 1;
+                if (collectedCards.has(card.number)) {
+                    countsSet[2].collected += 1;
+                }
+            }
+        });
+        setSetCounts(countsSet);
         setDexCounts(counts);
     }, [allCards, collectedCards]);
 
@@ -335,6 +369,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
 
             const counts: { [dex: string]: { collected: number; total: number } } = {};
 
+            const countsSet: SetCount = {};
             data.forEach(card => {
                 card.dex.forEach(dex => {
                     if (!counts[dex]) {
@@ -342,6 +377,25 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                     }
                     counts[dex].total += 1;
                 });
+                if (card.rarity < 5) {
+                    if (!countsSet[0]) {
+                        countsSet[0] = { collected: 0, total: 0 };
+                    }
+                    countsSet[0].total += 1;
+                }
+                if (card.rarity >= 5 && card.rarity <= 7) {
+                    if (!countsSet[1]) {
+                        countsSet[1] = { collected: 0, total: 0 };
+                    }
+                    countsSet[1].total += 1;
+                }
+
+                if (card.rarity == 8) {
+                    if (!countsSet[2]) {
+                        countsSet[2] = { collected: 0, total: 0 };
+                    }
+                    countsSet[2].total += 1;
+                }
             });
 
             const countsPerDex: CountPerDex = {};
@@ -364,6 +418,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                     countsPerDex[dex][rarity].cardNumber.push(card.number);
                 });
             });
+            setSetCounts(countsSet);
             setCardCounts(countsPerDex);
             setDexCounts(counts);
         } catch (error) {
@@ -611,6 +666,11 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
         }
     };
 
+    const diamondsIcon = <IconDiamondsFilled/>;
+    const starIcon = <IconStarFilled color="yellow"/>;
+    const crownIcon = <IconCrown color="yellow"/>;
+    
+
     return (
         <Container size="lg">
             <Breadcrumbs>{items}</Breadcrumbs>
@@ -634,10 +694,36 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                 ))}
             </Grid> */}
             <Grid gutter="md" mb="md">
+                <Grid.Col span={12}>
+                    <Badge
+                        size="xl"
+                        variant="gradient"
+                        gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                        leftSection={diamondsIcon}
+                        mr="sm"
+                    >
+                        {setCounts[0]?.collected ?? 0}/{setCounts[0]?.total ?? 0}
+                    </Badge>
+                    <Badge
+                        size="xl"
+                        variant="gradient"
+                        gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                        leftSection={starIcon}
+                        mr="sm"
+                    >
+                        {setCounts[1]?.collected ?? 0}/{setCounts[1]?.total ?? 0}
+                    </Badge>
+                    <Badge
+                        size="xl"
+                        variant="gradient"
+                        gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                        leftSection={crownIcon}
+                        mr="sm"
+                    >
+                        {setCounts[2]?.collected ?? 0}/{setCounts[2]?.total ?? 0}
+                    </Badge>
+                </Grid.Col>
                 {Object.entries(dexCounts).map(([dex, count]) => {
-                    // if (dex === "NO") {
-                    //     return null; // 排除 dex 為 "NO" 的項目
-                    // }
                     const prob = probabilities[dex];
                     if (!prob) {
                         // 如果 probabilities 中沒有該 dex 的資訊，跳過渲染
@@ -703,7 +789,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                     );
                 })}
             </Grid>
-            <Divider my="xs" label={t("common:select_card")}labelPosition="center" />
+            <Divider my="xs" label={t("common:select_card")} labelPosition="center" />
             <Group align="center" justify="space-between" mb="md" mt="md">
                 <MultiSelect
                     // label={t('common:set')}

@@ -42,21 +42,6 @@ interface Card {
     rule?: string;
 }
 
-// 获取卡片列表的函数
-// async function fetchCards(): Promise<Card[] | null> {
-//     try {
-//         const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card`);
-//         // console.log(response);
-//         if (!response.ok) {
-//             return null;
-//         }
-//         const cards: Card[] = await response.json();
-//         return cards;
-//     } catch (error) {
-//         console.error('Error fetching cards:', error);
-//         return null;
-//     }
-// }
 
 // 生成页面元数据
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; }> }): Promise<Metadata> {
@@ -66,9 +51,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const { t: translate } = translation;
 
     return {
-        title: translate('metadata.cards_page_title'),
-        description: translate('metadata.cards_page_description'),
-        keywords: translate('metadata.cards_page_keywords'),
+        title: translate('metadata.recommend_page_title'),
+        description: translate('metadata.recommend_page_description'),
+        keywords: translate('metadata.recommend_page_keywords'),
     };
 }
 
@@ -77,23 +62,6 @@ type RecommendPageProps = { params: Promise<{ lng: string; }> };
 
 const RecommendPage = async ({ params }: RecommendPageProps) => {
     const { lng } = await params;
-
-    // 使用同一个函数获取卡片数据
-    // const cards = await fetchCards();
-
-    // if (!cards) {
-    //     // showNotification({
-    //     //     title: '失敗',
-    //     //     message: '無法取得卡片資料。',
-    //     //     color: 'red',
-    //     //     icon: <IconX size={16} />,
-    //     // });
-    //     return (
-    //         <Layout lng={lng}>
-    //             <div>無法取得卡片資料。</div>
-    //         </Layout>
-    //     );
-    // }
 
     return (
         <Layout lng={lng}>
