@@ -49,6 +49,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             url: `${baseUrl}/${lng}/cards`,
             lastModified: new Date().toISOString(),
         },
+        {
+            url: `${baseUrl}/${lng}/recommend`,
+            lastModified: new Date().toISOString(),
+        },
         // ...其他静态页面
     ]);
 
