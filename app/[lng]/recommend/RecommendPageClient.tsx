@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { SemiCircleProgress, Progress, Breadcrumbs, Anchor, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { Select,Checkbox, SemiCircleProgress, Progress, Breadcrumbs, Anchor, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconDiamondsFilled, IconStarFilled, IconCrown, IconX, IconSearch, IconFilter, IconFilterOff, IconCheck, IconCategory, IconHeart, IconSword, IconRefresh, IconDeviceFloppy } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
@@ -163,7 +163,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
     const toggle = () => setIsFilterOpen(!isFilterOpen);
 
     //過濾卡片
-    const [selectedSets, setSelectedSets] = useLocalStorage<string[]>('selectedSetsRecommend', []);
+    const [selectedSets, setSelectedSets] = useLocalStorage<string | null>('selectedSetsRecommend', "A1");
     const [selectedDexs, setSelectedDexs] = useLocalStorage<string[]>('selectedDexsRecommend', []);
     const [selectedAspects, setSelectedAspects] = useLocalStorage<string[]>('selectedAspectsRecommend', []);
     const [selectedRarity, setSelectedRarity] = useLocalStorage<string[]>('selectedRarityRecommend', []);
@@ -172,6 +172,8 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
     const [selectedRetreat, setSelectedRetreat] = useLocalStorage<string[]>('selectedRetreatRecommend', []);
     const [hpRange, setHpRange] = useLocalStorage<[number, number]>('hpRangeRecommend', [0, 250]);
     const [attackRange, setAttackRange] = useLocalStorage<[number, number]>('attackRangeRecommend', [0, 250]);
+    const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
+    const [hideCollected, setHideCollected] = useState<boolean>(false);
 
 
     const [selectedCards, setSelectedCards] = useState<Card[]>([]);
@@ -183,10 +185,10 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
     const [probabilities, setProbabilities] = useState<ProbabilityPerDex>({});
 
     // useEffect(() => {
-    const fetchCollectedCards = async (sets: string[]) => {
+    const fetchCollectedCards = async (sets: string) => {
         if (session?.user?.id) {
             try {
-                const query = sets.length > 0 ? `set=${sets.join(',')}` : '';
+                const query = sets.length > 0 ? `set=${sets}` : '';
                 const response = await fetch(`/api/recommend?userId=${session.user.id}&${query}`);
                 if (response.ok) {
                     const data = await response.json();
@@ -356,9 +358,9 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
     }));
 
     // 撈取卡片數據的函數
-    const fetchCards = async (sets: string[]) => {
+    const fetchCards = async (sets: string) => {
         try {
-            const query = sets.length > 0 ? `?sets=${sets.join(',')}` : '';
+            const query = sets.length > 0 ? `?sets=${sets}` : '';
             const response = await fetch(`/api/card${query}`);
             if (!response.ok) {
                 throw new Error('無法取得卡片資料。');
@@ -434,7 +436,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
 
     // 當過濾條件改變時，撈取匹配的卡片
     useEffect(() => {
-        if (selectedSets.length === 0) {
+        if (!selectedSets || selectedSets.length === 0) {
             setAllCards([]);
             setFilteredCards([]);
         } else {
@@ -460,7 +462,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
             );
         }
 
-        if (selectedSets.length > 0) {
+        if (selectedSets && selectedSets.length > 0) {
             filtered = filtered.filter(card =>
                 selectedSets.includes(card.set)
             );
@@ -538,9 +540,14 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
             (card.attack_2 != null && card.attack_2 >= attackRange[0] && card.attack_2 <= attackRange[1])
         );
 
+        // 新增過濾已收集的卡片
+        if (hideCollected) {
+            filtered = filtered.filter(card => !collectedCards.has(card.number));
+        }
+
         setFilteredCards(filtered);
         setVisibleCards(20); // 重置可見卡片數量
-    }, [allCards, searchTerm, selectedSets, selectedDexs, selectedAspects, selectedRarity, selectedType, selectedWeakness, selectedRetreat, hpRange, attackRange]);
+    }, [hideCollected, allCards, searchTerm, selectedSets, selectedDexs, selectedAspects, selectedRarity, selectedType, selectedWeakness, selectedRetreat, hpRange, attackRange]);
 
     const renderMultiSelectOption: MultiSelectProps['renderOption'] = ({ option }) => (
         <Group gap="sm">
@@ -633,7 +640,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                 body: JSON.stringify({
                     cards: cardsArray,
                     userId: session.user.id,
-                    set: selectedSets[0]
+                    set: selectedSets
                 }),
             });
 
@@ -648,7 +655,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                 });
             } else {
                 showNotification({
-                    title: t("common:notification.error"),
+                    title: t("common:notification.error_title"),
                     message: data.message || t("common:notification.error_save_recommend_failed"),
                     color: 'red',
                     icon: <IconX size={16} />,
@@ -656,7 +663,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
             }
         } catch (error) {
             showNotification({
-                title: t("common:notification.error"),
+                title: t("common:notification.error_title"),
                 message: t('common:notification.error_save_recommend'),
                 color: 'red',
                 icon: <IconX size={16} />,
@@ -666,10 +673,18 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
         }
     };
 
-    const diamondsIcon = <IconDiamondsFilled/>;
-    const starIcon = <IconStarFilled color="yellow"/>;
-    const crownIcon = <IconCrown color="yellow"/>;
-    
+    const diamondsIcon = <IconDiamondsFilled />;
+    const starIcon = <IconStarFilled color="yellow" />;
+    const crownIcon = <IconCrown color="yellow" />;
+
+    useEffect(() => {
+        if (allCards.length === 0) {
+            setIsAllSelected(false);
+        } else {
+            const allSelected = allCards.every(card => collectedCards.has(card.number));
+            setIsAllSelected(allSelected);
+        }
+    }, [collectedCards, allCards]);
 
     return (
         <Container size="lg">
@@ -683,17 +698,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                     <IconDeviceFloppy />
                 </ActionIcon>
             </Group>
-            {/* <Grid>
-                {Object.entries(probabilities).map(([dex, probs]) => (
-                    <Grid.Col key={dex} span={4}>
-                        <Text fw={800}>{`Dex: ${dex}`}</Text>
-                        <Text>{`1-3張卡獲得新卡機率: ${probs.pos1_3.toFixed(2)}%`}</Text>
-                        <Text>{`第4張卡獲得新卡機率: ${probs.pos4.toFixed(2)}%`}</Text>
-                        <Text>{`第5張卡獲得新卡機率: ${probs.pos5.toFixed(2)}%`}</Text>
-                    </Grid.Col>
-                ))}
-            </Grid> */}
-            <Grid gutter="md" mb="md">
+            <Grid gutter="md" mb="md" mt="md">
                 <Grid.Col span={12}>
                     <Badge
                         size="xl"
@@ -791,7 +796,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
             </Grid>
             <Divider my="xs" label={t("common:select_card")} labelPosition="center" />
             <Group align="center" justify="space-between" mb="md" mt="md">
-                <MultiSelect
+                <Select
                     // label={t('common:set')}
                     placeholder={t('common:set')}
                     data={seriesOptions}
@@ -799,7 +804,6 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                     clearable
                     value={selectedSets}
                     onChange={setSelectedSets}
-                    maxValues={1}
                 />
                 <Group>
                     <ActionIcon variant="default" size="lg" onClick={clearFilters}>
@@ -815,7 +819,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
             </Blockquote> */}
             <Collapse in={isFilterOpen}>
                 <Divider my="xs" label={t('common:advancedFiltering')} labelPosition="left" />
-                <Group>
+                <Group justify="space-between" mb="md">
                     <TextInput
                         placeholder={t('common:search_card')}
                         value={searchTerm}
@@ -827,6 +831,27 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                             input: { width: 300 },
                         }}
                     />
+                    <Group>
+                        <Checkbox
+                            label={t("common:select_all")}
+                            checked={isAllSelected}
+                            onChange={(event) => {
+                                const checked = event.currentTarget.checked;
+                                setIsAllSelected(checked);
+                                if (checked) {
+                                    const allCardNumbers = allCards.map(card => card.number);
+                                    setCollectedCards(new Set(allCardNumbers));
+                                } else {
+                                    setCollectedCards(new Set());
+                                }
+                            }}
+                        />
+                        <Checkbox
+                            label={t("common:hide_collected_cards")}
+                            checked={hideCollected}
+                            onChange={(e) => setHideCollected(e.target.checked)}
+                        />
+                    </Group>
                 </Group>
                 <Grid mb="md">
                     <Grid.Col span={4}>

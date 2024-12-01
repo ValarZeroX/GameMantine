@@ -253,5 +253,7 @@
     "fourth_card_rate": "第4张卡获得新卡几率",
     "fifth_card_rate": "第5张卡获得新卡几率",
     "select_card": "选择卡片",
-    "collection_progress": "收集进度"
+    "collection_progress": "收集进度",
+    "select_all": "全部选取",
+    "hide_collected_cards": "隐藏已收集的卡片"
 }
