@@ -1,4 +1,4 @@
-// app/[lng]/decks/user/UserDecksPageClient.tsx
+// app/[lng]/recommend/RecommendPageClien.tsx
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';

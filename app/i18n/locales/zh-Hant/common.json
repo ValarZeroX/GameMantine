@@ -145,7 +145,9 @@
         "serverError": "提交評分時發生伺服器錯誤。",
         "success_recommend_saved": "圖鑑已儲存。",
         "error_save_recommend_failed": "儲存圖鑑失敗。",
-        "error_save_recommend": "儲存圖鑑時發生錯誤。"
+        "error_save_recommend": "儲存圖鑑時發生錯誤。",
+        "update_success": "更新成功",
+        "update_failed": "更新失敗"
     },
     "metadata": {
         "new_card_title": "新增卡牌 - Pokemon Nier",
@@ -181,7 +183,10 @@
         "decks_keywords": "牌組, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
         "recommend_page_title": "圖鑑收集 Pokemon TCG Pocket - Pokemon Nier",
         "recommend_page_description": "記錄圖鑑收集進度，查看獲得新卡片機率，推薦要抽取的卡包。",
-        "recommend_page_keywords": "Pokemon TCG, 寶可夢, Pokemon TCG Pocket, 圖鑑, 抽卡機率, 抽卡推薦, 卡包推薦"
+        "recommend_page_keywords": "Pokemon TCG, 寶可夢, Pokemon TCG Pocket, 圖鑑, 抽卡機率, 抽卡推薦, 卡包推薦",
+        "user_page_title": "Pokemon TCG Pocket用戶頁面",
+        "user_page_description": "查看Pokemon TCG Pocket用戶頁面",
+        "user_page_keywords": "用戶頁面, Pokemon TCG, 寶可夢, Pokemon TCG Pocket"
     },
     "grass": "草",
     "fire": "火",
@@ -225,6 +230,7 @@
         "create_deck": "創建牌組",
         "my_decks": "我的牌組",
         "language_selection": "語言選擇",
+        "member_settings": "會員設定",
         "about": "關於本站"
     },
     "privacyPolicy": {
@@ -258,5 +264,9 @@
     "select_card": "選擇卡片",
     "collection_progress": "收集進度",
     "select_all": "全部選取",
-    "hide_collected_cards": "隱藏已收集的卡片"
+    "hide_collected_cards": "隱藏已收集的卡片",
+    "pokemon_id": "寶可夢好友ID",
+    "enter_pokemon_id": "輸入寶可夢好友ID",
+    "save_changes": "儲存變更",
+    "enter_name": "輸入名稱"
 }

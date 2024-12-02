@@ -1,4 +1,4 @@
-// app/[lng]/cards/page.tsx
+// app/[lng]/recommend/page.tsx
 
 import React from 'react';
 import { Metadata } from 'next';
