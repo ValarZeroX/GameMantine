@@ -29,7 +29,6 @@ const UserPageClient: React.FC<UserPageClientProps> = ({ lng }) => {
     const [name, setName] = useState<string>('');
     const [pokemonId, setPokemonId] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-    console.log
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -103,9 +102,6 @@ const UserPageClient: React.FC<UserPageClientProps> = ({ lng }) => {
             {item.title}
         </Anchor>
     ));
-
-
-    console.log('session', session);
 
     return (
         <Container size="lg">
