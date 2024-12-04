@@ -16,7 +16,7 @@ export async function GET(request: Request) {
         const set = searchParams.get('set');
 
         if (!userId || !set) {
-            return NextResponse.json({ message: '缺少必要参数' }, { status: 400 });
+            return NextResponse.json({ message: '缺少必要參數' }, { status: 400 });
         }
 
         const favoriteCard = await prisma.favoriteCard.findUnique({
@@ -36,7 +36,7 @@ export async function GET(request: Request) {
 
     } catch (error) {
         console.error('Error retrieving favorite cards:', error);
-        return NextResponse.json({ message: '服务器错误' }, { status: 500 });
+        return NextResponse.json({ message: '伺服器錯誤' }, { status: 500 });
     }
 }
 
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
         const { userId, cards, set }: FavoriteCardRequest = await request.json();
 
         if (!userId || !cards || !set) {
-            return NextResponse.json({ message: '缺少必要参数' }, { status: 400 });
+            return NextResponse.json({ message: '缺少必要參數' }, { status: 400 });
         }
 
         // 验证 cards 是否为字符串数组
@@ -77,6 +77,6 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: true, favoriteCard }, { status: 200 });
     } catch (error) {
         console.error('Error saving favorite cards:', error);
-        return NextResponse.json({ message: '服务器错误' }, { status: 500 });
+        return NextResponse.json({ message: '伺服器錯誤' }, { status: 500 });
     }
 }

@@ -752,7 +752,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                             </Grid.Col>
                             {dex !== "NO" && dex !== "HIDDEN" && (
                                 <>
-                                    <Grid.Col span={4}>
+                                    <Grid.Col span={{ base: 6, sm: 6, md: 3 }}>
                                         {/* <Text fw={800}>{`Dex: ${dex}`}</Text> */}
                                         <SemiCircleProgress
                                             size={140}
@@ -764,7 +764,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                                         />
                                         <Text>{t("common:first_three_card_rate")}</Text>
                                     </Grid.Col>
-                                    <Grid.Col span={4}>
+                                    <Grid.Col span={{ base: 3, sm: 6, md: 3 }}>
                                         {/* <Text fw={800}>{`Dex: ${dex}`}</Text> */}
                                         <SemiCircleProgress
                                             size={140}
@@ -776,7 +776,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                                         />
                                         <Text>{t("common:fourth_card_rate")}</Text>
                                     </Grid.Col>
-                                    <Grid.Col span={4}>
+                                    <Grid.Col span={{ base: 6, sm: 6, md: 3 }}>
                                         {/* <Text fw={800}>{`Dex: ${dex}`}</Text> */}
                                         <SemiCircleProgress
                                             size={140}
@@ -787,6 +787,18 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                                             filledSegmentColor={color}
                                         />
                                         <Text>{t("common:fifth_card_rate")}</Text>
+                                    </Grid.Col>
+                                    <Grid.Col span={{ base: 6, sm: 6, md: 3 }}>
+                                        {/* <Text fw={800}>{`Dex: ${dex}`}</Text> */}
+                                        <SemiCircleProgress
+                                            size={140}
+                                            thickness={20}
+                                            value={prob.pos5+prob.pos1_3+prob.pos4}
+                                            transitionDuration={250}
+                                            label={`${(prob.pos5+prob.pos1_3+prob.pos4).toFixed(2)}%`}
+                                            filledSegmentColor={color}
+                                        />
+                                        <Text>{t("common:total_card_rate")}</Text>
                                     </Grid.Col>
                                 </>
                             )}

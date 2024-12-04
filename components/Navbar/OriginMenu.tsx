@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { NavLink, Divider, Stack } from '@mantine/core';
-import { IconHome, IconFlame, IconCards, IconStack2, IconAlertCircle, IconFlare } from '@tabler/icons-react';
+import { IconHome, IconFlame, IconCards, IconStack2, IconAlertCircle, IconFlare, IconUsers } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from "../../app/i18n/client";
@@ -64,6 +64,12 @@ const OriginMenu: FC<OriginMenuProps> = ({ lng }) => {
           leftSection={<IconFlare size="1rem" stroke={1.5} />}
           onClick={() => handleNavigation('/recommend')}
         />
+        {/* <NavLink
+          component="button"
+          label="好友"
+          leftSection={<IconUsers size="1rem" stroke={1.5} />}
+          onClick={() => handleNavigation('/friend')}
+        /> */}
         <NavLink
           component="button"
           label={t('common:navigation.about')}
