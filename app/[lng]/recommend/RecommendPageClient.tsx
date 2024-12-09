@@ -990,9 +990,9 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                 endMessage={<></>}
                 style={{ width: '100%', overflow: 'hidden' }}
             >
-                <Grid mt="md" columns={10}>
+                <Grid mt="md" columns={15}>
                     {filteredCards.slice(0, visibleCards).map((card) => (
-                        <Grid.Col key={card.id} span={{ base: 5, sm: 2, md: 2, lg: 2 }}>
+                        <Grid.Col key={card.id} span={{ base: 5, sm: 3, md: 3, lg: 3 }}>
                             <Card shadow="sm" padding="lg" radius="md" withBorder onClick={() => handleCardClick(card.number)}
                                 style={{ cursor: 'pointer', position: 'relative' }}>
                                 <Card.Section>
