@@ -793,9 +793,9 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                                         <SemiCircleProgress
                                             size={140}
                                             thickness={20}
-                                            value={prob.pos5+prob.pos1_3+prob.pos4}
+                                            value={100 * (1 - (1 - prob.pos1_3 / 100) * (1 - prob.pos4 / 100) * (1 - prob.pos5 / 100))}
                                             transitionDuration={250}
-                                            label={`${(prob.pos5+prob.pos1_3+prob.pos4).toFixed(2)}%`}
+                                            label={`${(100 * (1 - (1 - prob.pos1_3 / 100) * (1 - prob.pos4 / 100) * (1 - prob.pos5 / 100))).toFixed(2)}%`}
                                             filledSegmentColor={color}
                                         />
                                         <Text>{t("common:total_card_rate")}</Text>
