@@ -1,3 +1,4 @@
+//app/[lng]/not-found.tsx
 'use client';
 
 import NotFoundTitle from '../../components/NotFound/NotFoundTitle';

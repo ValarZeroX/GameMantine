@@ -4,11 +4,11 @@ import React from 'react';
 import { Title, Text, Button, Container, Group, Center } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import classes from './NotFoundTitle.module.css';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "../../app/i18n/client";
 
 function NotFoundTitle() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t } = useTranslation('zh-Hant', ['common']);
   const handleGoHome = () => {
     router.push('/');
   };

@@ -1,5 +1,6 @@
 // import { ColorSchemeToggle } from '../../components/ColorSchemeToggle/ColorSchemeToggle';
 import { Welcome } from '../../components/Welcome/Welcome';
+import ActionsGrid from '../../components/ActionsGrid/ActionsGrid';
 import Layout from '../../components/Layout/Layout';
 
 import Link from "next/link";
@@ -16,6 +17,7 @@ export default async function HomePage({ params }: PageProps) {
     <>
       <Layout lng={lng}>
         <Welcome />
+        <ActionsGrid lng={lng} />
         {/* <ColorSchemeToggle /> */}
         {/* <h1>{t("login.login")}</h1>
       <Link href={`/${lng}`}>{t("back-to-home")}</Link>
