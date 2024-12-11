@@ -10,7 +10,7 @@ import {
     SimpleGrid,
     Text,
     UnstyledButton,
-    useMantineTheme,
+    Container,
   } from '@mantine/core';
   import classes from './ActionsGrid.module.css';
   import { FC } from 'react';
@@ -48,6 +48,7 @@ import {
     ));
   
     return (
+        <Container size="lg">
       <Card withBorder radius="md" className={classes.card}>
         <Group justify="space-between">
           <Text className={classes.title}>功能</Text>
@@ -56,6 +57,7 @@ import {
           {items}
         </SimpleGrid>
       </Card>
+      </Container>
     );
   }
 

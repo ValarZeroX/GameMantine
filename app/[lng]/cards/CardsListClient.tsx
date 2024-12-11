@@ -88,7 +88,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
     const toggle = () => setIsFilterOpen(!isFilterOpen);
 
     //過濾卡片
-    const [selectedSets, setSelectedSets] = useLocalStorage<string[]>('selectedSets', []);
+    const [selectedSets, setSelectedSets] = useLocalStorage<string[]>('selectedSets', ["A1"]);
     const [selectedDexs, setSelectedDexs] = useLocalStorage<string[]>('selectedDexs', []);
     const [selectedAspects, setSelectedAspects] = useLocalStorage<string[]>('selectedAspects', []);
     const [selectedRarity, setSelectedRarity] = useLocalStorage<string[]>('selectedRarity', []);
