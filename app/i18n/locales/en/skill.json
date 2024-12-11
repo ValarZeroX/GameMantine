@@ -9,15 +9,15 @@
     },
     "超級吸取": {
         "name": "Mega Drain",
-        "description": "Restore 30 HP to this Pokémon."
+        "description": "Heal 30 damage from this Pokémon."
     },
     "巨型綻放": {
         "name": "Giga Bloom",
-        "description": "Restore 30 HP to this Pokémon."
+        "description": "Heal 30 damage from this Pokémon."
     },
     "尋找朋友": {
-        "name": "Call for Friends",
-        "description": "Search your deck for a Grass-type Pokémon and put it into your hand."
+        "name": "Find a Friend",
+        "description": "Put 1 random Grass Pokémon from your deck into your hand."
     },
     "蟲咬": {
         "name": "Bug Bite",
@@ -28,7 +28,7 @@
         "description": ""
     },
     "刺刺痛痛": {
-        "name": "Painful Sting",
+        "name": "Sting",
         "description": ""
     },
     "銳利刺針": {
@@ -36,15 +36,15 @@
         "description": ""
     },
     "衝撞": {
-        "name": "Tackle",
+        "name": "Ram",
         "description": ""
     },
     "口水": {
-        "name": "Spit",
+        "name": "Drool",
         "description": ""
     },
     "芳香催眠": {
-        "name": "Aromatic Hypnosis",
+        "name": "Soothing Scent",
         "description": "Your opponent's Active Pokémon is now Asleep."
     },
     "抓": {
@@ -56,7 +56,7 @@
         "description": ""
     },
     "撞擊": {
-        "name": "Ram",
+        "name": "Tackle",
         "description": ""
     },
     "毒粉": {
@@ -84,27 +84,27 @@
         "description": ""
     },
     "雙重角擊": {
-        "name": "Double Horn Attack",
-        "description": "Flip 2 coins. This attack does 50 damage times the number of heads."
+        "name": "Double Horn",
+        "description": "Flip 2 coins. This attack does 50 damage for each heads."
     },
     "附著": {
-        "name": "Cling",
+        "name": "Attach",
         "description": ""
     },
     "滾動衝撞": {
-        "name": "Rolling Charge",
+        "name": "Rolling Tackle",
         "description": ""
     },
     "吸取一下": {
-        "name": "Leech Life",
+        "name": "Blot",
         "description": "Heal 10 damage from this Pokémon."
     },
     "綠葉供給": {
         "name": "Leaf Supply",
-        "description": "Attach a Grass Energy from your discard pile to one of your Benched Grass-type Pokémon."
+        "description": "Take a Grass Energy from your Energy Zone and attach it to 1 of your Benched Grass Pokémon."
     },
     "偷襲": {
-        "name": "Sneak Attack",
+        "name": "Surprise Attack",
         "description": "Flip a coin. If tails, this attack does nothing."
     },
     "火花": {
@@ -112,7 +112,7 @@
         "description": "Discard a Fire Energy from this Pokémon."
     },
     "火之爪": {
-        "name": "Fire Claw",
+        "name": "Fire Claws",
         "description": ""
     },
     "火焰漩渦": {
@@ -125,7 +125,7 @@
     },
     "搖尾巴": {
         "name": "Tail Whip",
-        "description": "Flip a coin. If heads, the Defending Pokémon can't use any attacks during your opponent's next turn."
+        "description": "Flip a coin. If heads, the Defending Pokémon can't attack during your opponent's next turn."
     },
     "噴射火焰": {
         "name": "Flamethrower",
@@ -136,15 +136,15 @@
         "description": ""
     },
     "熱力衝撞": {
-        "name": "Heat Crash",
+        "name": "Heat Tackle",
         "description": "This Pokémon also does 20 damage to itself."
     },
     "猛火衝刺": {
-        "name": "Blaze Dash",
+        "name": "Inferno Onrush",
         "description": "This Pokémon also does 20 damage to itself."
     },
     "火焰": {
-        "name": "Flame",
+        "name": "Flare",
         "description": ""
     },
     "火之鬃": {
@@ -152,27 +152,27 @@
         "description": ""
     },
     "熔岩拳": {
-        "name": "Lava Punch",
+        "name": "Magma Punch",
         "description": ""
     },
     "神鳥猛擊": {
         "name": "Sky Attack",
-        "description": ""
+        "description": "Flip a coin. If tails, this attack does nothing."
     },
     "烈火之舞": {
-        "name": "Fiery Dance",
-        "description": "Flip 3 coins. For each heads, attach a Fire Energy from your discard pile to your Benched Fire-type Pokémon in any way you like."
+        "name": "Inferno Dance",
+        "description": "Flip 3 coins. ake an amount of Fire Energy from your Energy Zone equal to the number of heads and attach it to your Benched  Fire Pokémon in any way you like."
     },
     "高溫爆破": {
         "name": "Heat Blast",
         "description": ""
     },
     "烈焰": {
-        "name": "Blaze",
+        "name": "Combustion",
         "description": ""
     },
     "咬": {
-        "name": "Bite",
+        "name": "Gnaw",
         "description": ""
     },
     "大字爆炎": {
@@ -184,35 +184,35 @@
         "description": ""
     },
     "飛濺": {
-        "name": "Splash",
+        "name": "Wave Splash",
         "description": ""
     },
     "水砲": {
         "name": "Hydro Pump",
-        "description": "If you have 2 extra Water Energy attached, this attack does 60 more damage."
+        "description": "If this Pokémon has at least 2 extra Water Energy attached, this attack does 60 more damage."
     },
     "衝浪": {
         "name": "Surf",
-        "description": "Discard a Water Energy from this Pokémon."
+        "description": ""
     },
     "水箭炮": {
-        "name": "Water Cannon",
-        "description": "If you have 2 extra Water Energy attached, this attack does 60 more damage."
+        "name": "Hydro Bazooka",
+        "description": "If this Pokémon has at least 2 extra Water Energy attached, this attack does 60 more damage."
     },
     "頭痛": {
         "name": "Headache",
-        "description": "During your opponent's next turn, they can't play Supporter cards from their hand."
+        "description": "Your opponent can't use any Supporter cards from their hand during their next turn."
     },
     "水之刀鋒": {
-        "name": "Aqua Blade",
+        "name": "Aqua Edge",
         "description": ""
     },
     "鰭快刀": {
-        "name": "Fin Cutter",
+        "name": "Razor Fin",
         "description": ""
     },
     "拳骨": {
-        "name": "Punch",
+        "name": "Knuckle Punch",
         "description": ""
     },
     "百萬噸重拳": {
@@ -220,7 +220,7 @@
         "description": ""
     },
     "重摑": {
-        "name": "Heavy Slap",
+        "name": "Gentle Slap",
         "description": ""
     },
     "毒之觸手": {
@@ -232,39 +232,39 @@
         "description": ""
     },
     "舌擊": {
-        "name": "Lick",
+        "name": "Tongue Slap",
         "description": ""
     },
     "夾住": {
-        "name": "Clamp",
+        "name": "Vise Grip",
         "description": ""
     },
     "必殺蟹鉗": {
-        "name": "Guillotine Claw",
-        "description": "Flip 2 coins. If both are heads, this attack does 80 more damage."
+        "name": "KO Crab",
+        "description": "Flip 2 coins. If both of them are heads, this attack does 80 more damage."
     },
     "水箭": {
         "name": "Water Arrow",
         "description": "This attack does 50 damage to 1 of your opponent's Pokémon."
     },
     "活蹦亂跳": {
-        "name": "Splash Jump",
+        "name": "Flop",
         "description": ""
     },
     "角刺": {
-        "name": "Horn Jab",
+        "name": "Horn Hazard",
         "description": "Flip a coin. If tails, this attack does nothing."
     },
     "掌擊": {
-        "name": "Slap",
+        "name": "Smack",
         "description": ""
     },
     "水泡濺射": {
-        "name": "Bubble Spray",
+        "name": " Hydro Splash",
         "description": ""
     },
     "躍起": {
-        "name": "Leap",
+        "name": "Splash",
         "description": ""
     },
     "破壞死光": {
@@ -272,8 +272,8 @@
         "description": "Discard a random Energy from your opponent's Active Pokémon."
     },
     "水炮": {
-        "name": "Hydro Cannon",
-        "description": "If you have 3 extra Water Energy attached, this attack does 70 more damage."
+        "name": "Hydro Pump",
+        "description": "If this Pokémon has at least 3 extra Water Energy attached, this attack does 70 more damage."
     },
     "泡沫吸取": {
         "name": "Bubble Drain",
@@ -281,7 +281,7 @@
     },
     "古代潮旋": {
         "name": "Ancient Whirlpool",
-        "description": "During your opponent's next turn, the Defending Pokémon can't use any attacks."
+        "description": "During your opponent's next turn, the Defending Pokémon can't attack."
     },
     "冰凍光束": {
         "name": "Ice Beam",
@@ -293,10 +293,10 @@
     },
     "暴風雪": {
         "name": "Blizzard",
-        "description": "This attack does 10 damage to each of your opponent's Benched Pokémon."
+        "description": "This attack also does 10 damage to each of your opponent's Benched Pokémon."
     },
     "羽擊": {
-        "name": "Wing Strike",
+        "name": "Flap",
         "description": ""
     },
     "翅膀攻擊": {
@@ -304,7 +304,7 @@
         "description": ""
     },
     "水漂": {
-        "name": "Water Drift",
+        "name": "Water Drip",
         "description": ""
     },
     "霞斬": {
@@ -312,12 +312,12 @@
         "description": ""
     },
     "潑水": {
-        "name": "Splash",
+        "name": "Rain Splash",
         "description": ""
     },
     "攻擊傷口": {
-        "name": "Wound Attack",
-        "description": "If your opponent's Active Pokémon already has any damage counters on it, this attack does 60 more damage."
+        "name": "Second Strike",
+        "description": "If your opponent's Active Pokémon has damage on it, this attack does 60 more damage."
     },
     "細雪": {
         "name": "Powder Snow",

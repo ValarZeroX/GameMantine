@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'; // 確保 prisma 已正確導出
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = process.env.NEXTAUTH_URL || 'https://pokemonnier.com/';
-    const languages = ['zh-Hant', 'zh-Hans'];
+    const languages = ['zh-Hant', 'zh-Hans', 'en'];
 
     // 获取所有卡片数据
     const cards = await prisma.card.findMany({

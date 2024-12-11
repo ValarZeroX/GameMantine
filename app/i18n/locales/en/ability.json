@@ -1,23 +1,23 @@
 {
     "粉療": {
-        "name": "粉療",
-        "description": "在自己的回合時，可以使用1次。將自己的所有寶可夢恢復20HP。"
+        "name": "Powder Heal",
+        "description": "Once during your turn, you may heal 20 damage from each of your Pokémon."
     },
     "反擊":{
-        "name": "反擊",
-        "description": "這隻寶可夢在戰鬥場受到對手的寶可夢招式的傷害時，使用招式的寶可夢受到20點傷害。"
+        "name": "Counterattack",
+        "description": "If this Pokémon is in the Active Spot and is damaged by an attack from your opponent's Pokémon, do 20 damage to the attacking Pokémon."
     },
     "硬殼盔甲": {
-        "name": "硬殼盔甲",
-        "description": "這隻寶可夢受到的招式傷害-10點。"
+        "name": "Shell Armor",
+        "description": "This Pokémon takes -10 damage from attacks."
     },
     "芳香陷阱": {
-        "name": "芳香陷阱",
-        "description": "若這隻寶可夢在戰鬥場上，則在自己的回合時可使用1次。選擇對手的備戰區的1隻基礎寶可夢，與戰鬥寶可夢交換。"
+        "name": "Fragrance Trap",
+        "description": "If this Pokémon is in the Active Spot, once during your turn, you may switch in 1 of your opponent's Benched Basic Pokémon to the Active Spot."
     },
     "水手裡劍": {
-        "name": "水手裡劍",
-        "description": "在自己的回合時，可使用1次。對手的1隻寶可夢受到20點傷害。"
+        "name": "Water Shuriken",
+        "description": "Once during your turn, you may do 20 damage to 1 of your opponent's Pokémon."
     },
     "伏特充能": {
         "name": "伏特充能",
