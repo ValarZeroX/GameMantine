@@ -51,7 +51,7 @@ import {
         <Container size="lg">
       <Card withBorder radius="md" className={classes.card}>
         <Group justify="space-between">
-          <Text className={classes.title}>功能</Text>
+          <Text className={classes.title}>{t("common:feature")}</Text>
         </Group>
         <SimpleGrid cols={3} mt="md">
           {items}

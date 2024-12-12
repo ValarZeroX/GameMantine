@@ -266,5 +266,7 @@
     "pokemon_id": "宝可梦好友ID",
     "enter_pokemon_id": "输入宝可梦好友ID",
     "save_changes": "保存更改",
-    "enter_name": "输入名称"
+    "enter_name": "输入名称",
+    "suggestions": "对于本站有任何建议或问题，可以通过以下邮箱联系。",
+    "feature": "功能"
 }

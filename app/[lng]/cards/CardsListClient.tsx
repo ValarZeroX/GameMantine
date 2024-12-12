@@ -559,7 +559,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                     <Group mt="md" >
                         <Card shadow="sm" padding="lg" radius="md" withBorder>
                             <ScrollArea>
-                                <Box w={1060} >
+                                <Box w={1068} >
                                     <Table striped verticalSpacing="lg">
                                         <Table.Thead>
                                             <Table.Tr >
@@ -570,7 +570,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                                 <Table.Th >{t('common:rarity')}</Table.Th>
                                                 <Table.Th >{t('common:weakness')}</Table.Th>
                                                 <Table.Th >{t('common:retreat')}</Table.Th>
-                                                <Table.Th style={{ width: 300 }}>{t('common:attack')} & {t('common:ability')}</Table.Th>
+                                                <Table.Th style={{ width: 280 }}>{t('common:attack')} & {t('common:ability')}</Table.Th>
                                             </Table.Tr>
                                         </Table.Thead>
                                         <Table.Tbody>
@@ -578,12 +578,14 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                                                 //onClick={() => handleRowClick(card.number)}
                                                 <Table.Tr key={card.number} >
                                                     <Table.Td>
-                                                        <Group> <Image
+                                                        <Group> 
+                                                        <Link href={`/${lng}/cards/${card.number}`} passHref style={{ textDecoration: 'none' }}>
+                                                            <Image
                                                             src={`/${lng}/${card.set}/${card.number}.webp`}
                                                             alt={t(`pokemon:${card.name}`)}
                                                             loading="lazy"
                                                             style={{ width: 100 }}
-                                                        />
+                                                        /></Link>
                                                             <Stack gap="xs" align="center">
                                                                 <Text mt="xs">{t(`pokemon:${card.name}`)}</Text>
                                                                 <Text c="dimmed" size="xs" mt="xs">#{card.number}</Text>

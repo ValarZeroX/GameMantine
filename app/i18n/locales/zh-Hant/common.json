@@ -269,5 +269,7 @@
     "pokemon_id": "寶可夢好友ID",
     "enter_pokemon_id": "輸入寶可夢好友ID",
     "save_changes": "儲存變更",
-    "enter_name": "輸入名稱"
+    "enter_name": "輸入名稱",
+    "suggestions": "對於本站有任何建議或問題，可以透過以下Email聯繫。",
+    "feature": "功能"
 }

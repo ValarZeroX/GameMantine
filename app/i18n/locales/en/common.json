@@ -269,5 +269,7 @@
     "pokemon_id": "Pokemon Friend ID",
     "enter_pokemon_id": "Enter Pokemon Friend ID",
     "save_changes": "Save Changes",
-    "enter_name": "Enter Name"
+    "enter_name": "Enter Name",
+    "suggestions": "For any suggestions or questions about this site, you can contact us via the following email.",
+    "feature": "Feature"
 }

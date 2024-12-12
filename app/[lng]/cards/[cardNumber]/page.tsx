@@ -90,7 +90,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
       description: '無法找到指定的卡片。',
     };
   }
-  const pokemonName = t(`A1:${card.name}`)
+  const pokemonName = t(`pokemon:${card.name}`)
   return {
     title: t('common:metadata.card_detail_title', { title: pokemonName }),
     description: t('common:metadata.card_detail_description', { title: pokemonName }), // 使用翻譯鍵並替換佔位符

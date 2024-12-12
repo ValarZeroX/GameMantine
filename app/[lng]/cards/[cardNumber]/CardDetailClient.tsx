@@ -95,9 +95,9 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
     ));
 
     const evolutionStages: { [key: string]: string } = {
-        '0': '基礎',
-        '1': '1階進化',
-        '2': '2階進化',
+        '0': t(`common:cardStage.0`),
+        '1': t(`common:cardStage.1`),
+        '2': t(`common:cardStage.2`),
     };
 
     const { reprints } = card;
@@ -124,16 +124,17 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
         
         return percentage === 0 ? '0%' : `${percentage.toFixed(3)}%`;
     };
+    const pokemonName = t(`pokemon:${card.name}`);
 
     return (
         <Container size="lg">
             <Breadcrumbs>{items}</Breadcrumbs>
-            <Title order={1} mt="sm">{t('common:title.card_detail_title', { title: card.name })}</Title>
+            <Title order={1} mt="sm">{t('common:title.card_detail_title', { title: pokemonName })}</Title>
             <Grid mt="md" mb="md">
                 <Grid.Col span={{ base: 12, sm: 4, md: 4, lg: 4 }}>
                     <Image
                         src={`/${lng}/${card.set}/${card.number}.webp`} // 使用絕對路徑
-                        alt={t(`${card.name}.name`)}
+                        alt={t(`${card.name}`)}
                     />
                 </Grid.Col>
 
@@ -142,7 +143,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
                         <Card.Section withBorder>
                             <Group justify="space-between" mt="md" mb="xs">
                                 <Text fw={800} size="xl" ml="md">{t(`${card.name}`)}</Text>
-                                {card.type === 0 ? (
+                                {/* {card.type === 0 ? (
                                     <Image
                                         src={aspectImages[card.aspects]}
                                         alt="Aspect"
@@ -150,7 +151,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
                                         width={30}
                                         mr="md"
                                     />
-                                ) : null}
+                                ) : null} */}
                             </Group>
                         </Card.Section>
                         <Grid mt="md" mb="md">
@@ -522,9 +523,9 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
                                                     />
                                                 </Link>
                                                 <Stack mt="md" align="center" gap="xs">
-                                                    <Text fw={700} size="xs">
+                                                    {/* <Text fw={700} size="xs">
                                                         {t(`pokemon:${card.name}`)}
-                                                    </Text>
+                                                    </Text> */}
                                                     <Text c="dimmed" size="xs">
                                                         {number}
                                                     </Text>

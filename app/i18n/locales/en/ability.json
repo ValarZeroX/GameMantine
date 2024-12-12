@@ -20,35 +20,35 @@
         "description": "Once during your turn, you may do 20 damage to 1 of your opponent's Pokémon."
     },
     "伏特充能": {
-        "name": "伏特充能",
-        "description": "在自己的回合時，可使用1次。從自己的能量區抽出一個雷系能量附於這隻寶可夢身上。"
+        "name": "Volt Charge",
+        "description": "Once during your turn, you may take a Lightning Energy from your Energy Zone and attach it to this Pokémon."
     },
     "影子咒縛": {
-        "name": "影子咒縛",
-        "description": "只要這隻寶可夢在戰鬥場上，對手無法從手牌使出支援者卡。"
+        "name": "Shadowy Spellbind",
+        "description": "As long as this Pokémon is in the Active Spot, your opponent can't use any Supporter cards from their hand."
     },
     "引夢擺錘": {
-        "name": "引夢擺錘",
-        "description": "在自己的回合時，可使用一次，擲1次硬幣若為正面，則將對手的戰鬥寶可夢睡眠。"
+        "name": "Sleep Pendulum",
+        "description": "Once during your turn, you may flip a coin. If heads, your opponent's Active Pokémon is now Asleep."
     },
     "移形換影": {
-        "name": "移形換影",
-        "description": "在自己的回合時，可使用1次。從自己的能量區抽出超能力能量，附於戰鬥場的超能力系寶可夢身上。"
+        "name": "Psy Shadow",
+        "description": "Once during your turn, you may take 1 Psychic Energy from your Energy Zone and attach it to the Psychic Pokémon in the Active Spot."
     },
     "瓦斯漏氣":{
-        "name": "瓦斯漏氣",
-        "description": "若這隻寶可夢在戰鬥上，則在自己的回合時可使用1次。將對手的戰鬥寶可夢中毒。"
+        "name": "Gas Leak",
+        "description": "Once during your turn, if this Pokémon is in the Active Spot, you may make your opponent's Active Pokémon Poisoned."
     },
     "堅硬膜":{
-        "name": "堅硬膜",
-        "description": "這隻寶可夢受到招式的傷害-20點。"
+        "name": "Hard Coat",
+        "description": "This Pokémon takes -20 damage from attacks."
     },
     "驅離":{
-        "name": "驅離",
-        "description": "在自己的回合時，可使用1次。將對手的戰鬥寶可夢與備戰寶可夢互換。「由對手選擇放置於戰鬥場的寶可夢」。"
+        "name": "Wing Attack",
+        "description": "Once during your turn, you may switch out your opponent's Active Pokémon to the Bench. (Your opponent chooses the new Active Pokémon.)"
     },
     "資料掃描":{
-        "name": "資料掃描",
-        "description": "在自己的回合時，可使用1次。從自己的牌庫上方抽出1張，查看後回復原狀。"
+        "name": "Data Scan",
+        "description": "Once during your turn, you may look at the top card of your deck."
     }
 }

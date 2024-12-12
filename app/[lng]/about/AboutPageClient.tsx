@@ -84,7 +84,7 @@ const AboutPageClient: React.FC<AboutPageClientProps> = ({ lng }) => {
             <Title order={1} mt="sm">{t('common:navigation.about')}</Title>
             <Divider my="md" />
             <Grid mt="md" columns={10}>
-                <Grid.Col span={10}><Text>對於本站有任何建議或問題可以透過以下email聯繫</Text></Grid.Col>
+                <Grid.Col span={10}><Text>{t("common:suggestions")}</Text></Grid.Col>
                 <Grid.Col span={10}>
                     <Group><IconMail /><Text>skynier2024@gmail.com</Text></Group>
                 </Grid.Col>
