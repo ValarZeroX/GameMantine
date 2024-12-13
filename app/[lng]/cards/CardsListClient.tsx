@@ -1,7 +1,7 @@
 // app/[lng]/cards/CardsListClient.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Breadcrumbs, Anchor,Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconInfoCircle, IconSearch, IconFilter, IconFilterOff, IconListDetails, IconCategory, IconHeart, IconSword } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { pt, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, rarityImages } from '@/lib/constants';
+import { setDexMenu, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, rarityImages } from '@/lib/constants';
 
 interface Card {
     id: number;
@@ -135,10 +135,33 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
         label: `(${setKey})${t(`common:cardSet.${setKey}`)}`,
     }));
 
-    const seriesOptionsDex = ['A1C', 'A1M', 'A1P'].map((setKey) => ({
-        value: setKey,
-        label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
-    }));
+    // const seriesOptionsDex = ['A1C', 'A1M', 'A1P'].map((setKey) => ({
+    //     value: setKey,
+    //     label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
+    // }));
+
+    // 動態生成 Dex 選項
+    const dexOptions = useMemo(() => {
+        const dexSet = new Set<string>();
+        selectedSets.forEach(set => {
+            const dexList = setDexMenu[set];
+            dexList.forEach(dex => dexSet.add(dex));
+        });
+        return Array.from(dexSet).map(dexKey => ({
+            value: dexKey,
+            label: `(${dexKey})${t(`common:cardDex.${dexKey}`)}`,
+        }));
+    }, [selectedSets, t]);
+
+    // 當選擇的卡片組改變時，重置選擇的 Dex
+    useEffect(() => {
+        const availableDex = dexOptions.map(option => option.value);
+        const newSelectedDexs = selectedDexs.filter(dex => availableDex.includes(dex));
+        if (newSelectedDexs.length !== selectedDexs.length) {
+            setSelectedDexs(newSelectedDexs);
+        }
+    }, [dexOptions, selectedDexs, setSelectedDexs]);
+    
 
     //['草', '火', '水', '雷電', '超能', '格鬥', '惡', '金屬', '龍', '普通']
     const seriesOptionsAspects = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'colorless'].map((setKey) => ({
@@ -342,7 +365,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                 <MultiSelect
                     // label={t('common:set')}
                     placeholder={t('common:set')}
-                    data={seriesOptions}
+                    data={seriesOptions} 
                     searchable
                     clearable
                     value={selectedSets}
@@ -399,7 +422,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                         <MultiSelect
                             label={t('common:dex')}
                             placeholder={t('common:dex')}
-                            data={seriesOptionsDex}
+                            data={dexOptions}
                             searchable
                             clearable
                             value={selectedDexs}

@@ -1,5 +1,10 @@
 // lib/constants.ts
 
+export const setDexMenu: { [key: string]: string[] } = {
+    "A1": ["A1C", "A1M", "A1P"],
+    "PROMO-A":[],
+};
+
 export const pt: { [key: number]: number } = {
     0: 0,
     1: 35,

@@ -1,7 +1,7 @@
 // app/[lng]/decks/list/DecksListPageClient.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Blockquote, Box, ScrollArea, Badge, useMantineColorScheme, RangeSlider, MultiSelectProps, MultiSelect, TextInput, Stack, Collapse, Divider, Breadcrumbs, Anchor, Image, Select, Title, Container, Grid, Card, Text, Group, ActionIcon, Center, Loader, Button, Flex } from '@mantine/core';
 import { IconSend, IconInfoCircle, IconX, IconStarFilled, IconCheck, IconBookmarkFilled, IconBookmark, IconFilter, IconSearch, IconHeart, IconSword, IconFilterOff } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import { useTranslation } from "../../../i18n/client";
 import { showNotification } from '@mantine/notifications';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useLocalStorage from '@/lib/hooks/useLocalStorage';
-import { pt, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, rarityImages } from '@/lib/constants';
+import { setDexMenu, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, rarityImages } from '@/lib/constants';
 import styles from './DecksListPageClient.module.css'; // 引入 CSS 模組
 import { useSearchParams } from 'next/navigation';
 import { Trans } from 'react-i18next';
@@ -136,10 +136,33 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
         label: `(${setKey})${t(`common:cardSet.${setKey}`)}`,
     }));
 
-    const seriesOptionsDex = ['A1C', 'A1M', 'A1P'].map((setKey) => ({
-        value: setKey,
-        label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
-    }));
+    // const seriesOptionsDex = ['A1C', 'A1M', 'A1P'].map((setKey) => ({
+    //     value: setKey,
+    //     label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
+    // }));
+
+    // 動態生成 Dex 選項
+    const dexOptions = useMemo(() => {
+        const dexSet = new Set<string>();
+        selectedSets.forEach(set => {
+            const dexList = setDexMenu[set];
+            dexList.forEach(dex => dexSet.add(dex));
+        });
+        return Array.from(dexSet).map(dexKey => ({
+            value: dexKey,
+            label: `(${dexKey})${t(`common:cardDex.${dexKey}`)}`,
+        }));
+    }, [selectedSets, t]);
+
+    // 當選擇的卡片組改變時，重置選擇的 Dex
+    useEffect(() => {
+        const availableDex = dexOptions.map(option => option.value);
+        const newSelectedDexs = selectedDexs.filter(dex => availableDex.includes(dex));
+        if (newSelectedDexs.length !== selectedDexs.length) {
+            setSelectedDexs(newSelectedDexs);
+        }
+    }, [dexOptions, selectedDexs, setSelectedDexs]);
+    
 
     //['草', '火', '水', '雷電', '超能', '格鬥', '惡', '金屬', '龍', '普通']
     const seriesOptionsAspects = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'colorless'].map((setKey) => ({
@@ -611,7 +634,7 @@ const DecksListPageClient: React.FC<DecksListPageClientProps> = ({ lng }) => {
                             <MultiSelect
                                 label={t('common:dex')}
                                 placeholder={t('common:dex')}
-                                data={seriesOptionsDex}
+                                data={dexOptions}
                                 searchable
                                 clearable
                                 value={selectedDexs}

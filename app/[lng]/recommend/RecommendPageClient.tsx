@@ -13,7 +13,7 @@ import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSession } from 'next-auth/react';
 import { showNotification } from "@mantine/notifications";
-import { pt, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, dexColorMap, odds } from '@/lib/constants';
+import { setDexMenu, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, dexColorMap, odds } from '@/lib/constants';
 
 interface Card {
     id: number;
@@ -326,10 +326,35 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
         label: `(${setKey})${t(`common:cardSet.${setKey}`)}`,
     }));
 
-    const seriesOptionsDex = ['A1C', 'A1M', 'A1P'].map((setKey) => ({
-        value: setKey,
-        label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
-    }));
+    // const seriesOptionsDex = ['A1C', 'A1M', 'A1P'].map((setKey) => ({
+    //     value: setKey,
+    //     label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
+    // }));
+
+    // 動態生成 Dex 選項
+    const dexOptions = useMemo(() => {
+        const dexSet = new Set<string>();
+        // selectedSets.forEach(set => {
+            if (selectedSets) {
+                const dexList = setDexMenu[selectedSets];
+                dexList.forEach(dex => dexSet.add(dex));
+            }
+        // });
+        return Array.from(dexSet).map(dexKey => ({
+            value: dexKey,
+            label: `(${dexKey})${t(`common:cardDex.${dexKey}`)}`,
+        }));
+    }, [selectedSets, t]);
+
+    // 當選擇的卡片組改變時，重置選擇的 Dex
+    useEffect(() => {
+        const availableDex = dexOptions.map(option => option.value);
+        const newSelectedDexs = selectedDexs.filter(dex => availableDex.includes(dex));
+        if (newSelectedDexs.length !== selectedDexs.length) {
+            setSelectedDexs(newSelectedDexs);
+        }
+    }, [dexOptions, selectedDexs, setSelectedDexs]);
+    
 
     //['草', '火', '水', '雷電', '超能', '格鬥', '惡', '金屬', '龍', '普通']
     const seriesOptionsAspects = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'colorless'].map((setKey) => ({
@@ -870,7 +895,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                         <MultiSelect
                             label={t('common:dex')}
                             placeholder={t('common:dex')}
-                            data={seriesOptionsDex}
+                            data={dexOptions}
                             searchable
                             clearable
                             value={selectedDexs}
