@@ -1,4 +1,4 @@
-// app/[lng]/friend/page.tsx
+// app/[lng]/community/friend/page.tsx
 
 import React from 'react';
 import { Metadata } from 'next';
@@ -66,9 +66,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const { t: translate } = translation;
 
     return {
-        title: translate('metadata.decks_user_title'),
-        description: translate('metadata.decks_user_description'),
-        keywords: translate('metadata.decks_user_keywords'),
+        title: translate('metadata.friend_title'),
+        description: translate('metadata.friend_description'),
+        keywords: translate('metadata.friend_keywords'),
     };
 }
 

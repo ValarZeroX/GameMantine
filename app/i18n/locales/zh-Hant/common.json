@@ -186,7 +186,10 @@
         "recommend_page_keywords": "Pokemon TCG, 寶可夢, Pokemon TCG Pocket, 圖鑑, 抽卡機率, 抽卡推薦, 卡包推薦",
         "user_page_title": "Pokemon TCG Pocket用戶頁面",
         "user_page_description": "查看Pokemon TCG Pocket用戶頁面",
-        "user_page_keywords": "用戶頁面, Pokemon TCG, 寶可夢, Pokemon TCG Pocket"
+        "user_page_keywords": "用戶頁面, Pokemon TCG, 寶可夢, Pokemon TCG Pocket",
+        "friend_title": "好友",
+        "friend_description": "分享好友",
+        "friend_keywords": "分享好友, Pokemon TCG, 寶可夢, Pokemon TCG Pocket"
     },
     "grass": "草",
     "fire": "火",

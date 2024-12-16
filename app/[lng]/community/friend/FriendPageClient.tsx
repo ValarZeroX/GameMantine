@@ -1,4 +1,4 @@
-// app/[lng]/friend/FriendPageClient.tsx
+// app/[lng]/community/friend/FriendPageClient.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
