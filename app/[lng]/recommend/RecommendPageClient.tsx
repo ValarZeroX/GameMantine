@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Select,Checkbox, SemiCircleProgress, Progress, Breadcrumbs, Anchor, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
+import { RingProgress, Paper, Select, Checkbox, SemiCircleProgress, Progress, Breadcrumbs, Anchor, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
 import { IconDiamondsFilled, IconStarFilled, IconCrown, IconX, IconSearch, IconFilter, IconFilterOff, IconCheck, IconInfoCircle, IconHeart, IconSword, IconRefresh, IconDeviceFloppy } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
@@ -335,10 +335,10 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
     const dexOptions = useMemo(() => {
         const dexSet = new Set<string>();
         // selectedSets.forEach(set => {
-            if (selectedSets) {
-                const dexList = setDexMenu[selectedSets];
-                dexList.forEach(dex => dexSet.add(dex));
-            }
+        if (selectedSets) {
+            const dexList = setDexMenu[selectedSets];
+            dexList.forEach(dex => dexSet.add(dex));
+        }
         // });
         return Array.from(dexSet).map(dexKey => ({
             value: dexKey,
@@ -354,7 +354,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
             setSelectedDexs(newSelectedDexs);
         }
     }, [dexOptions, selectedDexs, setSelectedDexs]);
-    
+
 
     //['草', '火', '水', '雷電', '超能', '格鬥', '惡', '金屬', '龍', '普通']
     const seriesOptionsAspects = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'colorless'].map((setKey) => ({
@@ -770,8 +770,8 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                     return (
                         <React.Fragment key={dex}>
                             <Grid.Col span={12}>
-                                <Text mt="sm">{`${t(`common:cardDex.${dex}`)} ${t("common:collection_progress")}`}</Text>
-                                <Progress.Root size="xl">
+                                <Text mt="sm" fw={700}>{`${t(`common:cardDex.${dex}`)} ${t("common:collection_progress")}`}</Text>
+                                <Progress.Root size="xl" mt="sm">
                                     <Progress.Section value={percentage} color={color}>
                                         <Progress.Label>{`${count.collected}/${count.total}`}</Progress.Label>
                                     </Progress.Section>
@@ -783,52 +783,104 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
                             {dex !== "NO" && dex !== "HIDDEN" && (
                                 <>
                                     <Grid.Col span={{ base: 6, sm: 6, md: 3 }}>
-                                        {/* <Text fw={800}>{`Dex: ${dex}`}</Text> */}
-                                        <SemiCircleProgress
-                                            size={140}
-                                            thickness={20}
-                                            value={prob.pos1_3}
-                                            transitionDuration={250}
-                                            label={`${prob.pos1_3.toFixed(2)}%`}
-                                            filledSegmentColor={color}
-                                        />
-                                        <Text>{t("common:first_three_card_rate")}</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={{ base: 3, sm: 6, md: 3 }}>
-                                        {/* <Text fw={800}>{`Dex: ${dex}`}</Text> */}
-                                        <SemiCircleProgress
-                                            size={140}
-                                            thickness={20}
-                                            value={prob.pos4}
-                                            transitionDuration={250}
-                                            label={`${prob.pos4.toFixed(2)}%`}
-                                            filledSegmentColor={color}
-                                        />
-                                        <Text>{t("common:fourth_card_rate")}</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={{ base: 6, sm: 6, md: 3 }}>
-                                        {/* <Text fw={800}>{`Dex: ${dex}`}</Text> */}
-                                        <SemiCircleProgress
-                                            size={140}
-                                            thickness={20}
-                                            value={prob.pos5}
-                                            transitionDuration={250}
-                                            label={`${prob.pos5.toFixed(2)}%`}
-                                            filledSegmentColor={color}
-                                        />
-                                        <Text>{t("common:fifth_card_rate")}</Text>
+                                        <Paper withBorder radius="md" p="xs">
+                                            <Group>
+                                                <RingProgress
+                                                    size={80}
+                                                    roundCaps
+                                                    thickness={8}
+                                                    sections={[{ value: prob.pos1_3, color: color }]}
+                                                    label={
+                                                        <Center>
+                                                            <Text size="xs" tt="uppercase" fw={700}>{`${prob.pos1_3.toFixed(2)}%`}</Text>
+                                                        </Center>
+                                                    }
+                                                />
+                                                <div>
+                                                    <Text c="dimmed" size="xs" tt="uppercase" fw={700}>
+                                                        {t("common:first_three_card_rate")}
+                                                    </Text>
+                                                    <Text fw={700} size="xl">
+                                                        {/* {stat.stats} */}
+                                                    </Text>
+                                                </div>
+                                            </Group>
+                                        </Paper>
                                     </Grid.Col>
                                     <Grid.Col span={{ base: 6, sm: 6, md: 3 }}>
-                                        {/* <Text fw={800}>{`Dex: ${dex}`}</Text> */}
-                                        <SemiCircleProgress
-                                            size={140}
-                                            thickness={20}
-                                            value={100 * (1 - (1 - prob.pos1_3 / 100) * (1 - prob.pos4 / 100) * (1 - prob.pos5 / 100))}
-                                            transitionDuration={250}
-                                            label={`${(100 * (1 - (1 - prob.pos1_3 / 100) * (1 - prob.pos4 / 100) * (1 - prob.pos5 / 100))).toFixed(2)}%`}
-                                            filledSegmentColor={color}
-                                        />
-                                        <Text>{t("common:total_card_rate")}</Text>
+                                        <Paper withBorder radius="md" p="xs">
+                                            <Group>
+                                                <RingProgress
+                                                    size={80}
+                                                    roundCaps
+                                                    thickness={8}
+                                                    sections={[{ value: prob.pos4, color: color }]}
+                                                    label={
+                                                        <Center>
+                                                            <Text size="xs" tt="uppercase" fw={700}>{`${prob.pos4.toFixed(2)}%`}</Text>
+                                                        </Center>
+                                                    }
+                                                />
+                                                <div>
+                                                    <Text c="dimmed" size="xs" tt="uppercase" fw={700}>
+                                                        {t("common:fourth_card_rate")}
+                                                    </Text>
+                                                    <Text fw={700} size="xl">
+                                                        {/* {stat.stats} */}
+                                                    </Text>
+                                                </div>
+                                            </Group>
+                                        </Paper>
+                                    </Grid.Col>
+                                    <Grid.Col span={{ base: 6, sm: 6, md: 3 }}>
+                                        <Paper withBorder radius="md" p="xs">
+                                            <Group>
+                                                <RingProgress
+                                                    size={80}
+                                                    roundCaps
+                                                    thickness={8}
+                                                    sections={[{ value: prob.pos5, color: color }]}
+                                                    label={
+                                                        <Center>
+                                                            <Text size="xs" tt="uppercase" fw={700}>{`${prob.pos5.toFixed(2)}%`}</Text>
+                                                        </Center>
+                                                    }
+                                                />
+                                                <div>
+                                                    <Text c="dimmed" size="xs" tt="uppercase" fw={700}>
+                                                        {t("common:fifth_card_rate")}
+                                                    </Text>
+                                                    <Text fw={700} size="xl">
+                                                        {/* {stat.stats} */}
+                                                    </Text>
+                                                </div>
+                                            </Group>
+                                        </Paper>
+                                    </Grid.Col>
+                                    <Grid.Col span={{ base: 6, sm: 6, md: 3 }}>
+                                    <Paper withBorder radius="md" p="xs">
+                                            <Group>
+                                                <RingProgress
+                                                    size={80}
+                                                    roundCaps
+                                                    thickness={8}
+                                                    sections={[{ value: 100 * (1 - (1 - prob.pos1_3 / 100) * (1 - prob.pos4 / 100) * (1 - prob.pos5 / 100)), color: color }]}
+                                                    label={
+                                                        <Center>
+                                                            <Text size="xs" tt="uppercase" fw={700}>{`${(100 * (1 - (1 - prob.pos1_3 / 100) * (1 - prob.pos4 / 100) * (1 - prob.pos5 / 100))).toFixed(2)}%`}</Text>
+                                                        </Center>
+                                                    }
+                                                />
+                                                <div>
+                                                    <Text c="dimmed" size="xs" tt="uppercase" fw={700}>
+                                                        {t("common:total_card_rate")}
+                                                    </Text>
+                                                    <Text fw={700} size="xl">
+                                                        {/* {stat.stats} */}
+                                                    </Text>
+                                                </div>
+                                            </Group>
+                                        </Paper>
                                     </Grid.Col>
                                 </>
                             )}
