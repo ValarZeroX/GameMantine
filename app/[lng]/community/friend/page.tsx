@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Metadata } from 'next';
-import Layout from '../../../components/Layout/Layout';
-import { useTranslation } from '../../i18n/index';
+import Layout from '../../../../components/Layout/Layout';
+import { useTranslation } from '../../../i18n/index';
 // import { showNotification } from "@mantine/notifications";
 import { IconX } from '@tabler/icons-react';
 import FriendPageClient from './FriendPageClient'; // 客戶端組件

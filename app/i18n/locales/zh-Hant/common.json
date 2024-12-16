@@ -271,5 +271,16 @@
     "save_changes": "儲存變更",
     "enter_name": "輸入名稱",
     "suggestions": "對於本站有任何建議或問題，可以透過以下Email聯繫。",
-    "feature": "功能"
+    "feature": "功能",
+    "calculate": "計算抽取卡包獲得新卡片的機率，不包含稀有卡包(0.05%)。",
+    "no_data_found": "找不到資料",
+    "empty_message": "訊息不可為空",
+    "message_too_long": "訊息不能超過60個字",
+    "community": "社群",
+    "friend": "好友",
+    "no_unrelated_messages": "請勿發表跟遊戲無關訊息。",
+    "message": "訊息",
+    "show_message": "是否顯示訊息",
+    "enter_message": "輸入訊息",
+    "share": "分享"
 }

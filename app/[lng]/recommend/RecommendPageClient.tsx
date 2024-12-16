@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { Select,Checkbox, SemiCircleProgress, Progress, Breadcrumbs, Anchor, Title, Center, useMantineColorScheme, Loader, RangeSlider, Blockquote, Flex, Stack, Collapse, MultiSelectProps, Group, TextInput, ActionIcon, Card, Image, Text, Grid, Badge, FloatingIndicator, UnstyledButton, Container, Table, Divider, MultiSelect, ScrollArea, Box } from '@mantine/core';
-import { IconDiamondsFilled, IconStarFilled, IconCrown, IconX, IconSearch, IconFilter, IconFilterOff, IconCheck, IconCategory, IconHeart, IconSword, IconRefresh, IconDeviceFloppy } from '@tabler/icons-react';
+import { IconDiamondsFilled, IconStarFilled, IconCrown, IconX, IconSearch, IconFilter, IconFilterOff, IconCheck, IconInfoCircle, IconHeart, IconSword, IconRefresh, IconDeviceFloppy } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../i18n/client";
 // import classes from './CardsPage.module.css';
@@ -711,10 +711,15 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
         }
     }, [collectedCards, allCards]);
 
+    const icon = <IconInfoCircle />;
+
     return (
         <Container size="lg">
             <Breadcrumbs>{items}</Breadcrumbs>
             <Title order={1} mt="sm">{t("common:pokedex_collection")}</Title>
+            <Blockquote color="blue" icon={icon} mt="xl">
+                <Text>{t("common:calculate")}</Text>
+            </Blockquote>
             <Group mt="md" justify="flex-end" align="center" >
                 <ActionIcon variant="default" size="lg" onClick={clearFavoriteCard}>
                     <IconRefresh />

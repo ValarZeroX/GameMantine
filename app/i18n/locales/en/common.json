@@ -271,5 +271,16 @@
     "save_changes": "Save Changes",
     "enter_name": "Enter Name",
     "suggestions": "For any suggestions or questions about this site, you can contact us via the following email.",
-    "feature": "Feature"
+    "feature": "Feature",
+    "calculate": "Calculate the probability of obtaining new cards from card packs, excluding rare packs (0.05%).",
+    "no_data_found": "No data found",
+    "empty_message": "Message cannot be empty",
+    "message_too_long": "Message cannot exceed 60 characters",
+    "community": "Community",
+    "friend": "Friend",
+    "no_unrelated_messages": "Please do not post messages unrelated to the game.",
+    "message": "Message",
+    "show_message": "Show Message",
+    "enter_message": "Enter Message",
+    "share": "Share"
 }

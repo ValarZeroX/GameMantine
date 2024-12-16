@@ -1,7 +1,7 @@
 'use client';
 
 import {
-    IconCards, IconStack2, IconFlare
+    IconCards, IconStack2, IconFlare, IconUsers
   } from '@tabler/icons-react';
   import {
     Anchor,
@@ -32,6 +32,7 @@ import {
         { title: t('common:navigation.cards'), icon: IconCards, color: 'violet', href: '/cards'  },
         { title: t('common:navigation.deck'), icon: IconStack2, color: 'indigo', href: '/decks/list' },
         { title: t('common:pokedex_collection'), icon: IconFlare, color: 'blue', href: '/recommend' },
+        { title: t('common:community'), icon: IconUsers, color: 'blue', href: '/community/friend' },
       ];
 
       const handleNavigation = (href: string) => {

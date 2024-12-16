@@ -64,12 +64,14 @@ const OriginMenu: FC<OriginMenuProps> = ({ lng }) => {
           leftSection={<IconFlare size="1rem" stroke={1.5} />}
           onClick={() => handleNavigation('/recommend')}
         />
-        {/* <NavLink
+        <NavLink
           component="button"
-          label="好友"
+          label={t("common:community")}
           leftSection={<IconUsers size="1rem" stroke={1.5} />}
-          onClick={() => handleNavigation('/friend')}
-        /> */}
+        // onClick={() => handleNavigation('/decks')}
+        >
+          <NavLink label={t("common:friend")} onClick={() => handleNavigation('/community/friend')} />
+        </NavLink>
         <NavLink
           component="button"
           label={t('common:navigation.about')}

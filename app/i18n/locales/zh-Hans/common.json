@@ -268,5 +268,16 @@
     "save_changes": "保存更改",
     "enter_name": "输入名称",
     "suggestions": "对于本站有任何建议或问题，可以通过以下邮箱联系。",
-    "feature": "功能"
+    "feature": "功能",
+    "calculate": "计算抽取卡包获得新卡片的概率，不包含稀有卡包(0.05%)。",
+    "no_data_found": "找不到资料",
+    "empty_message": "消息不可为空",
+    "message_too_long": "消息不能超过60个字",
+    "community": "社群",
+    "friend": "好友",
+    "no_unrelated_messages": "请勿发表与游戏无关的消息。",
+    "message": "消息",
+    "show_message": "是否显示消息",
+    "enter_message": "输入消息",
+    "share": "分享"
 }

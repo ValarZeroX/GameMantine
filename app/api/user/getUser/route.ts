@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user?.id) {
-    return NextResponse.json({ error: '未授权' }, { status: 401 });
+    return NextResponse.json({ error: '未授權' }, { status: 401 });
   }
 
   try {
@@ -24,12 +24,12 @@ export async function GET(request: Request) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: '用户未找到' }, { status: 404 });
+      return NextResponse.json({ error: '使用者未找到' }, { status: 404 });
     }
 
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
-    console.error('获取用户信息失败:', error);
-    return NextResponse.json({ error: '获取失败' }, { status: 500 });
+    console.error('取使用者資料失败:', error);
+    return NextResponse.json({ error: '取使用者資料失败' }, { status: 500 });
   }
 }
