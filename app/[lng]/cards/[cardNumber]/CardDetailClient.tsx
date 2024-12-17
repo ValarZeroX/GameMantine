@@ -45,10 +45,10 @@ interface CardDetail {
 
 interface CountPerDex {
     [dex: string]: {
-      [rarity: number]: number;
+        [rarity: number]: number;
     };
-  }
-  
+}
+
 
 interface CardDetailClientProps {
     card: CardDetail;
@@ -119,9 +119,9 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
         if (value === undefined || count === 0) return '0%';
         let percentage = (value / count);
         if (rare && rarity === 8) {
-            percentage  = value;
+            percentage = value;
         }
-        
+
         return percentage === 0 ? '0%' : `${percentage.toFixed(3)}%`;
     };
     const pokemonName = t(`pokemon:${card.name}`);
@@ -291,7 +291,7 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
                         </Grid>
                         {card.type === 0 ? (
                             <>
-                            <Divider my="xs" label={t('common:attack')} labelPosition="center" />
+                                <Divider my="xs" label={t('common:attack')} labelPosition="center" />
                                 <Grid mt="md" mb="md">
                                     <Grid.Col span={2}>
                                         <Text fw={800}>{t('common:attack')}</Text>
@@ -366,18 +366,18 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
                                 )}
                                 {card.ability_name && card.ability_name.length > 0 && (
                                     <>
-                                    <Divider my="xs" label={t('common:ability')} labelPosition="center" />
-                                    <Grid mt="md" mb="md">
-                                        <Grid.Col span={2}>
-                                            <Text fw={800}>{t('common:ability')}</Text>
-                                        </Grid.Col>
-                                        <Grid.Col span={4}>
-                                            <Badge color="blue"><Text fw={800}>{t(`ability:${card.ability_name}.name`)}</Text></Badge>
-                                        </Grid.Col>
-                                        <Grid.Col span={6}>
-                                            <Text c="dimmed">{t(`ability:${card.ability_name}.description`)}</Text>
-                                        </Grid.Col>
-                                    </Grid>
+                                        <Divider my="xs" label={t('common:ability')} labelPosition="center" />
+                                        <Grid mt="md" mb="md">
+                                            <Grid.Col span={2}>
+                                                <Text fw={800}>{t('common:ability')}</Text>
+                                            </Grid.Col>
+                                            <Grid.Col span={4}>
+                                                <Badge color="blue"><Text fw={800}>{t(`ability:${card.ability_name}.name`)}</Text></Badge>
+                                            </Grid.Col>
+                                            <Grid.Col span={6}>
+                                                <Text c="dimmed">{t(`ability:${card.ability_name}.description`)}</Text>
+                                            </Grid.Col>
+                                        </Grid>
                                     </>
                                 )}
                             </>
@@ -389,112 +389,112 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
                 </Grid.Col>
             </Grid>
             {!card.dex.includes("NO") && !card.dex.includes("HIDDEN") && (
-            <Grid mt="md" mb="md" columns={10}>
-                <Grid.Col span={10}>
-                    <Card shadow="sm" padding="lg" radius="md" withBorder>
-                        <Card.Section withBorder>
-                            <Group justify="space-between" mt="md" mb="xs">
-                                <Text fw={800} size="xl" ml="md">{t("common:rate")}</Text>
-                            </Group>
-                        </Card.Section>
-                        <Grid columns={10} mt="md">
-                            <Grid.Col span={10}>
-                                <Group>
-                                    <Badge color="blue">({card.set}){t(`common:cardSet.${card.set}`)}</Badge> 
-                                    <IconArrowRight size={20} />
-                                    {card.dex.filter((dex) => dex !== "NO" && dex !== "HIDDEN").map((dex, index) => (
-                                        <Badge color="green" variant="outline" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
-                                    ))}
+                <Grid mt="md" mb="md" columns={10}>
+                    <Grid.Col span={10}>
+                        <Card shadow="sm" padding="lg" radius="md" withBorder>
+                            <Card.Section withBorder>
+                                <Group justify="space-between" mt="md" mb="xs">
+                                    <Text fw={800} size="xl" ml="md">{t("common:rate")}</Text>
                                 </Group>
-                            </Grid.Col>
-                        </Grid>
-                        <Text c="blue" mt="md" fw={700}>{t("common:common_pack")}</Text>
-                        <Grid columns={10}>
-                            <Grid.Col span={2}>
-                                <Text fw={800}>#1</Text>
-                            </Grid.Col>
-                            <Grid.Col span={2}>
-                                <Text fw={800}>#2</Text>
-                            </Grid.Col>
-                            <Grid.Col span={2}>
-                                <Text fw={800}>#3</Text>
-                            </Grid.Col>
-                            <Grid.Col span={2}>
-                                <Text fw={800}>#4</Text>
-                            </Grid.Col>
-                            <Grid.Col span={2}>
-                                <Text fw={800}>#5</Text>
-                            </Grid.Col>
-                        </Grid>
-                        <Grid columns={10}>
-                            <Grid.Col span={2}>
-                                <Text size='sm'>
-                                {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
-                                </Text>
-                            </Grid.Col>
-                            <Grid.Col span={2}>
-                                <Text size='sm'>
-                                {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
-                                </Text>
-                            </Grid.Col>
-                            <Grid.Col span={2}>
-                                <Text size='sm'>
-                                {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
-                                </Text>
-                            </Grid.Col>
-                            <Grid.Col span={2}>
-                                <Text size='sm'>
-                                {formatProbability(odds[card.rarity][1], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
-                                </Text>
-                            </Grid.Col>
-                            <Grid.Col span={2}>
-                                <Text size='sm'>
-                                {formatProbability(odds[card.rarity][2], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
-                                </Text>
-                            </Grid.Col>
-                        </Grid>
-                        {card.rarity > 4 && (
-                            <>
-                                <Text c="blue" mt="md" fw={700}>{t("common:rare_pack")}(0.05%)</Text>
-                                <Grid columns={10}>
-                                    <Grid.Col span={2}>
-                                        <Text fw={800}>#1</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={2}>
-                                        <Text fw={800}>#2</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={2}>
-                                        <Text fw={800}>#3</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={2}>
-                                        <Text fw={800}>#4</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={2}>
-                                        <Text fw={800}>#5</Text>
-                                    </Grid.Col>
-                                </Grid>
-                                <Grid columns={10}>
-                                    <Grid.Col span={2}>
-                                        <Text size='sm'>{formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={2}>
-                                        <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={2}>
-                                        <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={2}>
-                                        <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][1], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
-                                    </Grid.Col>
-                                    <Grid.Col span={2}>
-                                        <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][2], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
-                                    </Grid.Col>
-                                </Grid>
-                            </>
-                        )}
-                    </Card>
-                </Grid.Col>
-            </Grid>
+                            </Card.Section>
+                            <Grid columns={10} mt="md">
+                                <Grid.Col span={10}>
+                                    <Group>
+                                        <Badge color="blue">({card.set}){t(`common:cardSet.${card.set}`)}</Badge>
+                                        <IconArrowRight size={20} />
+                                        {card.dex.filter((dex) => dex !== "NO" && dex !== "HIDDEN").map((dex, index) => (
+                                            <Badge color="green" variant="outline" key={index}>({dex}){t(`common:cardDex.${dex}`)}</Badge>
+                                        ))}
+                                    </Group>
+                                </Grid.Col>
+                            </Grid>
+                            <Text c="blue" mt="md" fw={700}>{t("common:common_pack")}</Text>
+                            <Grid columns={10}>
+                                <Grid.Col span={2}>
+                                    <Text fw={800}>#1</Text>
+                                </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text fw={800}>#2</Text>
+                                </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text fw={800}>#3</Text>
+                                </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text fw={800}>#4</Text>
+                                </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text fw={800}>#5</Text>
+                                </Grid.Col>
+                            </Grid>
+                            <Grid columns={10}>
+                                <Grid.Col span={2}>
+                                    <Text size='sm'>
+                                        {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                    </Text>
+                                </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text size='sm'>
+                                        {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                    </Text>
+                                </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text size='sm'>
+                                        {formatProbability(odds[card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                    </Text>
+                                </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text size='sm'>
+                                        {formatProbability(odds[card.rarity][1], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                    </Text>
+                                </Grid.Col>
+                                <Grid.Col span={2}>
+                                    <Text size='sm'>
+                                        {formatProbability(odds[card.rarity][2], countCards[card.dex[0]]?.[card.rarity], card.rarity, false)}
+                                    </Text>
+                                </Grid.Col>
+                            </Grid>
+                            {card.rarity > 4 && (
+                                <>
+                                    <Text c="blue" mt="md" fw={700}>{t("common:rare_pack")}(0.05%)</Text>
+                                    <Grid columns={10}>
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}>#1</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}>#2</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}>#3</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}>#4</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={2}>
+                                            <Text fw={800}>#5</Text>
+                                        </Grid.Col>
+                                    </Grid>
+                                    <Grid columns={10}>
+                                        <Grid.Col span={2}>
+                                            <Text size='sm'>{formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={2}>
+                                            <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={2}>
+                                            <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][0], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={2}>
+                                            <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][1], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
+                                        </Grid.Col>
+                                        <Grid.Col span={2}>
+                                            <Text size='sm'> {formatProbability(oddsRare[card.dex[0]][card.rarity][2], countCards[card.dex[0]]?.[card.rarity], card.rarity, true)}</Text>
+                                        </Grid.Col>
+                                    </Grid>
+                                </>
+                            )}
+                        </Card>
+                    </Grid.Col>
+                </Grid>
             )}
             {reprints && Object.keys(reprints).length > 0 && (
                 <SimpleGrid cols={1} spacing="md">
@@ -508,7 +508,11 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
                                     <Card.Section withBorder>
                                         <Group justify="space-between" mt="md" mb="xs">
                                             <Text fw={800} size="xl" ml="md">
-                                                {stageName}
+                                                {card.type === 2 ? (
+                                                    <>{t(`common:cardType.${card.type}`)}</>
+                                                ) : (
+                                                    <>{stageName}</>
+                                                )}
                                             </Text>
                                         </Group>
                                     </Card.Section>

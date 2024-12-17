@@ -14,5 +14,10 @@
     "PROMO-A-004":"Look at the top 3 cards of your deck.",
     "PROMO-A-005":"Put 1 random Basic Pokemon from your deck into your hand.",
     "PROMO-A-006":"Your opponent shuffles their hand into their deck and draws 3 cards.",
-    "PROMO-A-007":"Draw 2 cards."
+    "PROMO-A-007":"Draw 2 cards.",
+    "A1a-064":"從對手的棄牌區選擇1張基礎寶可夢卡，放置於對手的備戰區。",
+    "A1a-065":"從自己的牌庫上方抽出1張並查看，若那張卡為超能力寶可夢，則加入手牌。若不為超能力寶可夢，則放回牌庫下方。",
+    "A1a-066":"將自己的戰鬥場的「夢幻ex」放回手牌。",
+    "A1a-067":"在下個對手的回合，自己的所有寶可夢受到對手的寶可夢招式的傷害-10點。",
+    "A1a-068":"在這個回合，自己的戰鬥寶可夢撤退所需的能量減少2個。"
 }

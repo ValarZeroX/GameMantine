@@ -3,6 +3,7 @@
 export const setDexMenu: { [key: string]: string[] } = {
     "A1": ["A1C", "A1M", "A1P"],
     "PROMO-A":[],
+    "A1a": [],
 };
 
 export const pt: { [key: number]: number } = {
@@ -141,11 +142,23 @@ export const oddsRare: { [key: string]: number[][] } = {
         [50, 50, 50],
         [5, 5, 5],
         [5, 5, 5],
-    ]
+    ],
+    "A1a":[
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [33.333, 33.333, 33.333],
+        [55.555, 55.555, 55.555],
+        [5.555, 5.555, 5.555],
+        [5.555, 5.555, 5.555],
+    ],
 }
 
 export const dexColorMap: { [key: string]: string } = {
     A1C: 'red',
     A1M: 'purple',
     A1P: 'yellow',
+    A1a: 'green',
 };

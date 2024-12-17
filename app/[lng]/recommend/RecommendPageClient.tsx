@@ -321,7 +321,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
     //     setControlsRefs(controlsRefs);
     // };
 
-    const seriesOptions = ['A1', 'PROMO-A'].map((setKey) => ({
+    const seriesOptions = ['A1', 'PROMO-A', 'A1a'].map((setKey) => ({
         value: setKey,
         label: `(${setKey})${t(`common:cardSet.${setKey}`)}`,
     }));
