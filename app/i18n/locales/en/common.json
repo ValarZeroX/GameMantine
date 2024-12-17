@@ -62,15 +62,17 @@
         "error_insufficient_permissions": "Insufficient permissions, please log in."
     },
     "cardSet": {
-        "A1": "The Strongest Gene",
-        "PROMO-A": "Promo-A"
+        "A1": "Genetic Apex",
+        "PROMO-A": "Promo-A",
+        "A1a": "Mythical Island"
     },
     "cardDex": {
         "A1C": "Charizard",
         "A1M": "Mewtwo",
         "A1P": "Pikachu",
         "NO": "None",
-        "HIDDEN": "Hidden"
+        "HIDDEN": "Hidden",
+        "A1a": "Mythical Island"
     },
     "cardType": {
         "0": "Pokemon",

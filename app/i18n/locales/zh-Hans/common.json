@@ -63,14 +63,16 @@
     },
     "cardSet": {
         "A1": "最强基因",
-        "PROMO-A": "Promo-A"
+        "PROMO-A": "Promo-A",
+        "A1a": "幻游岛"
     },
     "cardDex": {
         "A1C": "喷火龙",
         "A1M": "超梦",
         "A1P": "皮卡丘",
         "NO": "无",
-        "HIDDEN": "隐藏"
+        "HIDDEN": "隐藏",
+        "A1a": "幻游岛"
     },
     "cardType": {
         "0": "宝可梦",
