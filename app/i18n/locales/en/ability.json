@@ -52,15 +52,19 @@
         "description": "Once during your turn, you may look at the top card of your deck."
     },
     "密林霸主": {
-        "name": "密林霸主",
-        "description": "只要這隻寶可夢在場上，自己的場上的草系寶可夢身上所附加的所有草能量，視為各提供2個草能量。這個特性不會重複。"
+        "name": "Jungle Totem",
+        "description": "Each Grass Energy attached to your Grass Pokémon provides 2 Grass Energy. This effect doesn't stack."
     },
     "沖刷": {
-        "name": "沖刷",
-        "description": "在自己的回合時，可不限次數使用。從自己的備戰區的水系寶可夢身上將1個水能量，改附於戰鬥場的水系寶可夢身上。"
+        "name": "Wash Out",
+        "description": "As often as you like during your turn, you may move a Water Energy from 1 of your Benched Water Pokémon to your Active Water Pokémon."
     },
     "原始法則": {
-        "name": "原始法則",
-        "description": "只要這隻寶可夢在場上，對手無法從手牌使出寶可夢，使戰鬥寶可夢完成進化。"
+        "name": "Primeval Law",
+        "description": "Your opponent can't play any Pokémon from their hand to evolve their Active Pokémon."
+    },
+    "粗糙皮膚": {
+        "name": "Rough Skin",
+        "description": "If this Pokémon is in the Active Spot and is damaged by an attack from your opponent's Pokémon, do 20 damage to the Attacking Pokémon."
     }
 }

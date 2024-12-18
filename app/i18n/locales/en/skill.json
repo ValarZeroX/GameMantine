@@ -676,167 +676,171 @@
         "description": "Your opponent's Active Pokémon is now Asleep."
     },
     "微成長": {
-        "name": "微成長",
-        "description": "從自己的能量區抽出1個草能量，付於這隻寶可夢身上。"
+        "name": "Growth Spurt",
+        "description": "Take a Grass Energy from your Energy Zone and attach it to this Pokémon."
     },
     "強力綻放": {
-        "name": "強力綻放",
-        "description": "以這隻寶可夢身上的能量的數量擲硬幣，造成正面出現的次數×50點傷害。"
+        "name": "Powerful Bloom",
+        "description": "Flip a coin for each Energy attached to this Pokémon. This attack does 50 damage for each heads."
     },
     "日光束": {
-        "name": "日光束",
+        "name": "Solar Beam",
         "description": ""
     },
     "搖曳孢子": {
-        "name": "搖曳孢子",
-        "description": "將對手的戰鬥寶可夢睡眠。"
+        "name": "Flickering Spores",
+        "description": "Your opponent's Active Pokémon is now Asleep."
     },
     "能量鞭打": {
-        "name": "能量鞭打",
-        "description": "若額外附有3個草能量，則增加70點傷害。"
+        "name": "Energy Whip",
+        "description": "If this Pokémon has at least 3 extra Grass Energy attached, this attack does 70 more damage."
     },
     "踩踏10": { 
-        "name": "踩踏",
-        "description": "擲1次硬幣若為正面，則增加30點傷害。"
+        "name": "Stomp",
+        "description": "Flip a coin. If heads, this attack does 30 more damage."
     },
     "上衝": {
-        "name": "上衝",
-        "description": "擲1次硬幣若為正面，則增加60點傷害。"
+        "name": "Rising Lunge",
+        "description": "Flip a coin. If heads, this attack does 60 more damage."
     },
     "大字爆炎2": {
-        "name": "大字爆炎",
-        "description": "將這隻寶可夢身上的2個火能量丟棄。"
+        "name": "Fire Blast",
+        "description": "Discard 2 Fire Energy from this Pokémon."
     },
     "火碎流": {
-        "name": "火碎流",
-        "description": "將這隻寶可夢身上的2個火能量丟棄，對手的1隻寶可夢受到80點傷害。"
+        "name": "Volcanic Ash",
+        "description": "Discard 2 Fire Energy from this Pokémon. This attack does 80 damage to 1 of your opponent's Pokémon."
     },
     "毒液衝擊40": {
-        "name": "毒液衝擊",
-        "description": "若對手的戰鬥寶可夢中毒，則增加40點傷害。"
+        "name": "Venoshock",
+        "description": "If your opponent's Active Pokémon is Poisoned, this attack does 40 more damage."
     },
     "毒之爪": {
-        "name": "毒之爪",
-        "description": "將對手的戰鬥寶可夢中毒。"
+        "name": "Poison Claws",
+        "description": "Your opponent's Active Pokémon is now Poisoned."
     },
     "躍起逃走": {
-        "name": "躍起逃走",
-        "description": "這隻寶可夢與備戰寶可夢互換。"
+        "name": " Leap Out",
+        "description": "Switch this Pokémon with 1 of your Benched Pokémon."
     },
     "暴亂潮旋": {
-        "name": "暴亂潮旋",
-        "description": "將雙方的所有寶可夢身上附加的隨機1個能量丟棄。"
+        "name": "Rampaging Whirlpool",
+        "description": "Discard a random Energy from among the Energy attached to all Pokémon (both yours and your opponent's)."
     },
     "直衝水": {
-        "name": "直衝水",
-        "description": "對手的1隻備戰寶可夢受到50點傷害。"
+        "name": "Aqua Liner",
+        "description": "This attack does 50 damage to 1 of your opponent's Benched Pokémon."
     },
     "潛水": {
-        "name": "潛水",
-        "description": "擲1次硬幣若為正面，則在下個對手的回合，這隻寶可夢不會受到招式的傷害與效果的影響。"
+        "name": "Dive",
+        "description": "Flip a coin. If heads, during your opponent's next turn, prevent all damage from—and effects of—attacks done to this Pokémon."
     },
     "電氣陣10": {
-        "name": "電氣陣",
-        "description": "造成自己的備戰區雷系寶可夢數量×10點傷害。"
+        "name": "Circle Circuit",
+        "description": "This attack does 10 damage for each of your Benched Lightning Pokémon."
     },
     "終極電光": {
-        "name": "終極電光",
-        "description": "對手的所有備戰寶可夢也受到20點傷害。"
+        "name": "Gigashock",
+        "description": "This attack also does 20 damage to each of your opponent's Benched Pokémon."
     },
     "雷電箭40": {
-        "name": "雷電箭",
-        "description": "對手的1隻寶可夢受到40點傷害。"
+        "name": "Thunder Spear",
+        "description": "This attack does 40 damage to 1 of your opponent's Pokémon."
     },
     "電網": {
-        "name": "電網",
-        "description": "在下個對手的回合，受到這個招式的寶可夢無法撤退。"
+        "name": "Electroweb",
+        "description": "During your opponent's next turn, the Defending Pokémon can't retreat."
     },
     "基因駭入": {
-        "name": "基因駭入",
-        "description": "選擇1個對手的戰鬥寶可夢持有的招式，作為這個招式使用。"
+        "name": "Genome Hacking",
+        "description": "Choose 1 of your opponent's Active Pokémon's attacks and use it as this attack."
     },
     "扣殺抽出": {
-        "name": "扣殺抽出",
-        "description": "從自己的牌庫抽出1張卡。"
+        "name": "Spike Draw",
+        "description": "Draw a card."
     },
     "頭錘": {
-        "name": "頭錘",
+        "name": "Headbutt",
         "description": ""
     },
     "意志劫持": {
-        "name": "意志劫持",
-        "description": "增加對手備戰寶可夢的數量×20點傷害。"
+        "name": "Mind Jack",
+        "description": "This attack does 20 more damage for each of your opponent's Benched Pokémon."
     },
     "目不轉睛": {
-        "name": "目不轉睛",
-        "description": "將對手的戰鬥寶可睡眠。"
+        "name": "Hypnotic Gaze",
+        "description": "Your opponent's Active Pokémon is now Asleep."
     },
     "綠葉吸取": {
-        "name": "綠葉吸取",
-        "description": "將這隻寶可夢恢復10HP。"
+        "name": "Leaf Drain",
+        "description": "Heal 10 damage from this Pokémon."
     },
     "綻放閃耀": {
-        "name": "綻放閃耀",
-        "description": "將自己的所有寶可夢恢復20HP。"
+        "name": "Bloomshine",
+        "description": "Heal 20 damage from each of your Pokémon."
     },
     "妖精之風": {
-        "name": "妖精之風",
+        "name": "Fairy Wind",
         "description": ""
     },
     "真氣突刺": {
-        "name": "真氣突刺",
-        "description": "擲1次硬幣若為反面，則這個招式失敗。"
+        "name": "Focus Fist",
+        "description": "Flip a coin. If tails, this attack does nothing."
     },
     "出拳": {
-        "name": "出拳",
+        "name": "Punch",
         "description": ""
     },
     "打擊": {
-        "name": "打擊",
+        "name": "Light Punch",
         "description": ""
     },
     "撞倒": {
-        "name": "撞倒",
+        "name": " Lunge Out",
         "description": ""
     },
     "防守壓制": {
-        "name": "防守壓制",
-        "description": "在下個對手的回合，這隻寶可夢受到招式的傷害-30點。"
+        "name": "Guard Press",
+        "description": "During your opponent's next turn, this Pokémon takes −30 damage from attacks."
     },
     "報復": {
-        "name": "報復",
-        "description": "在上個對手的回合，若自己的寶可夢因招式的傷害而昏厥，則增加60點傷害。"
+        "name": "Revenge",
+        "description": "If any of your Pokémon were Knocked Out by damage from an attack during your opponent's last turn, this attack does 60 more damage."
     },
     "百萬噸重踢": {
-        "name": "百萬噸重踢",
+        "name": "Mega Kick",
         "description": ""
     },
     "分裂": {
-        "name": "分裂",
-        "description": "從自己的牌庫隨機將1張「瓦斯彈」放置於備戰區。"
+        "name": "Division",
+        "description": "Put 1 random Koffing from your deck onto your Bench."
     },
     "煙幕": {
-        "name": "煙幕",
-        "description": "在下個對手的回合，當受到這個招式的寶可夢使用招式時，對手擲1次硬幣。若為反面，則該招式失敗。"
+        "name": "Smokescreen",
+        "description": "During your opponent's next turn, if the Defending Pokémon tries to use an attack, your opponent flips a coin. If tails, that attack doesn't happen."
     },
     "毒針": {
-        "name": "毒針",
-        "description": "將對手的戰鬥寶可夢中毒。"
+        "name": "Poison Sting",
+        "description": "Your opponent's Active Pokémon is now Poisoned."
     },
     "橫掃旋風": {
-        "name": "橫掃旋風",
-        "description": "增加對手備戰寶可夢的數量×20點傷害。"
+        "name": "Scattering Cyclone",
+        "description": "This attack does 20 more damage for each of your opponent's Benched Pokémon."
     },
     "鬥志衝撞": {
-        "name": "鬥志衝撞",
-        "description": "若對手的戰鬥寶可夢為「寶可夢ex」，則增加80點傷害。"
+        "name": "Fighting Tackle",
+        "description": "If your opponent's Active Pokémon is a Pokémon more damage."
     },
     "連續舞步": {
-        "name": "連續舞步",
-        "description": "擲硬幣直到出現反面，造成正面出現次數的×20點傷害。"
+        "name": "Continuous Steps",
+        "description": "Flip a coin until you get tails. This attack does 20 damage for each heads."
     },
     "模仿": {
-        "name": "模仿",
-        "description": "將自己的手牌全部放回牌庫。從自己的牌庫抽出與對手的手牌張數相同數量的卡。"
+        "name": "Mimic",
+        "description": "Shuffle your hand into your deck. Draw a card for each card in your opponent's hand."
+    },
+    "龍爪": {
+        "name": "Dragon Claw",
+        "description": ""
     }
 }
