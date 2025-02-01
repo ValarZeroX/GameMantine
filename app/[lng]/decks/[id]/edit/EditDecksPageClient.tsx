@@ -15,7 +15,7 @@ import html2canvas from 'html2canvas';
 import { useSession } from 'next-auth/react';
 import { showNotification } from "@mantine/notifications";
 import { useParams } from 'next/navigation';
-import { pt, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, rarityImages } from '@/lib/constants';
+import { setDexMenu, pt, aspectImages, aspectStringToNumber, rarityStringToNumber, typeStringToNumber, rarityImages } from '@/lib/constants';
 
 interface Card {
     id: number;
@@ -158,15 +158,28 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
         setControlsRefs(controlsRefs);
     };
 
-    const seriesOptions = ['A1', 'PROMO-A', 'A1a'].map((setKey) => ({
+    const seriesOptions = ['A1', 'PROMO-A', 'A1a', 'A2'].map((setKey) => ({
         value: setKey,
         label: `(${setKey})${t(`common:cardSet.${setKey}`)}`,
     }));
 
-    const seriesOptionsDex = ['A1C', 'A1M', 'A1P'].map((setKey) => ({
-        value: setKey,
-        label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
-    }));
+    // const seriesOptionsDex = ['A1C', 'A1M', 'A1P'].map((setKey) => ({
+    //     value: setKey,
+    //     label: `(${setKey})${t(`common:cardDex.${setKey}`)}`,
+    // }));
+
+    // 動態生成 Dex 選項
+        const seriesOptionsDex = useMemo(() => {
+            const dexSet = new Set<string>();
+            selectedSets.forEach(set => {
+                const dexList = setDexMenu[set];
+                dexList.forEach(dex => dexSet.add(dex));
+            });
+            return Array.from(dexSet).map(dexKey => ({
+                value: dexKey,
+                label: `(${dexKey})${t(`common:cardDex.${dexKey}`)}`,
+            }));
+        }, [selectedSets, t]);
 
     //['草', '火', '水', '雷電', '超能', '格鬥', '惡', '金屬', '龍', '普通']
     const seriesOptionsAspects = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'colorless'].map((setKey) => ({

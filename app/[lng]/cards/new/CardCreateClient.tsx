@@ -246,6 +246,7 @@ const seriesOptionsRarity = [
               label={t('common:set')}
               placeholder={t('common:select_set')}
               data={[
+                { value: 'A2', label: 'A2' },
                 { value: 'A1a', label: 'A1a' },
                 { value: 'A1', label: 'A1' },
                 { value: 'PROMO-A', label: 'PROMO-A' },
@@ -261,6 +262,8 @@ const seriesOptionsRarity = [
               label={t('common:dex')}
               placeholder={t('common:select_dex')}
               data={[
+                { value: 'A2D', label: 'A2D' },
+                { value: 'A2P', label: 'A2P' },
                 { value: 'A1a', label: 'A1a' },
                 { value: 'A1C', label: 'A1C' },
                 { value: 'A1M', label: 'A1M' },
