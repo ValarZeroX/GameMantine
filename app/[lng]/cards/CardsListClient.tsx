@@ -198,6 +198,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
                 throw new Error('無法取得卡片資料。');
             }
             const data: Card[] = await response.json();
+            // console.log(data);
             setAllCards(data);
         } catch (error) {
             // console.error('Error fetching cards:', error);
