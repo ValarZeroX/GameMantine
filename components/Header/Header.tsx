@@ -72,9 +72,9 @@ const Header: FC<HeaderProps> = ({ opened, toggle, desktopOpened, toggleDesktop,
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Label>{t('common:navigation.language_selection')}</Menu.Label>
-              <Menu.Item onClick={() => changeLanguage('en')}>
+              {/* <Menu.Item onClick={() => changeLanguage('en')}>
                 <Text>English</Text>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item onClick={() => changeLanguage('zh-Hans')}>
                 <Text>简体中文</Text>
               </Menu.Item>
