@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Breadcrumbs, Anchor,Progress, Badge, Image, Button, Title, Container, Grid, Card, Rating, Group, ActionIcon, useMantineColorScheme, Stack, Text, Divider, Textarea } from '@mantine/core';
+import { Breadcrumbs, Anchor, Progress, Badge, Image, Button, Title, Container, Grid, Card, Rating, Group, ActionIcon, useMantineColorScheme, Stack, Text, Divider, Textarea } from '@mantine/core';
 import { IconHeart, IconBookmark, IconBookmarkFilled, IconSend, IconCheck, IconX, IconDownload } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useTranslation } from "../../../i18n/client";
@@ -212,11 +212,12 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
     // };
 
     const cardTypeCounts = useMemo(() => {
-        const counts = { pokemon: 0, item: 0, supporter: 0 };
+        const counts = { pokemon: 0, item: 0, supporter: 0, pokemon_tool: 0 };
         deckCards.forEach((card) => {
             if (card.type === 0) counts.pokemon += 1;
             else if (card.type === 1) counts.item += 1;
             else if (card.type === 2) counts.supporter += 1;
+            else if (card.type === 3) counts.pokemon_tool += 1;
         });
         return counts;
     }, [deckCards]);
@@ -226,6 +227,7 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
             pokemon: cardTypeCounts.pokemon * 5,
             item: cardTypeCounts.item * 5,
             supporter: cardTypeCounts.supporter * 5,
+            pokemon_tool: cardTypeCounts.pokemon_tool * 5,
         };
     }, [cardTypeCounts]);
 
@@ -448,20 +450,20 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
         { title: t("common:navigation.home"), href: '/' },
         { title: t("common:navigation.deck_list"), href: '/decks/list' },
         { title: t("common:navigation.deck"), href: '#' },
-      ].map((item, index) => (
+    ].map((item, index) => (
         <Anchor href={item.href} key={index}>
-          {item.title}
+            {item.title}
         </Anchor>
-      ));
+    ));
 
     return (
         <Container size="lg">
             <Breadcrumbs>{items}</Breadcrumbs>
             <Title order={1} mt="md">{id} - {t("common:navigation.deck")}</Title>
             <Group mt="md" justify='flex-end'>
-            <ActionIcon variant="default" size="lg" onClick={handleDownload}>
-                            <IconDownload />
-                        </ActionIcon>
+                <ActionIcon variant="default" size="lg" onClick={handleDownload}>
+                    <IconDownload />
+                </ActionIcon>
                 {isSaved ? (
                     <ActionIcon variant="default" size="lg" onClick={handlDeleteDeck} loading={isLoading} >
                         <IconBookmarkFilled color="#fcc419" />
@@ -509,6 +511,9 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
                                 <Badge color="orange" variant="filled">
                                     {t('common:supporter')}
                                 </Badge>
+                                <Badge color="blue" variant="filled">
+                                    {t('common:pokemon_tool')}
+                                </Badge>
                             </Group>
                             <Progress.Root size="20" >
                                 <Progress.Section
@@ -528,6 +533,12 @@ const DecksDetailPageClient: React.FC<DecksDetailPageClientProps> = ({ lng }) =>
                                     color="orange"
                                 >
                                     <Progress.Label>{cardTypeCounts.supporter}</Progress.Label>
+                                </Progress.Section>
+                                <Progress.Section
+                                    value={progressValues.pokemon_tool}
+                                    color="blue"
+                                >
+                                    <Progress.Label>{cardTypeCounts.pokemon_tool}</Progress.Label>
                                 </Progress.Section>
                             </Progress.Root>
                         </Card>

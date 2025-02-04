@@ -183,7 +183,7 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
         label: `${t(`common:${setKey}`)}`,
     }));
 
-    const seriesOptionsType = ['pokemon', 'item', 'supporter'].map((setKey) => ({
+    const seriesOptionsType = ['pokemon', 'item', 'supporter', 'pokemon_tool'].map((setKey) => ({
         value: setKey,
         label: `${t(`common:${setKey}`)}`,
     }));
@@ -419,11 +419,12 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
     };
 
     const cardTypeCounts = useMemo(() => {
-        const counts = { pokemon: 0, item: 0, supporter: 0 };
+        const counts = { pokemon: 0, item: 0, supporter: 0, pokemon_tool: 0 };
         selectedDeck.forEach((card) => {
             if (card.type === 0) counts.pokemon += 1;
             else if (card.type === 1) counts.item += 1;
             else if (card.type === 2) counts.supporter += 1;
+            else if (card.type === 3) counts.pokemon_tool += 1;
         });
         return counts;
     }, [selectedDeck]);
@@ -433,6 +434,7 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
             pokemon: cardTypeCounts.pokemon * 5,
             item: cardTypeCounts.item * 5,
             supporter: cardTypeCounts.supporter * 5,
+            pokemon_tool: cardTypeCounts.pokemon_tool * 5,
         };
     }, [cardTypeCounts]);
 
@@ -612,6 +614,9 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
                                 <Badge color="orange" variant="filled">
                                     {t('common:supporter')}
                                 </Badge>
+                                <Badge color="blue" variant="filled">
+                                    {t('common:pokemon_tool')}
+                                </Badge>
                             </Group>
                             <Progress.Root size="20" >
                                 <Progress.Section
@@ -631,6 +636,12 @@ const DecksPageClient: React.FC<DecksPageClientProps> = ({ lng }) => {
                                     color="orange"
                                 >
                                     <Progress.Label>{cardTypeCounts.supporter}</Progress.Label>
+                                </Progress.Section>
+                                <Progress.Section
+                                    value={progressValues.pokemon_tool}
+                                    color="blue"
+                                >
+                                    <Progress.Label>{cardTypeCounts.pokemon_tool}</Progress.Label>
                                 </Progress.Section>
                             </Progress.Root>
                         </Card>

@@ -60,6 +60,7 @@ export const typeStringToNumber: { [key: string]: number } = {
     'pokemon': 0,
     'item': 1,
     'supporter': 2,
+    'pokemon_tool': 3,
 };
 
 export const rarityImages: { [key: number]: string } = {

@@ -367,7 +367,7 @@ const RecommendPageClient: React.FC<RecommendPageClientProps> = ({ lng }) => {
         label: `${t(`common:${setKey}`)}`,
     }));
 
-    const seriesOptionsType = ['pokemon', 'item', 'supporter'].map((setKey) => ({
+    const seriesOptionsType = ['pokemon', 'item', 'supporter', 'pokemon_tool'].map((setKey) => ({
         value: setKey,
         label: `${t(`common:${setKey}`)}`,
     }));

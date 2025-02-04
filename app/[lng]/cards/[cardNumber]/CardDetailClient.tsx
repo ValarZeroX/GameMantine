@@ -118,9 +118,14 @@ const CardDetailClient: React.FC<CardDetailClientProps> = ({ card, lng, countCar
     const formatProbability = (value: number | undefined, count: number, rarity: number, rare: boolean): string => {
         if (value === undefined || count === 0) return '0%';
         let percentage = (value / count);
+
         if (rare && rarity === 8) {
             percentage = value;
         }
+
+        // **無條件捨去至小數點後 3 位**
+        const factor = Math.pow(10, 3); // 10^3 = 1000
+        percentage = Math.floor(percentage * factor) / factor;
 
         return percentage === 0 ? '0%' : `${percentage.toFixed(3)}%`;
     };

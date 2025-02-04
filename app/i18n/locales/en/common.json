@@ -64,7 +64,8 @@
     "cardSet": {
         "A1": "Genetic Apex",
         "PROMO-A": "Promo-A",
-        "A1a": "Mythical Island"
+        "A1a": "Mythical Island",
+        "A2": "Space-Time Smackdown"
     },
     "cardDex": {
         "A1C": "Charizard",
@@ -72,12 +73,15 @@
         "A1P": "Pikachu",
         "NO": "None",
         "HIDDEN": "Hidden",
-        "A1a": "Mythical Island"
+        "A1a": "Mythical Island",
+        "A2D": "Dialga",
+        "A2P": "Palkia"
     },
     "cardType": {
         "0": "Pokemon",
         "1": "Item",
-        "2": "Supporter"
+        "2": "Supporter",
+        "3": "Pokemon Tool"
     },
     "cardStage": {
         "0": "Basic",
@@ -211,6 +215,7 @@
     "pokemon": "Pokemon",
     "item": "Item",
     "supporter": "Supporter",
+    "pokemon_tool": "Pokemon Tool",
     "search_card": "Search card name, skill, or ability",
     "please_select_up_to_3_series": "Please select up to 3 series.",
     "title": {

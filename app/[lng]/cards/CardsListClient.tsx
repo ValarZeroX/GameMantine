@@ -174,7 +174,7 @@ const CardsListClient: React.FC<CardsListClientProps> = ({ lng }) => {
         label: `${t(`common:${setKey}`)}`,
     }));
 
-    const seriesOptionsType = ['pokemon', 'item', 'supporter'].map((setKey) => ({
+    const seriesOptionsType = ['pokemon', 'item', 'supporter', 'pokemon_tool'].map((setKey) => ({
         value: setKey,
         label: `${t(`common:${setKey}`)}`,
     }));

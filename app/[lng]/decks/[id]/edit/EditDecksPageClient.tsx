@@ -169,17 +169,17 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
     // }));
 
     // 動態生成 Dex 選項
-        const seriesOptionsDex = useMemo(() => {
-            const dexSet = new Set<string>();
-            selectedSets.forEach(set => {
-                const dexList = setDexMenu[set];
-                dexList.forEach(dex => dexSet.add(dex));
-            });
-            return Array.from(dexSet).map(dexKey => ({
-                value: dexKey,
-                label: `(${dexKey})${t(`common:cardDex.${dexKey}`)}`,
-            }));
-        }, [selectedSets, t]);
+    const seriesOptionsDex = useMemo(() => {
+        const dexSet = new Set<string>();
+        selectedSets.forEach(set => {
+            const dexList = setDexMenu[set];
+            dexList.forEach(dex => dexSet.add(dex));
+        });
+        return Array.from(dexSet).map(dexKey => ({
+            value: dexKey,
+            label: `(${dexKey})${t(`common:cardDex.${dexKey}`)}`,
+        }));
+    }, [selectedSets, t]);
 
     //['草', '火', '水', '雷電', '超能', '格鬥', '惡', '金屬', '龍', '普通']
     const seriesOptionsAspects = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'colorless'].map((setKey) => ({
@@ -192,7 +192,7 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
         label: `${t(`common:${setKey}`)}`,
     }));
 
-    const seriesOptionsType = ['pokemon', 'item', 'supporter'].map((setKey) => ({
+    const seriesOptionsType = ['pokemon', 'item', 'supporter', 'pokemon_tool'].map((setKey) => ({
         value: setKey,
         label: `${t(`common:${setKey}`)}`,
     }));
@@ -425,11 +425,12 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
     };
 
     const cardTypeCounts = useMemo(() => {
-        const counts = { pokemon: 0, item: 0, supporter: 0 };
+        const counts = { pokemon: 0, item: 0, supporter: 0, pokemon_tool: 0 };
         selectedDeck.forEach((card) => {
             if (card.type === 0) counts.pokemon += 1;
             else if (card.type === 1) counts.item += 1;
             else if (card.type === 2) counts.supporter += 1;
+            else if (card.type === 3) counts.pokemon_tool += 1;
         });
         return counts;
     }, [selectedDeck]);
@@ -439,6 +440,7 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
             pokemon: cardTypeCounts.pokemon * 5,
             item: cardTypeCounts.item * 5,
             supporter: cardTypeCounts.supporter * 5,
+            pokemon_tool: cardTypeCounts.pokemon_tool * 5,
         };
     }, [cardTypeCounts]);
 
@@ -690,6 +692,9 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
                                         <Badge color="orange" variant="filled">
                                             {t('common:supporter')}
                                         </Badge>
+                                        <Badge color="blue" variant="filled">
+                                            {t('common:pokemon_tool')}
+                                        </Badge>
                                     </Group>
                                     <Progress.Root size="20" >
                                         <Progress.Section
@@ -709,6 +714,12 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
                                             color="orange"
                                         >
                                             <Progress.Label>{cardTypeCounts.supporter}</Progress.Label>
+                                        </Progress.Section>
+                                        <Progress.Section
+                                            value={progressValues.pokemon_tool}
+                                            color="blue"
+                                        >
+                                            <Progress.Label>{cardTypeCounts.pokemon_tool}</Progress.Label>
                                         </Progress.Section>
                                     </Progress.Root>
                                 </Card>
