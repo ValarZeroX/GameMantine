@@ -3,7 +3,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import CardDetailClient from './CardDetailClient'; // 引入客户端组件
+import CardDetailClient from './CardDetailClient'; 
 import Layout from '../../../../components/Layout/Layout';
 import { useTranslation } from "../../../i18n/index";
 
@@ -47,7 +47,6 @@ interface CountPerDex {
   };
 }
 
-// 获取卡片详细数据的函数
 async function fetchCardData(number: string): Promise<CardDetail | null> {
   try {
     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card/${number}`);
@@ -76,9 +75,9 @@ async function fetchCardCount(sets: string): Promise<CountPerDex | null> {
 }
 
 
-// 生成页面元数据
+
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; cardNumber: string }> }): Promise<Metadata> {
-  const { lng, cardNumber } = await params; // 使用 await 确保 params 被正确解析
+  const { lng, cardNumber } = await params; 
   const translation = await useTranslation(lng, ['common', 'pokemon']);
   const { t: t } = translation;
   
@@ -93,18 +92,18 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
   const pokemonName = t(`pokemon:${card.name}`)
   return {
     title: t('common:metadata.card_detail_title', { title: pokemonName }),
-    description: t('common:metadata.card_detail_description', { title: pokemonName }), // 使用翻譯鍵並替換佔位符
+    description: t('common:metadata.card_detail_description', { title: pokemonName }), 
     keywords: t('common:metadata.card_detail_keywords'),
   };
 }
 
-// 页面组件，作为服务器组件
+
 type CardDetailPageProps = { params: Promise<{ lng: string; cardNumber: string }> };
 
 const CardDetailPage = async ({ params }: CardDetailPageProps) => {
-  const { lng, cardNumber } = await params; // 使用 await 确保 params 被正确解析
+  const { lng, cardNumber } = await params; 
 
-  // 使用同一个函数获取卡片数据
+
   const card = await fetchCardData(cardNumber);
 
   if (!card) {

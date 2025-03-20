@@ -6,7 +6,7 @@ import Layout from '../../../../components/Layout/Layout';
 import { useTranslation } from '../../../i18n/index';
 // import { showNotification } from "@mantine/notifications";
 import { IconX } from '@tabler/icons-react';
-import DecksPageClient from './DecksPageClient'; // 客戶端組件
+import DecksPageClient from './DecksPageClient'; 
 
 interface Card {
     id: number;
@@ -42,7 +42,7 @@ interface Card {
     rule?: string;
 }
 
-// 获取卡片列表的函数
+
 // async function fetchCards(): Promise<Card[] | null> {
 //     try {
 //         const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card`);
@@ -58,7 +58,7 @@ interface Card {
 //     }
 // }
 
-// 生成页面元数据
+
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; }> }): Promise<Metadata> {
     const { lng } = await params;
 
@@ -72,13 +72,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     };
 }
 
-// 页面组件，作为服务器组件
+
 type DecksPageProps = { params: Promise<{ lng: string; }> };
 
 const DecksPage = async ({ params }: DecksPageProps) => {
     const { lng } = await params;
 
-    // 使用同一个函数获取卡片数据
     // const cards = await fetchCards();
 
     // if (!cards) {

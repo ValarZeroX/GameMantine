@@ -28,13 +28,10 @@ export async function GET(request: Request): Promise<NextResponse> {
         const sortBy = searchParams.get('sortBy') || 'averageRating';
         const sortOrder = searchParams.get('sortOrder') || 'desc';
         const card = searchParams.get('card');
-        // 定義可接受的排序欄位和順序
         const validSortBy = ['averageRating', 'usageCount', 'createdAt'];
         const validSortOrder = ['asc', 'desc'];
 
-        // 初始化查询条件
         const queryOptions: any = { version: 0 };
-        // 添加卡片过滤条件
         if (card) {
             queryOptions.OR = [
                 { deckCards: card },
@@ -67,26 +64,21 @@ export async function GET(request: Request): Promise<NextResponse> {
         averageRatings.forEach((ar) => {
             averageRatingMap.set(ar.deckId, ar._avg.rating || 0);
         });
-        // 生成有评分的牌组列表
         const ratedDecks = averageRatings.map((ar) => ({
             deckId: ar.deckId,
             averageRating: ar._avg.rating || 0,
         }));
 
-        // 找出没有评分的牌组
         const ratedDeckIds = averageRatings.map((ar) => ar.deckId);
         const unratedDeckIds = totalDeckIds.filter((id) => !ratedDeckIds.includes(id));
 
-        // 为没有评分的牌组设置平均评分为 0
         const unratedDecks = unratedDeckIds.map((deckId) => ({
             deckId,
             averageRating: 0,
         }));
 
-        // 合并所有牌组
         let allDecks = [...ratedDecks, ...unratedDecks];
 
-        // 按平均评分排序
         allDecks.sort((a, b) => {
             if (sortOrder === 'desc') {
                 return b.averageRating - a.averageRating;
@@ -95,7 +87,6 @@ export async function GET(request: Request): Promise<NextResponse> {
             }
         });
 
-        // 实现分页
         const paginatedDecks = allDecks.slice(cursor, cursor + limit);
 
         // let nextCursor: number | null = null;

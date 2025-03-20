@@ -6,7 +6,7 @@ import Layout from '../../../../../components/Layout/Layout';
 import { useTranslation } from '../../../../i18n/index';
 // import { showNotification } from "@mantine/notifications";
 import { IconX } from '@tabler/icons-react';
-import EditDecksPageClient from './EditDecksPageClient'; // 客戶端組件
+import EditDecksPageClient from './EditDecksPageClient'; 
 
 interface DeckUser {
     id: number;
@@ -84,7 +84,7 @@ interface Card {
 //     }
 // }
 
-// 生成页面元数据
+
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; id: string }> }): Promise<Metadata> {
     const { lng } = await params;
 

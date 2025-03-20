@@ -24,16 +24,13 @@ export async function GET(request: Request): Promise<NextResponse> {
         const { searchParams } = new URL(request.url);
         const limit = parseInt(searchParams.get('limit') || '20', 10);
         const cursor= parseInt(searchParams.get('cursor') || '0', 10);
-        const sortOrder = searchParams.get('sortOrder') || 'desc'; // 默认降序
+        const sortOrder = searchParams.get('sortOrder') || 'desc'; 
         const card = searchParams.get('card');
 
-        // 定义可接受的排序顺序
         const validSortOrder = ['asc', 'desc'];
 
-        // 初始化查询条件
         const queryOptions: any = { version: 0 };
 
-        // 添加卡片过滤条件
         if (card) {
             queryOptions.OR = [
                 { deckCards: card },
@@ -44,19 +41,17 @@ export async function GET(request: Request): Promise<NextResponse> {
         }
 
 
-        // 验证排序顺序参数
         if (!validSortOrder.includes(sortOrder)) {
-            return NextResponse.json({ message: '无效的排序顺序' }, { status: 400 });
+            return NextResponse.json({ message: '無效的順序' }, { status: 400 });
         }
         const total = await prisma.deck.findMany({
             where: queryOptions,
         });
 
-        // 获取所有版本为 0 的牌组 ID
         const totalDecks = await prisma.deck.findMany({
             where: queryOptions,
             orderBy: {
-                createdAt: sortOrder as 'asc' | 'desc', // 根据 sortOrder 进行升序或降序排序
+                createdAt: sortOrder as 'asc' | 'desc', 
             },
             skip: cursor,
             take: limit,
@@ -74,20 +69,17 @@ export async function GET(request: Request): Promise<NextResponse> {
 
         const totalDeckIds = totalDecks.map((deck) => deck.id);
 
-        // 计算每个牌组的收藏次数（usageCount）
         const usageCounts = await prisma.deckUser.groupBy({
             by: ['deckId'],
             _count: { deckId: true },
             where: { deckId: { in: totalDeckIds } },
         });
 
-        // 创建 usageCount 的映射
         const usageCountMap = new Map<string, number>();
         usageCounts.forEach((uc) => {
             usageCountMap.set(uc.deckId, uc._count.deckId || 0);
         });
 
-        // 获取平均评分
         const averageRatings = await prisma.deckRating.groupBy({
             by: ['deckId'],
             _avg: { rating: true },
@@ -98,7 +90,6 @@ export async function GET(request: Request): Promise<NextResponse> {
             averageRatingMap.set(ar.deckId, ar._avg.rating || 0);
         });
 
-        // 获取使用次数
         const updatedUsageCounts = await prisma.deckUser.groupBy({
             by: ['deckId'],
             _count: { deckId: true },
@@ -109,7 +100,6 @@ export async function GET(request: Request): Promise<NextResponse> {
             updatedUsageCountMap.set(uc.deckId, uc._count.deckId || 0);
         });
 
-        // 判断用户是否已收藏该 Deck
         let savedDeckIds = new Set<string>();
         if (session?.user?.id) {
             const savedDeckUsers = await prisma.deckUser.findMany({
@@ -122,7 +112,6 @@ export async function GET(request: Request): Promise<NextResponse> {
             savedDeckIds = new Set(savedDeckUsers.map((du) => du.deckId));
         }
 
-        // 组装结果
         const deckMap = new Map<string, Deck>();
         totalDecks.forEach((deck) => {
             deckMap.set(deck.id, deck);
@@ -151,6 +140,6 @@ export async function GET(request: Request): Promise<NextResponse> {
 
     } catch (error) {
         console.error('Error fetching Decks:', error);
-        return NextResponse.json({ message: '获取牌组失败' }, { status: 500 });
+        return NextResponse.json({ message: '取卡牌失敗' }, { status: 500 });
     }
 }

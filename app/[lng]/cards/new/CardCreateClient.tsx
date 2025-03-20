@@ -240,7 +240,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： set */}
           <Grid.Col span={6}>
             <Select
               label={t('common:set')}
@@ -256,7 +255,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： dex */}
           <Grid.Col span={6}>
             <MultiSelect
               label={t('common:dex')}
@@ -274,7 +272,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： rarity */}
+
           <Grid.Col span={4}>
           <Select
               label={t('common:rarity')}
@@ -286,7 +284,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： type */}
+
           <Grid.Col span={4}>
             <NumberInput
               label={t('common:type')}
@@ -296,7 +294,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： stage */}
+
           <Grid.Col span={4}>
             <NumberInput
               label={t('common:stage')}
@@ -306,7 +304,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： hp */}
+
           <Grid.Col span={6}>
             <NumberInput
               label={t('common:hp')}
@@ -316,7 +314,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： aspects */}
+
           <Grid.Col span={6}>
             <Select
               label={t('common:aspects')}
@@ -339,7 +337,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： illustrator */}
+
           <Grid.Col span={6}>
             <TextInput
               label={t('common:illustrator')}
@@ -349,7 +347,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： point */}
+
           {/* <Grid.Col span={6}>
             <NumberInput
               label={t('common:point')}
@@ -358,7 +356,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col> */}
 
-          {/* 示例： rule */}
+
           <Grid.Col span={12}>
             <Textarea
               label={t('common:rule')}
@@ -367,7 +365,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： attack_1 */}
+
           <Grid.Col span={6}>
             <NumberInput
               label={t('common:attack_1')}
@@ -377,7 +375,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： attack_name_1 */}
+
           <Grid.Col span={6}>
             <TextInput
               label={t('common:attack_name_1')}
@@ -387,7 +385,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： attack_aspects_1 (改為 TextInput) */}
+
           <Grid.Col span={6}>
             <TextInput
               label={t('common:attack_aspects_1')}
@@ -397,7 +395,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： attack_skill_name_1 */}
+
           <Grid.Col span={6}>
             <TextInput
               label={t('common:attack_skill_name_1')}
@@ -406,7 +404,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： attack_2 */}
           <Grid.Col span={6}>
             <NumberInput
               label={t('common:attack_2')}
@@ -415,7 +412,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： attack_name_2 */}
+
           <Grid.Col span={6}>
             <TextInput
               label={t('common:attack_name_2')}
@@ -424,7 +421,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： attack_aspects_2 (改為 TextInput) */}
+
           <Grid.Col span={6}>
             <TextInput
               label={t('common:attack_aspects_2')}
@@ -433,7 +430,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： attack_skill_name_2 */}
+
           <Grid.Col span={6}>
             <TextInput
               label={t('common:attack_skill_name_2')}
@@ -442,7 +439,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： ability_name */}
           <Grid.Col span={6}>
             <TextInput
               label={t('common:ability_name')}
@@ -451,7 +447,7 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： ability_directions */}
+
           <Grid.Col span={6}>
             <Textarea
               label={t('common:ability_directions')}
@@ -460,7 +456,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： ability */}
           <Grid.Col span={6}>
             <NumberInput
               label={t('common:ability')}
@@ -469,7 +464,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： weakness (單選 Select) */}
           <Grid.Col span={6}>
             <Select
               label={t('common:weakness')}
@@ -492,7 +486,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： weakness_value */}
           <Grid.Col span={6}>
             <NumberInput
               label={t('common:weakness_value')}
@@ -502,7 +495,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： retreat */}
           <Grid.Col span={6}>
             <NumberInput
               label={t('common:retreat')}
@@ -511,7 +503,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： retreat_aspects (改為 TextInput) */}
           <Grid.Col span={6}>
             <TextInput
               label={t('common:retreat_aspects')}
@@ -521,7 +512,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 示例： reprints */}
           <Grid.Col span={6}>
             <TextInput
               label={t('common:reprints')}
@@ -530,7 +520,6 @@ const seriesOptionsRarity = [
             />
           </Grid.Col>
 
-          {/* 提交按鈕 */}
           <Grid.Col span={12}>
             <Button type="submit" fullWidth mt="md">
               {t('common:add_card')}

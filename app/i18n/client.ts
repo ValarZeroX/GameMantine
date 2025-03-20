@@ -38,22 +38,18 @@ i18next
     const ret = useTranslationOrg(ns, options);
     const { i18n } = ret;
   
-    // 如果在服务端渲染时，直接设置语言
     if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
       i18n.changeLanguage(lng);
     } else {
-      // 客户端环境
       const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
   
       useEffect(() => {
-        // 当 activeLng 与 resolvedLanguage 不一致时才更新
         if (activeLng !== i18n.resolvedLanguage) {
           setActiveLng(i18n.resolvedLanguage);
         }
       }, [i18n.resolvedLanguage]);
   
       useEffect(() => {
-        // 当 lng 与当前语言不一致时才更改语言
         if (lng && i18n.resolvedLanguage !== lng) {
           i18n.changeLanguage(lng).then(() => {
             setActiveLng(lng);

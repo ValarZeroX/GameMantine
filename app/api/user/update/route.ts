@@ -1,8 +1,8 @@
 // app/api/user/update/route.ts
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from "@/lib/auth/authOptions";  // 确保此路径指向您的 NextAuth 配置
-import { prisma } from '@/lib/prisma'; // 确保此路径指向您的 Prisma 客户端实例
+import { authOptions } from "@/lib/auth/authOptions"; 
+import { prisma } from '@/lib/prisma'; 
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);

@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
 declare global {
-  // 允許全局變數宣告，避免在開發模式下多次實例化 PrismaClient
   // eslint-disable-next-line no-var
   var prisma: PrismaClient | undefined;
 }

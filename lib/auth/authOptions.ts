@@ -4,34 +4,30 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "@/lib/prisma"; // 根据您的项目结构调整路径
-import bcrypt from 'bcrypt'; // 用于密码加密和验证
+import { prisma } from "@/lib/prisma"; 
+import bcrypt from 'bcrypt'; 
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    // Google 登录提供者
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    // Facebook 登录提供者
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID!,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
     }),
-    // 自定义认证提供者（电子邮件和密码）
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "电子邮件", type: "email", placeholder: "your@email.com" },
-        password: { label: "密码", type: "password" },
+        email: { label: "電子信箱", type: "email", placeholder: "your@email.com" },
+        password: { label: "密碼", type: "password" },
       },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials.password) {
           return null;
         }
 
-        // 查询数据库以验证用户
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
@@ -42,14 +38,12 @@ export const authOptions: NextAuthOptions = {
             throw new Error('請先驗證您的電子郵件');
           }
 
-          // 使用 bcrypt 比较密码
           const isValid = await bcrypt.compare(credentials.password, user.password);
           if (isValid) {
             return user;
           }
         }
 
-        // 如果认证失败，返回 null
         return null;
       },
     }),
@@ -91,7 +85,6 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (!accountExists) {
-            // 自动连接新账户到现有用户
             await prisma.account.create({
               data: {
                 userId: existingUser.id,
@@ -109,7 +102,6 @@ export const authOptions: NextAuthOptions = {
             });
           }
 
-          // 確保第三方登入的用戶 emailVerified 為 true
           if (existingUser.email && !existingUser.emailVerified) {
             await prisma.user.update({
               where: { email: existingUser.email },
@@ -117,7 +109,6 @@ export const authOptions: NextAuthOptions = {
             });
           }
         } else {
-          // 如果用戶不存在，創建新用戶並設置 emailVerified 為 true
           await prisma.user.create({
             data: {
               email: user.email!,
@@ -145,7 +136,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: '/login', // 指定自定义登录页面
+    signIn: '/login',
   },
   secret: process.env.NEXTAUTH_SECRET,
   logger: {

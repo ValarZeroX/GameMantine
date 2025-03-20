@@ -51,12 +51,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: '缺少必要參數' }, { status: 400 });
         }
 
-        // 验证 cards 是否为字符串数组
         if (!Array.isArray(cards) || !cards.every(card => typeof card === 'string')) {
             return NextResponse.json({ message: 'cards 參數格式部正確' }, { status: 400 });
         }
 
-        // 使用 upsert 方法创建或更新 FavoriteCard 记录
         const favoriteCard = await prisma.favoriteCard.upsert({
             where: {
                 userId_set: {

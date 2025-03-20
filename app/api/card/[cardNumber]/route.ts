@@ -42,17 +42,14 @@ interface CardDetail {
 const stringToArray = (str: string | null | undefined): string[] | number[] | undefined => {
   if (!str) return undefined;
 
-  // 如果字符串包含逗号，表示是一个以逗号分隔的数组
   if (str.includes(',')) {
     return str.split(',');
   }
 
-  // 如果字符串不包含逗号，判断它是否是数字组成
   if (!isNaN(Number(str))) {
     return [Number(str)];
   }
 
-  // 默认返回字符串的数组形式（例如 dex 字段）
   return [str];
 };
 

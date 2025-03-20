@@ -67,14 +67,12 @@ interface EditDecksPageClientProps {
 
 const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
     const { data: session } = useSession();
-    const { colorScheme } = useMantineColorScheme();  // 获取当前主题
+    const { colorScheme } = useMantineColorScheme();
 
-    // 定义图标颜色，根据主题色不同选择颜色
-    const [iconBlueColor, setIconBlueColor] = useState('#228be6'); // 默认蓝色
-    const [iconRedColor, setIconRedColor] = useState('red'); // 默认红色
+    const [iconBlueColor, setIconBlueColor] = useState('#228be6');
+    const [iconRedColor, setIconRedColor] = useState('red');
 
     useEffect(() => {
-        // 根据主题更新颜色
         if (colorScheme === 'dark') {
             setIconBlueColor('white');
             setIconRedColor('white');
@@ -137,7 +135,7 @@ const EditDecksPageClient: React.FC<EditDecksPageClientProps> = ({ lng }) => {
     //     router.push(`/${lng}/cards/${cardNumber}`);
     // };
 
-    // 在組件掛載時從 localStorage 讀取 displayMode
+
     useEffect(() => {
         const savedDisplayMode = localStorage.getItem('displayMode');
         if (savedDisplayMode === 'grid' || savedDisplayMode === 'list') {

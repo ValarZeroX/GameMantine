@@ -6,9 +6,9 @@ import Layout from '../../../components/Layout/Layout';
 import { useTranslation } from '../../i18n/index';
 // import { showNotification } from "@mantine/notifications";
 import { IconX } from '@tabler/icons-react';
-import AboutPageClient from './AboutPageClient'; // 客戶端組件
+import AboutPageClient from './AboutPageClient';
 
-// 获取卡片列表的函数
+
 // async function fetchCards(): Promise<Card[] | null> {
 //     try {
 //         const response = await fetch(`${process.env.NEXTAUTH_URL}/api/card`);
@@ -24,7 +24,7 @@ import AboutPageClient from './AboutPageClient'; // 客戶端組件
 //     }
 // }
 
-// 生成页面元数据
+
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; }> }): Promise<Metadata> {
     const { lng } = await params;
 
@@ -43,7 +43,6 @@ type AboutPageProps = { params: Promise<{ lng: string; }> };
 const AboutPage = async ({ params }: AboutPageProps) => {
     const { lng } = await params;
 
-    // 使用同一个函数获取卡片数据
     // const cards = await fetchCards();
 
     // if (!cards) {

@@ -17,7 +17,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     };
 }
 
-// 页面组件，作为服务器组件
 type NewCardPageProps = { params: Promise<{ lng: string; }> };
 
 const NewCardPage = async ({ params }: NewCardPageProps) => {

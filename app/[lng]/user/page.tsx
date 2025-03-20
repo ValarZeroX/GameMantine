@@ -6,9 +6,8 @@ import Layout from '../../../components/Layout/Layout';
 import { useTranslation } from '../../i18n/index';
 // import { showNotification } from "@mantine/notifications";
 import { IconX } from '@tabler/icons-react';
-import UserPageClient from './UserPageClient'; // 客戶端組件
+import UserPageClient from './UserPageClient'; 
 
-// 生成页面元数据
 export async function generateMetadata({ params }: { params: Promise<{ lng: string; }> }): Promise<Metadata> {
     const { lng } = await params;
 
@@ -22,7 +21,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     };
 }
 
-// 页面组件，作为服务器组件
 type UserPageProps = { params: Promise<{ lng: string; }> };
 
 const UserPage = async ({ params }: UserPageProps) => {

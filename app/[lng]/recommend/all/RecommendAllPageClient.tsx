@@ -21,7 +21,7 @@ interface RecommendAllPageClientProps {
 
 const RecommendAllPageClient: React.FC<RecommendAllPageClientProps> = ({ lng }) => {
     const { data: session } = useSession();
-    const { colorScheme } = useMantineColorScheme();  // 获取当前主题
+    const { colorScheme } = useMantineColorScheme(); 
     const [isLoading, setIsLoading] = useState(false);
     const [favoriteCards, setFavoriteCards] = useState<any[]>([]); // 假設 favoriteCards 是一個陣列
 
